@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
-st.write('# Avocado Fruit or Veg?  Prices dashboard')  #st.title('Avocado Prices dashboard')
+st.write('# LCA MODEL Dashboard')  #st.title('Avocado Prices dashboard')
 st.markdown('''
 This is a dashboard showing the *average prices* of different types of :avocado:  
 Data source: [Kaggle](https://www.kaggle.com/datasets/timmate/avocado-prices-2020)
