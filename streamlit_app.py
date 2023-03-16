@@ -43,7 +43,7 @@ with st.form('line_chart'):
                            title=f'Avocado Prices in {selected_geography}')
         st.plotly_chart(line_fig)
 
-chart_data = pd.read_pickle(r'U:\msa\LCA\lca_local.pickle')
+chart_data = pd.read_pickle(r'lca_local.pickle')
 
 if st.checkbox('Show dataframe 1'):
     local_data
