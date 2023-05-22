@@ -21,10 +21,10 @@ pickle_file_path_local = os.path.join(parent_dir, 'data-msa', 'lca_local.pickle'
 
 st.header('Current Baseline vs Future Local Scenario:')
 
-#chart_data_base = pd.read_pickle(r'../lca_base.pickle')
-chart_data_base = pd.read_pickle(pickle_file_path_base)
-#chart_data = pd.read_pickle(r'../lca_local.pickle')
-chart_data = pd.read_pickle(pickle_file_path_local)
+chart_data_base = pd.read_pickle(r'lca_base.pickle')
+#chart_data_base = pd.read_pickle(pickle_file_path_base)
+chart_data = pd.read_pickle(r'lca_local.pickle')
+#chart_data = pd.read_pickle(pickle_file_path_local)
  
 
 #st.subheader('Base Model Population, Land Use over Year')
@@ -50,8 +50,8 @@ localplot= localplot.query("`Model_Year_`==2020 | `Model_Year_`==2040")
 
 file_path_raw = os.path.join(parent_dir, 'data-msa', 'lca_dataset.csv')
 
-#chart_data_raw = pd.read_csv(r'../lca_dataset.csv')
-chart_data_raw = pd.read_csv(file_path_raw)
+chart_data_raw = pd.read_csv(r'lca_dataset.csv')
+#chart_data_raw = pd.read_csv(file_path_raw)
 
 # postprocess raw results before plotting to compare with cosim 
 rbaseplot=chart_data_raw.query("cosim=='LCA' & fsscenario=='BASE'")
