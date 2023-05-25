@@ -88,9 +88,7 @@ st.plotly_chart(fig1)
 
 
 
-year_LU = st.selectbox(
-    'What column to you want to display',
-     chart_data_base.columns[[1]])
+
 
 
 

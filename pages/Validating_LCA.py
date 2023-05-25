@@ -5,7 +5,12 @@ import numpy as np
 import plotly.graph_objects as go
 import os
 
+
+
+
 st.write('# LCA MSA Cosim Validation :ear_of_rice: :white_check_mark:')  #st.title('Avocado Prices dashboard')
+
+
 
 #col1, col2 = st.columns(2)
 
@@ -72,7 +77,7 @@ fig0 = go.Figure(data=[
     ],
     layout={
         'xaxis': {'title': 'Year'},
-        'yaxis': {'title': 'Energy_Use_MJ'}
+        'yaxis': {'title': 'Energy Use (MJ)'}
     }
 )
 # Change the bar mode
@@ -91,7 +96,7 @@ fig1 = go.Figure(data=[
     ],
     layout={
         'xaxis': {'title': 'Year'},
-        'yaxis': {'title': 'Global_Warming_Potential_kg_co2_eq'}
+        'yaxis': {'title': 'Global Warming Potential (kg co2 eq)'}
     }
 )
 # Change the bar mode

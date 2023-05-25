@@ -5,6 +5,10 @@ import numpy as np
 import plotly.graph_objects as go
 
 
+#Force Streamlit to work in wide mode 
+
+st.set_page_config(layout="wide")
+
 st.write('# LCA MSA Dashboard :ear_of_rice: ')  #st.title('Avocado Prices dashboard')
 
 #col1, col2 = st.columns(2)

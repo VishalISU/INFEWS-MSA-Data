@@ -4,8 +4,10 @@ import plotly.express as px
 import numpy as np
 import plotly.graph_objects as go
 
+# st.set_page_config(page_title="Plotting Demo", page_icon="📈")
 
 st.write('#:information_source: Iowa UrbanFEWS ')  
+
 
 if st.checkbox('Show avocado demo'):
     @st.cache_data
