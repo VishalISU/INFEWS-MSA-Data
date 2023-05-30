@@ -8,7 +8,7 @@ import os
 
 
 
-st.write('# LCA MSA Cosim Validation :ear_of_rice: :white_check_mark:')  #st.title('Avocado Prices dashboard')
+st.write('# :ear_of_rice: :white_check_mark: LCA MSA Cosim Validation ')  #st.title('Avocado Prices dashboard')
 
 
 
