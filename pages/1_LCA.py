@@ -14,7 +14,7 @@ st.set_page_config(
     page_icon="🌾",
 )
 
-st.write('#:ear_of_rice: LCA MSA Dashboard ')  #st.title('Avocado Prices dashboard')
+st.write('#  :ear_of_rice: LCA MSA Dashboard')  #st.title('Avocado Prices dashboard')
 
 #col1, col2 = st.columns(2)
 
