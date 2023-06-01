@@ -15,7 +15,7 @@ st.markdown(
     **👈 Select a page from the sidebar** to get started exploring the data 
     ### Want to learn more?
     - Check out [Iowa Urban FEWS website](https://iowa-urbanfews.cber.iastate.edu/)
-    - Have a suggestion? Please leave your comments in the feedback section :speech_balloon:
+    - :speech_balloon: Have a suggestion? Please leave your comments in the [feedback survey](https://iastate.qualtrics.com/jfe/form/SV_5BVuGwhpC1s1RR4) 
     - Contact us at '''
     '<a href="mailto:infews@iastate.edu">infews@iastate.edu!</a>', unsafe_allow_html=True
 
