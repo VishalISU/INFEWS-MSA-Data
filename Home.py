@@ -18,9 +18,11 @@ st.image('MSAInFlow.png')
 st.markdown(
     '''    
     ### Want to learn more?
-    - Check out [Iowa Urban FEWS website](https://iowa-urbanfews.cber.iastate.edu/)
-    - :speech_balloon: Have a suggestion? Please leave your comments in the [feedback survey](https://iastate.qualtrics.com/jfe/form/SV_5BVuGwhpC1s1RR4) 
-    - Contact us at '''
+    :bookmark_tabs: Check out [Iowa Urban FEWS website](https://iowa-urbanfews.cber.iastate.edu/)
+
+    :speech_balloon: Have a suggestion? Please leave your comments in the [feedback survey](https://iastate.qualtrics.com/jfe/form/SV_5BVuGwhpC1s1RR4) 
+    
+    :email: Contact us at '''
     '<a href="mailto:infews@iastate.edu">infews@iastate.edu!</a>', unsafe_allow_html=True
 
 )
