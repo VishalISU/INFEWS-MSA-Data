@@ -47,7 +47,7 @@ fig0.update_layout(
 fig0.update_yaxes(showgrid=True, gridwidth=1, gridcolor='LightPink')
 st.plotly_chart(fig0)
 
-# Load county data
+### Add county level data
 counties = ['Guthrie', 'Jasper', 'Polk', 'Madison', 'Dallas', 'Warren']
 data = {}
 for county in counties:
@@ -62,27 +62,29 @@ for county in counties:
 # Function to update the plot based on selected county
 def update_plot(county):
     df = data[county]
-    return go.Bar(
-        x=df['Category'],
-        y=df['Value'],
-        marker=dict(color=['green', 'green', 'blue', 'blue', 'purple', 'purple', 
-                           'orange', 'orange', 'brown', 'yellow', 'pink', 'gray']),
-        text=df['Value'],
-        textposition='auto',
-        texttemplate='%{text:.2s}'
-    )
+    return {
+        'x': [df['Category'].tolist()],
+        'y': [df['Value'].tolist()],
+        'type': 'bar',
+        'marker': {
+            'color': ['green', 'green', 'blue', 'blue', 'purple', 'purple', 'orange', 'orange', 'brown', 'yellow', 'pink', 'gray']
+        },
+        'text': [df['Value'].tolist()],
+        'textposition': 'auto',
+        'texttemplate': '%{text:.2s}'
+    }
 
-# Initialize the figure with the first county data
-fig = go.Figure(data=[update_plot('Guthrie')])
+# Initialize the figure with the first county data and set up dropdown
+fig = go.Figure(data=[go.Bar(x=data['Guthrie']['Category'], y=data['Guthrie']['Value'], marker=dict(color=['green', 'green', 'blue', 'blue', 'purple', 'purple', 'orange', 'orange', 'brown', 'yellow', 'pink', 'gray']), text=data['Guthrie']['Value'], textposition='auto', texttemplate='%{text:.2s}')])
 
 fig.update_layout(
     yaxis=dict(type='log', title='Amount in hectares (log scale)'),
-    title='Commodity Production by Land Use in Hectares - County Level (Logarithmic Scale)',
+    title=f'Commodity Production by Land Use in Hectares - County Level (Logarithmic Scale)',
     xaxis=dict(title='Categories', tickangle=45),
     bargap=0.15,
     updatemenus=[{
-        'type': 'buttons',
-        'buttons': [{'method': 'restyle', 'label': county, 'args': [{'y': [data[county]['Value'].tolist()], 'x': [data[county]['Category'].tolist()]}]} for county in counties],
+        'type': 'buttons',  # Specify the type as 'buttons' to always show all buttons
+        'buttons': [{'method': 'restyle', 'label': county, 'args': [update_plot(county)]} for county in counties],
         'direction': 'right',
         #'pad': {'r': 10, 't': 10},
         'showactive': True,
