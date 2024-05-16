@@ -1,45 +1,94 @@
 import streamlit as st
 import pandas as pd
-import numpy as np
 import plotly.graph_objects as go
 
-st.set_page_config(
-    page_title="ABM",
-    page_icon="👨‍🌾",
-)
+st.set_page_config(page_title="ABM", page_icon="👨‍🌾")
+st.write('# :female-farmer: ABM Dashboard :male-farmer:')
 
-st.write('# :female-farmer: ABM Dashboard :male-farmer: ')  #st.title('Avocado Prices dashboard')
+# Read total data from total_msa_data.csv 
+csv_file = 'total_msa_data.csv'
+df0 = pd.read_csv(csv_file, header=None, index_col=0, names=['Value'])
+categories = df0.index.tolist()
+values = df0['Value'].tolist()
 
-
-# Data provided by the user
-categories = ['Protein (Cropland)', 'Protein (Pasture)', 'Dairy (Cropland)', 'Dairy (Pasture)',
-              'Fruit1', 'Fruit2', 'Veg1', 'Veg2', 'Grain', 'Oil', 'Sugar', 'Commodity']
-values = [3058.309274, 24401.91894, 83.06602052, 4355.651536, 35.31102581, 8.740770844,
-          7.416743226, 1.523870968, 544.2243564, 1.323174194, 1.923870968, 246241.6858]
-
-
-st.subheader('Barchart')
-# Create a bar chart
-fig1 = go.Figure(go.Bar(
+# Create a bar chart for total data
+fig0 = go.Figure(go.Bar(
     x=categories,
     y=values,
     marker=dict(color=['green', 'green', 'blue', 'blue', 'purple', 'purple',
                        'orange', 'orange', 'brown', 'yellow', 'pink', 'gray']),
-    text=values,  # This adds text labels to each bar
-    textposition='auto',  # Automatically places the text on the bars
-    texttemplate='%{text:.2s}'  # Text template for formatting the hover info
+    text=values,
+    textposition='auto',
+    texttemplate='%{text:.2s}'
 ))
-
-# Set the y-axis to a logarithmic scale
-fig1.update_layout(
-    yaxis=dict(type='log', title='Amount (log scale)'),
-    title='Commodity Production by Land Use in Grams (Logarithmic Scale)',
+fig0.update_layout(
+    yaxis=dict(type='log', title='Amount in hectares (log scale)'),
+    title='Agent Based Land Use in Hectares (Logarithmic Scale)',
     xaxis=dict(title='Categories', tickangle=45),
-    bargap=0.15,  # Adjust the distance between bars
+    bargap=0.15,
+    updatemenus=[{
+        'buttons': [{
+            'method': 'restyle',
+            'label': 'Reset View',
+            'args': [{'y': [values]}]
+        }],
+        'direction': 'down',
+        'showactive': False,
+        'x': 0.1,
+        'xanchor': 'left',
+        'y': 1.15,
+        'yanchor': 'top'
+    }]
 )
+fig0.update_yaxes(showgrid=True, gridwidth=1, gridcolor='LightPink')
+st.plotly_chart(fig0)
 
-# Add a grid to the chart
-fig1.update_yaxes(showgrid=True, gridwidth=1, gridcolor='LightPink')
+### Add county level data
+counties = ['Guthrie', 'Jasper', 'Polk', 'Madison', 'Dallas', 'Warren']
+data = {}
+for county in counties:
+    file_name = f'{county.lower()}_data.csv'
+    df = pd.read_csv(file_name, header=None, index_col=0, names=['Value'])
+    formatted_df = pd.DataFrame({
+        'Category': df.index.tolist(),
+        'Value': df['Value'].tolist()
+    })
+    data[county] = formatted_df
 
-# Show the figure
-st.plotly_chart(fig1)
+# Function to update the plot based on selected county
+def update_plot(county):
+    df = data[county]
+    return {
+        'x': [df['Category'].tolist()],
+        'y': [df['Value'].tolist()],
+        'type': 'bar',
+        'marker': {
+            'color': ['green', 'green', 'blue', 'blue', 'purple', 'purple', 'orange', 'orange', 'brown', 'yellow', 'pink', 'gray']
+        },
+        'text': [df['Value'].tolist()],
+        'textposition': 'auto',
+        'texttemplate': '%{text:.2s}'
+    }
+
+# Initialize the figure with the first county data and set up dropdown
+fig = go.Figure(data=[update_plot('Guthrie')])
+fig.update_layout(
+    yaxis=dict(type='log', title='Amount in hectares (log scale)'),
+    title=f'Commodity Production by Land Use in Hectares - County Level (Logarithmic Scale)',
+    xaxis=dict(title='Categories', tickangle=45),
+    bargap=0.15,
+    updatemenus=[{
+        'type': 'buttons',  # Specify the type as 'buttons' to always show all buttons
+        'buttons': [{'method': 'restyle', 'label': county, 'args': [update_plot(county)]} for county in counties],
+        'direction': 'right',
+        #'pad': {'r': 10, 't': 10},
+        'showactive': True,
+        'x': 0.1,
+        'xanchor': 'left',
+        'y': 1.1,
+        'yanchor': 'top'
+    }]
+)
+st.plotly_chart(fig)
+
+
