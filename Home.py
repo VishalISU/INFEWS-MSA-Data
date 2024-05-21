@@ -13,7 +13,7 @@ st.markdown(
     '''     **👈 Select a page from the sidebar** to get started exploring the data  '''
 )
 # Include the image MSAInFlow.png
-st.image('MSAInFlow.png')
+st.image('Outer_MSA_Flow.png')
 
 st.markdown(
     '''    
@@ -27,3 +27,5 @@ st.markdown(
 
 )
 
+# Include QR code 
+st.image('Streamlit_QR_Code.png')
