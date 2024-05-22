@@ -1,3 +1,4 @@
+#%%
 import streamlit as st
 import pandas as pd
 import plotly.graph_objects as go
@@ -12,9 +13,19 @@ df0 = pd.read_csv(csv_file, header=None, index_col=0, names=['Value'])
 categories = df0.index.tolist()
 values = df0['Value'].tolist()
 
+# Exclude the last category by default in the multiselect widget
+default_categories = categories[:-1]  # All categories except the last one
+
+
+# Allow users to select categories to plot
+selected_categories = st.multiselect('Select categories to display:', categories, default=default_categories)
+#%%
+# Filter the dataframe based on selected categories
+filtered_df = df0[df0.index.isin(selected_categories)]
+
 # Create a bar chart for total data
 fig0 = go.Figure(go.Bar(
-    x=categories,
+    x=filtered_df.index.tolist(),
     y=values,
     marker=dict(color=['green', 'green', 'blue', 'blue', 'purple', 'purple',
                        'orange', 'orange', 'brown', 'yellow', 'pink', 'gray']),
@@ -25,9 +36,9 @@ fig0 = go.Figure(go.Bar(
 
 # Original layout and configuration
 original_layout = {
-    'yaxis': {'type': 'log', 'title': 'Amount in hectares (log scale)'},
-    'title': 'Agent Based Land Use in Hectares (Logarithmic Scale)',
-    'xaxis': {'title': 'Categories', 'tickangle': 45},
+    'yaxis': {'type': 'log', 'title': 'Amount in acres (log scale)'},
+    'title': 'Agent Based Land Use in Acres (Logarithmic Scale)',
+    'xaxis': {'title': 'Categories', 'tickangle': -45},
     'bargap': 0.15
 }
 
@@ -78,9 +89,9 @@ def update_plot(county):
 fig = go.Figure(data=[go.Bar(x=data['Guthrie']['Category'], y=data['Guthrie']['Value'], marker=dict(color=['green', 'green', 'blue', 'blue', 'purple', 'purple', 'orange', 'orange', 'brown', 'yellow', 'pink', 'gray']), text=data['Guthrie']['Value'], textposition='auto', texttemplate='%{text:.2s}')])
 
 fig.update_layout(
-    yaxis=dict(type='log', title='Amount in hectares (log scale)'),
-    title=f'Commodity Production by Land Use in Hectares - County Level (Logarithmic Scale)',
-    xaxis=dict(title='Categories', tickangle=45),
+    yaxis=dict(type='log', title='Amount in acres (log scale)'),
+    title=f'Commodity Production by Land Use in Acres - County Level (Logarithmic Scale)',
+    xaxis=dict(title='Categories', tickangle=-45),
     bargap=0.15,
     updatemenus=[{
         'type': 'buttons',  # Specify the type as 'buttons' to always show all buttons
@@ -95,5 +106,9 @@ fig.update_layout(
     }]
 )
 st.plotly_chart(fig)
+
+# Add a link to download the raw data in output_table_4.csv
+st.markdown('[Download the raw data](output_table_4.csv)')
+#st.write('Download the raw data in output_table_4.csv')
 
 
