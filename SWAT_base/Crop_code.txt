@@ -1,0 +1,33 @@
+ALFA	Alfalfa
+APPL	Apple
+BLUE	Blueberry
+BROC	Broccoli
+CABG	Cabbage
+CHER	Cherry
+COLG	Collard greens
+CORN	Corn
+CRRT	Carrot
+CUCM	Cucumber
+DRYB	Dry beans
+KALE	Kale
+GRAP	Grape
+HMEL	Honeydew melon
+LETT	Lettuce
+ONIO	Onion
+PEAR	Pear
+POTA	Potato
+PUMP	Pumpkin
+RASP	Raspberry
+SCRN	Sweet corn
+SOYB	soybean
+SPIN	Spinach 
+SPOT	Sweet potato
+SQUA	Squash
+STRW	Strawberry 
+TOMA	Tomato
+FESC	Tall Fescue
+BROM	Meadow Bromegrass
+HAY	    Hay
+CANP	Canola oil
+SGBT	Sugar beat 
+SNPB	Snap beans

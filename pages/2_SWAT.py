@@ -13,94 +13,51 @@ st.set_page_config(
 )
 
 
-st.write('# :seedling: SWAT MSA Dashboard :droplet: ')  #st.title('Avocado Prices dashboard')
-
-#col1, col2 = st.columns(2)
-
-#with col1:
+st.write('# :seedling: SWAT MSA Dashboard :droplet: ') 
 
 st.header('Current Baseline vs Future Local Scenario:')
 
-chart_data_hist = pd.read_pickle(r'TxtInOutHist_output.pickle')
 
-chart_data_fut = pd.read_pickle(r'TxtInOutFut_output.pickle')
- 
-st.subheader('Current Baseline')
+# Crop codes dictionary
+crop_codes = {
+    "ALFA": "Alfalfa", "APPL": "Apple", "BLUE": "Blueberry", "BROC": "Broccoli",
+    "CABG": "Cabbage", "CHER": "Cherry", "COLG": "Collard greens", "CORN": "Corn",
+    "CRRT": "Carrot", "CUCM": "Cucumber", "DRYB": "Dry beans", "KALE": "Kale",
+    "GRAP": "Grape", "HMEL": "Honeydew melon", "LETT": "Lettuce", "ONIO": "Onion",
+    "PEAR": "Pear", "POTA": "Potato", "PUMP": "Pumpkin", "RASP": "Raspberry",
+    "SCRN": "Sweet corn", "SOYB": "Soybean", "SPIN": "Spinach", "SPOT": "Sweet potato",
+    "SQUA": "Squash", "STRW": "Strawberry", "TOMA": "Tomato", "FESC": "Tall Fescue",
+    "BROM": "Meadow Bromegrass", "HAY": "Hay", "CANP": "Canola oil", "SGBT": "Sugar beat",
+    "SNPB": "Snap beans"
+}
 
-# Create the DataFrame
-df = pd.DataFrame(chart_data_hist)
-# Transpose for better plotting
-df=df.transpose()
+# base file 
+base_dir='SWAT_base/'
+# Load the historical and future data
+df_2020 = pd.read_csv(base_dir+'TxtInOutHist_output.csv')
+df_2050 = pd.read_csv(base_dir+'TxtInOutFut_output.csv')
+df_2020.set_index('Unnamed: 0', inplace=True)
+df_2050.set_index('Unnamed: 0', inplace=True)
 
-Choice1 = st.selectbox(
-    'Select Crop 1:',
-     df.columns)
-Choice2 = st.selectbox(
-    'Select Crop 2:',
-     df.columns)
-# Create the bar graph
-fig = go.Figure()
+# Filter and clean data
+unwanted_values = ["HAY", "WATR", "WETF", "WETN", "WWHT"]
+df_2020_filtered = df_2020[~df_2020.index.isin(unwanted_values)]
+df_2050_filtered = df_2050[~df_2050.index.isin(unwanted_values)]
+df_2020_filtered.drop(columns=['AVG'], inplace=True)
+df_2050_filtered.drop(columns=['AVG'], inplace=True)
 
-fig.add_trace(go.Bar(x=df.index, y=df[Choice1], name=Choice1 ))
-fig.add_trace(go.Bar(x=df.index, y=df[Choice2],name=Choice2))
+# Select a crop
+selected_crop_code = st.selectbox('Select a Crop', options=list(crop_codes.keys()), format_func=lambda x: crop_codes[x])
 
-# Iterate over the columns starting from the second column
-#for i in range(1, len(df.columns)):
-#    fig.add_trace(go.Bar(x=df.index, y=df.iloc[:, i], name=df.columns[i]))
+# Extract data for selected crop and specific years
+data_1995_2004 = df_2020_filtered.loc[selected_crop_code, '1995':'2004'].reset_index()
+data_2039_2048 = df_2050_filtered.loc[selected_crop_code, '2039':'2048'].reset_index()
+data_1995_2004['Year Range'] = '1995-2004'
+data_2039_2048['Year Range'] = '2039-2048'
 
-# Set the layout
-fig.update_layout(
-    title='Crops Yields by year',
-    xaxis_title='Year',
-    yaxis_title='Yields (kg/ha)',
-    xaxis=dict(
-        tickmode='linear',
-        dtick = 1
-    )
-)    
+# Combine data
+combined_data = pd.concat([data_1995_2004, data_2039_2048])
 
+# Plot boxplot
+fig = px.box(combined_data, x='Year Range', y=selected_crop_code, title=f'Boxplot for {crop_codes[selected_crop_code]} over the Selected Years')
 st.plotly_chart(fig)
-
-
-st.subheader('Future Scenario')
-
-# Create the DataFrame
-df2 = pd.DataFrame(chart_data_fut)
-# Transpose for better plotting
-df2=df2.transpose()
-
-Choice3 = st.selectbox(
-    'Select Crop 1:',
-     df2.columns)
-Choice4 = st.selectbox(
-    'Select Crop 2:',
-     df2.columns)
-# Create the bar graph
-fig1 = go.Figure()
-
-fig1.add_trace(go.Bar(x=df2.index, y=df2[Choice3], name=Choice3 ))
-fig1.add_trace(go.Bar(x=df2.index, y=df2[Choice4],name=Choice4))
-
-# Iterate over the columns starting from the second column
-#for i in range(1, len(df.columns)):
-#    fig.add_trace(go.Bar(x=df.index, y=df.iloc[:, i], name=df.columns[i]))
-
-# Set the layout
-fig1.update_layout(
-    title='Crops Yields by year',
-    xaxis_title='Year',
-    yaxis_title='Yields (kg/ha)',
-    xaxis=dict(
-        tickmode='linear',
-        dtick = 1
-    )
-)    
-
-st.plotly_chart(fig1)
-
-if st.checkbox('Show current baseline dataset'):
-    chart_data_hist
-
-if st.checkbox('Show future scenario dataset'):
-    chart_data_fut 
-
