@@ -56,7 +56,7 @@ county_data_combined = county_data_2020.join(county_data_2050).loc[selected_cate
 
 fig2 = go.Figure(data=[
     go.Bar(name='2020', x=county_data_combined.index, y=county_data_combined['Value 2020'], marker_color='blue'),
-    go.Bar(name='2050', x=county_data_combined.index, y=county_data_combined['Value 2050'], marker_color='green')
+    go.Bar(name='2050', x=county_data_combined.index, y=county_data_combined['Value 2050'], marker_color='red')
 ])
 fig2.update_layout(
     #barmode='group',
