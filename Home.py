@@ -4,16 +4,26 @@ import plotly.express as px
 import numpy as np
 import plotly.graph_objects as go
 
+# include an image
+st.image('IowaUrbanFEWSlogo.png')
+
+st.title(':city_sunrise: Metropolitan Statistical Area CoSimulation :deciduous_tree:') 
+
+''' **Welcome to the Metropolitan Statistical Area CoSimulation dashboard!** ''' 
+'''     **👈 Before you navigate to a page from the sidebar** let us introduce our study to you...'''
+''' ''' 
+''' ''' 
+'''Our study site is the Des Moines-West Des Moines Metropolitan Statistical Area (MSA), Iowa. 
+We've created a framework that allows us to look at how the climate, land use, buildings, energy consumption, and environmental impacts all interact. 
+We're particularly interested in understanding how different factors like policies, farming methods, technology, social interactions, and market trends affect food production.
+re 
+To do this, we use a method called data-driven **co-simulation**... but first let's get to know our models!'''
+
+st.image('MSA_Models.png')
 
 
 
-st.write('# :city_sunrise: Iowa Urban FEWS Dashboard :deciduous_tree:')  #st.title('Avocado Prices dashboard')
 
-st.markdown(
-    '''     **👈 Select a page from the sidebar** to get started exploring the data  '''
-)
-# Include the image MSAInFlow.png
-st.image('Outer_MSA_Flow.png')
 
 st.markdown(
     '''    
