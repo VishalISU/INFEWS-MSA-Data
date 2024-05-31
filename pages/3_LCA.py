@@ -5,7 +5,6 @@ import numpy as np
 import plotly.graph_objects as go
 
 
-#Force Streamlit to work in wide mode 
 
 #st.set_page_config(layout="wide")
 
