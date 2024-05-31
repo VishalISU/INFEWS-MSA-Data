@@ -3,8 +3,9 @@ import pandas as pd
 import plotly.graph_objects as go
 
 st.set_page_config(page_title="ABM", page_icon="👨‍🌾")
-st.write('# :female-farmer: ABM Dashboard - Extension Agents Scenario :male-farmer:')
+st.title(':computer: :handshake: CoSimulation Scenario : Extension Agents :gear: :computer: ')
 
+st.header(':female-farmer: ABM Extension Agent Intervention :male-farmer:')
 base_dir = "ABM_ext/"
 
 # Read data from CSV files
@@ -57,7 +58,7 @@ st.plotly_chart(fig2)
 # Also plot row crops vs the rest in a pie chart for 2020 and 2050 
 
 # Write the overall description below the charts
-st.write('Contribution of row crops vs table crops in 2050')
+st.write('Contribution of row crops vs table crops in 2050' )
 
 fig_pie = go.Figure(data=[go.Pie(labels=df_combined.index, values=df_combined['Value 2050'], hole=0.3)])
 fig_pie.update_layout(title='2050', title_x=0.5)  # Center the title
@@ -75,7 +76,7 @@ fig_pie.update_layout(legend=dict(
 
 ## _________________________________________________SWAT ________________________________________________________________________
 
-st.write('# :seedling: SWAT Insights :droplet: ') 
+st.header(':seedling: SWAT maps farmer activity to available HRUs :droplet: ') 
 
 import plotly.express as px
 # Updated Crop codes dictionary with "CANA" for Canola oil
@@ -134,13 +135,14 @@ fig_swat_box.update_layout(showlegend=False)
 
 st.plotly_chart(fig_swat_box)
 
+''' At the end of swat the marketable yields are calculated for eeach crop and this is used as input to LCA'''
     
 ## _________________________________________________LCA ________________________________________________________________________
 
 
-st.write('#  :ear_of_rice: LCA Insights')  #st.title('Avocado Prices dashboard')
+st.header(':ear_of_rice: Life Cycle Analysis of Food Systems ')  
 
-st.header('Current vs Future scenario:')
+st.subheader('Current vs Future scenario:')
 
 chart_data_base = pd.read_pickle(r'lca_abm_base.pickle')
 
