@@ -37,14 +37,14 @@ base_data_popLU=base_data_popLU.rename(columns={'Total LU (ha)':'Land Use (ha)'}
 
 # Drop columns and rows not needed for plotting 
 baseplot= chart_data_base.drop(chart_data_base.columns[[0,2,3,5]],axis=1)
-baseplot= baseplot.query("`Model_Year_`==2020 | `Model_Year_`==2040")
-# Drop 2040 for base condition for the following reason: 
+baseplot= baseplot.query("`Model_Year_`==2020 | `Model_Year_`==2050")
+# Drop 2050 for base condition for the following reason: 
 
 #baseplot= baseplot.query("`Model_Year_`==2020")
 #baseplot 
 # Drop columns and rows not needed for plotting 
 localplot= chart_data.drop(chart_data.columns[[0,2,3,5]],axis=1)
-localplot= localplot.query("`Model_Year_`==2020 | `Model_Year_`==2040")
+localplot= localplot.query("`Model_Year_`==2020 | `Model_Year_`==2050")
 #localplot 
 # Load the Raw data from LCA 
 
@@ -53,14 +53,14 @@ chart_data_raw = pd.read_csv(r'lca_dataset.csv')
 
 # postprocess raw results before plotting to compare with cosim 
 rbaseplot=chart_data_raw.query("cosim=='LCA' & fsscenario=='BASE'")
-rbaseplot=rbaseplot.query("`year`==2020 |`year`==2040")
+rbaseplot=rbaseplot.query("`year`==2020 |`year`==2050")
 rlocalplot=chart_data_raw.query("cosim=='LCA' & fsscenario=='LOCAL'")
 #rbaseplot
 #rlocalplot
 #line_fig=px.line(localplot,x='Model_Year_',y=['Energy_Use_MJ','Global_Warming_Potential_kg_co2_eq'], markers=True)
 #st.plotly_chart(line_fig)
 
-st.subheader('Energy use in 2020 and 2040 for Food Scenarios')
+st.subheader('Energy use in 2020 and 2050 for Food Scenarios')
 fig0 = go.Figure(data=[
     
     go.Bar(name='Baseline: Current Condition', x=baseplot['Model_Year_'], y=baseplot['Energy_Use_MJ']),# marker_color=000000),
@@ -79,7 +79,7 @@ st.plotly_chart(fig0)
 
 
 
-st.subheader('Global Warming Potential in 2020 and 2040 for Food Scenarios')
+st.subheader('Global Warming Potential in 2020 and 2050 for Food Scenarios')
 fig1 = go.Figure(data=[
     
     go.Bar(name='Baseline: Current Condition', x=baseplot['Model_Year_'], y=baseplot['Global_Warming_Potential_kg_co2_eq']),# ,marker_color='crimson'),
