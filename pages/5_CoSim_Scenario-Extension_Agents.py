@@ -41,8 +41,8 @@ county_data_2050 = pd.read_csv(base_dir + f'{selected_county.lower()}_50.csv', h
 county_data_combined = county_data_2020.join(county_data_2050).loc[selected_categories]
 
 fig2 = go.Figure(data=[
-    go.Bar(name='2020', x=county_data_combined.index, y=county_data_combined['Value 2020'], marker_color='green'),
-    go.Bar(name='2050', x=county_data_combined.index, y=county_data_combined['Value 2050'], marker_color='orange')
+    go.Bar(name='2020', x=county_data_combined.index, y=county_data_combined['Value 2020'], marker_color='blue'),
+    go.Bar(name='2050', x=county_data_combined.index, y=county_data_combined['Value 2050'], marker_color='red')
 ])
 fig2.update_layout(
     #barmode='group',
@@ -63,6 +63,7 @@ fig_pie = go.Figure(data=[go.Pie(labels=df_combined.index, values=df_combined['V
 fig_pie.update_layout(title='2050', title_x=0.5)  # Center the title
 # Adjust the figure size here
 st.plotly_chart(fig_pie, use_container_width=True)  # This makes the plot responsive to the column width
+
 fig_pie.update_layout(legend=dict(
         orientation="h",
         yanchor="bottom",
@@ -71,6 +72,68 @@ fig_pie.update_layout(legend=dict(
         x=1,
         font=dict(size=10),itemwidth=30
     ))
+
+## _________________________________________________SWAT ________________________________________________________________________
+
+st.write('# :seedling: SWAT Insights :droplet: ') 
+
+import plotly.express as px
+# Updated Crop codes dictionary with "CANA" for Canola oil
+crop_codes = {
+    "ALFA": "Alfalfa", "APPL": "Apple", "BLUE": "Blueberry", "BROC": "Broccoli",
+    "CABG": "Cabbage", "CHER": "Cherry", "COLG": "Collard greens", "CORN": "Corn",
+    "CRRT": "Carrot", "CUCM": "Cucumber", "DRYB": "Dry beans", "KALE": "Kale",
+    "GRAP": "Grape", "HMEL": "Honeydew melon", "LETT": "Lettuce", "ONIO": "Onion",
+    "PEAR": "Pear", "POTA": "Potato", "PUMP": "Pumpkin", "RASP": "Raspberry",
+    "SCRN": "Sweet corn", "SOYB": "Soybean", "SPIN": "Spinach", "SPOT": "Sweet potato",
+    "SQUA": "Squash", "STRW": "Strawberry", "TOMA": "Tomato", "FESC": "Tall Fescue",
+    "BROM": "Meadow Bromegrass", "HAY": "Hay", "CANA": "Canola oil", "SGBT": "Sugar beet",
+    "SNPB": "Snap beans"
+}
+
+# Base file directory
+base_dir='SWAT_base/'
+# Load the historical and future data
+df_swat_abm_base = pd.read_csv(base_dir+'TxtInOutABM_base_output.csv')
+df_swat_abm_ext = pd.read_csv(base_dir+'TxtInOutABM_ext_output.csv')
+df_swat_abm_base.set_index('Unnamed: 0', inplace=True)
+df_swat_abm_ext.set_index('Unnamed: 0', inplace=True)
+
+# Filter and clean data
+unwanted_values = ["HAY", "WATR", "WETF", "WETN", "WWHT"]
+df_swat_abm_base_filtered = df_swat_abm_base[~df_swat_abm_base.index.isin(unwanted_values)]
+df_swat_abm_ext_filtered = df_swat_abm_ext[~df_swat_abm_ext.index.isin(unwanted_values)]
+df_swat_abm_base_filtered.drop(columns=['AVG'], inplace=True)
+df_swat_abm_ext_filtered.drop(columns=['AVG'], inplace=True)
+
+# Order crop_codes alphabetically by value
+crop_codes = dict(sorted(crop_codes.items(), key=lambda item: item[1]))
+selected_crop_code = st.selectbox('Select a Crop', options=list(crop_codes.keys()), format_func=lambda x: crop_codes[x])
+
+# Extract data for selected crop across all available years
+data_swat_abm_base = df_swat_abm_base_filtered.loc[selected_crop_code].reset_index()
+data_swat_abm_ext = df_swat_abm_ext_filtered.loc[selected_crop_code].reset_index()
+data_swat_abm_base['Dataset'] = 'Base Sceneario'
+data_swat_abm_ext['Dataset'] = 'Exetnsion Agents Intervention'
+
+# Combine data
+combined_data = pd.concat([data_swat_abm_base, data_swat_abm_ext])
+
+# Plot boxplot
+fig_swat_box = px.box(combined_data, x='Dataset', y=selected_crop_code, color='Dataset', 
+                      title=f'Boxplot Comparison for {crop_codes[selected_crop_code]} (1999-2018)')
+
+# Update x-axis label
+fig_swat_box.update_xaxes(title_text="Scenario")
+
+# Update y-axis label
+fig_swat_box.update_yaxes(title_text="Yield (kg/ha)")
+
+# Update layout to remove legend
+fig_swat_box.update_layout(showlegend=False)
+
+st.plotly_chart(fig_swat_box)
+
     
 ## _________________________________________________LCA ________________________________________________________________________
 
@@ -79,9 +142,9 @@ st.write('#  :ear_of_rice: LCA Insights')  #st.title('Avocado Prices dashboard')
 
 st.header('Current vs Future scenario:')
 
-chart_data_base = pd.read_pickle(r'lca_base.pickle')
+chart_data_base = pd.read_pickle(r'lca_abm_base.pickle')
 
-chart_data = pd.read_pickle(r'lca_local.pickle')
+chart_data = pd.read_pickle(r'lca_abm_ext.pickle')
  
 
 #st.subheader('Base Model Population, Land Use over Year')

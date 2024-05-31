@@ -17,9 +17,6 @@ st.write(rf'For example, the scale of fruit and vegetable farms in Iowa is much 
 st.write(rf'We have met with a set of production specialists to quantify the current local food system and build a model for current conditions, and our next step will be to make projections to allow us to model future food system changes and energy use. ')
 
 
-
-st.header('Current vs Future scenario:')
-
 chart_data_base = pd.read_pickle(r'lca_base.pickle')
 
 chart_data = pd.read_pickle(r'lca_local.pickle')
@@ -140,6 +137,21 @@ st.plotly_chart(fig_lca_lu)
 '''Fruit (orchard/vineyard) includes all perennial fruits - Apple, Cherry, Grape, Pear		'''
 '''Fruit (berry/melon) includes Melon, Blueberry, Raspberry, Strawberry		'''
 '''Vegetable (field) include sweet corn, pumpkin, snap beans, dried beans, and pea, all other vegetables are listed as Vegetable (specialty)		'''
+
+
+st.header('Current vs Future scenario:')
+
+cola, colb = st.columns(2)
+with cola:  
+    st.subheader('Current Scenario')
+    ''' Current amount of local food production '''
+    '''Models 50% of dietary requirements in 2020 with current production (about 5% local and 45% distant) based on consumption patterns ''' 
+
+with colb:
+    st.subheader('Future Scenario')
+    '''Increased local food production within Des Moines Metropolitan Statistical Area (MSA)'''
+    '''Models 50% of dietary requirements in 2040 with all local production based on current consumption patterns'''
+
 
 
 
