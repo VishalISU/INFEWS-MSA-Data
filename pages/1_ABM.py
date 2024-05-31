@@ -3,6 +3,8 @@ import pandas as pd
 import plotly.graph_objects as go
 
 st.set_page_config(page_title="ABM", page_icon="👨‍🌾")
+
+st.image('ABMlogo.png', width=100)
 st.write('# :female-farmer: ABM - Agent Based Modelling :male-farmer:')
 
 
@@ -14,8 +16,8 @@ st.write('Survey data is leveraged to construct "personas" mirroring Iowa farmer
 st.write('')
 st.write('')
 st.write('')
-st.write('At the end of the ABM modeling, we obtain the following land use patterns projected for the future')
-st.write('The following charts display the land use patterns for the Des Moines area in 2020 and 2050.')
+st.write('At the end of the ABM modeling, we obtain land use patterns projected for the future')
+
 
 base_dir = "ABM_base/"
 

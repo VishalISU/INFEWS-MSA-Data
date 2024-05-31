@@ -5,7 +5,6 @@ import plotly.express as px
 import numpy as np
 import plotly.graph_objects as go
 
-
 #Force Streamlit to work in wide mode 
 #%%
 st.set_page_config(
@@ -14,6 +13,7 @@ st.set_page_config(
 )
 
 
+st.image('SWATlogo.png', width=100)
 
 st.write('# :seedling: SWAT - Soil and Water Assessment Tool :droplet: ') 
 

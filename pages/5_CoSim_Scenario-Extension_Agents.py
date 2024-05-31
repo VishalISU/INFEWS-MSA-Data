@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import plotly.graph_objects as go
 
-st.set_page_config(page_title="ABM", page_icon="👨‍🌾")
+st.set_page_config(page_title="CoSim", page_icon=":computer:")
 st.title(':computer: :handshake: CoSimulation Scenario : Extension Agents :gear: :computer: ')
 
 st.header(':female-farmer: ABM Extension Agent Intervention :male-farmer:')
@@ -58,7 +58,7 @@ st.plotly_chart(fig2)
 # Also plot row crops vs the rest in a pie chart for 2020 and 2050 
 
 # Write the overall description below the charts
-st.write('Contribution of row crops vs table crops in 2050' )
+''' **Contribution of row crops vs table crops in 2050** '''
 
 fig_pie = go.Figure(data=[go.Pie(labels=df_combined.index, values=df_combined['Value 2050'], hole=0.3)])
 fig_pie.update_layout(title='2050', title_x=0.5)  # Center the title
@@ -73,7 +73,9 @@ fig_pie.update_layout(legend=dict(
         x=1,
         font=dict(size=10),itemwidth=30
     ))
-
+''' 
+Even after intervention by extension agents, the overall contribution of row crops to the land use patterns remains significant.
+'''
 ## _________________________________________________SWAT ________________________________________________________________________
 
 st.header(':seedling: SWAT maps farmer activity to available HRUs :droplet: ') 
