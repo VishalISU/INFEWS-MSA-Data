@@ -61,7 +61,7 @@ rlocalplot=chart_data_raw.query("cosim=='LCA' & fsscenario=='LOCAL'")
 #st.plotly_chart(line_fig)
 
 st.subheader('Energy use in 2020 and 2050 for Food Scenarios')
-fig0 = go.Figure(data=[
+fig_lca_eu = go.Figure(data=[
     
     go.Bar(name='Baseline: Current Condition', x=baseplot['Model_Year_'], y=baseplot['Energy_Use_MJ']),# marker_color=000000),
     #go.Bar(name='Baseline, isolation', x=rbaseplot['year'], y=rbaseplot['energy']),#,marker_color='green'),
@@ -70,17 +70,17 @@ fig0 = go.Figure(data=[
     ],
     layout={
         'xaxis': {'title': 'Year'},
-        'yaxis': {'title': 'Energy_Use_MJ'}
+        'yaxis': {'title': 'Energy Use (MJ)'}
     }
 )
 # Change the bar mode
-fig0.update_layout(barmode='group')
-st.plotly_chart(fig0)
+fig_lca_eu.update_layout(barmode='group')
+st.plotly_chart(fig_lca_eu)
 
 
 
 st.subheader('Global Warming Potential in 2020 and 2050 for Food Scenarios')
-fig1 = go.Figure(data=[
+fig_lca_gw = go.Figure(data=[
     
     go.Bar(name='Baseline: Current Condition', x=baseplot['Model_Year_'], y=baseplot['Global_Warming_Potential_kg_co2_eq']),# ,marker_color='crimson'),
     #go.Bar(name='Baseline, isolation', x=rbaseplot['year'], y=rbaseplot['gwp']),#,marker_color='green'),
@@ -89,16 +89,14 @@ fig1 = go.Figure(data=[
     ],
     layout={
         'xaxis': {'title': 'Year'},
-        'yaxis': {'title': 'Global_Warming_Potential_kg_co2_eq'}
+        'yaxis': {'title': 'Global Warming Potential (kg co2 eq)'}
     }
 )
 # Change the bar mode
-fig1.update_layout(barmode='group')
-st.plotly_chart(fig1)
+fig_lca_gw.update_layout(barmode='group')
+st.plotly_chart(fig_lca_gw)
 
 st.header('Land Use Patterns')
-
-
 
 
 col1, col2 = st.columns(2)
@@ -107,7 +105,7 @@ with col1:
     year_LU0 = st.selectbox(
     'Select First Year for Land Usage Patterns:',
         chart_data_base.Model_Year_)
-#fig2 = go.Figure()
+#fig_lca_lu_1 = go.Figure()
 #st.bar_chart(chart_data_base[year_LU0])
 dflu = chart_data_base.loc[chart_data_base['Model_Year_'] == year_LU0].iloc[0]
 dflu = dflu.drop(labels=['Model_Population','Energy_Use_MJ','Freshwater_withdrawals_m3',
@@ -135,20 +133,23 @@ newdf0['Grains']=dflut['Grains']
 newdf0['Oil']=dflut['Oil']
 newdf0['Sugar']=dflut['Sugar']
 
-fig2 = go.Figure(data=[go.Bar(x=newdf0.columns, y=newdf0.values.flatten())])
+fig_lca_lu_1 = go.Figure(data=[go.Bar(x=newdf0.columns, y=newdf0.values.flatten())])
 
 # add x-axis and y-axis labels
-fig2.update_layout(xaxis_title='Food Group', 
+fig_lca_lu_1.update_layout(xaxis_title='Food Group', 
                     yaxis_title='Total agricultural land use (ha)',
                     margin=dict(l=10, r=10, t=10, b=10))
 
 # show the plot
-#st.plotly_chart(fig2)
+#st.plotly_chart(fig_lca_lu_1)
 
 
  
 
 with col2:
+    # have default value of selected year as 2050
+    # reorder chart_data_base to have 2050 first
+    chart_data_base = chart_data_base.sort_values(by='Model_Year_', ascending=False)
     year_LU1 = st.selectbox(
     'Select Second Year for Land Usage Patterns:',
         chart_data_base.Model_Year_)
@@ -179,19 +180,15 @@ newdf1['Grains']=dflut['Grains']
 newdf1['Oil']=dflut['Oil']
 newdf1['Sugar']=dflut['Sugar']
 
-fig3 = go.Figure(data=[go.Bar(x=newdf1.columns, y=newdf1.values.flatten())])
+fig_lca_lu_2 = go.Figure(data=[go.Bar(x=newdf1.columns, y=newdf1.values.flatten())])
 
 # add x-axis and y-axis labels
-fig3.update_layout(xaxis_title='Food Group', 
+fig_lca_lu_2.update_layout(xaxis_title='Food Group', 
                     yaxis_title='Total agricultural land use (ha)',
                     margin=dict(l=10, r=10, t=10, b=10))
 
 # show the plot
-#st.plotly_chart(fig3)
-
-
-
-
+#st.plotly_chart(fig_lca_lu_2)
 
 figx= go.Figure()
 

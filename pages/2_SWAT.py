@@ -61,3 +61,6 @@ combined_data = pd.concat([data_1995_2004, data_2039_2048])
 # Plot boxplot
 fig = px.box(combined_data, x='Year Range', y=selected_crop_code, title=f'Boxplot for {crop_codes[selected_crop_code]} over the Selected Years')
 st.plotly_chart(fig)
+
+
+st.image('swatimage.png', caption='DMRB visualized')
