@@ -58,6 +58,7 @@ crop_codes = {
     "PEAR": "Pear", "POTA": "Potato", "PUMP": "Pumpkin", "RASP": "Raspberry",
     "SCRN": "Sweet corn", "SNPB": "Snap beans", "SOYB": "Soybean", "SPIN": "Spinach", "SPOT": "Sweet potato",
     "SQUA": "Squash", "STRW": "Strawberry", "TOMA": "Tomato", 
+    "WWHT" : "Winter Wheat",
     #"BROM": "Meadow Bromegrass", "HAY": "Hay", 
     #"CANA": "Canola oil", "SGBT": "Sugar beet", 
     # Above are missing in TxtInOutHist and Fut
@@ -75,9 +76,10 @@ df_2020.set_index('Unnamed: 0', inplace=True)
 df_2050.set_index('Unnamed: 0', inplace=True)
 
 # Filter and clean data
-unwanted_values = ["HAY", "WATR", "WETF", "WETN", "WWHT"]
+unwanted_values = ["HAY", "WATR", "WETF", "WETN"]
 df_2020_filtered = df_2020[~df_2020.index.isin(unwanted_values)]
 df_2050_filtered = df_2050[~df_2050.index.isin(unwanted_values)]
+#%%
 df_2020_filtered.drop(columns=['AVG'], inplace=True)
 df_2050_filtered.drop(columns=['AVG'], inplace=True)
 
@@ -90,15 +92,27 @@ selected_crop_code = st.selectbox('Select a Crop', options=list(crop_codes.keys(
 # Extract data for selected crop and specific years
 data_1995_2004 = df_2020_filtered.loc[selected_crop_code, '1995':'2004'].reset_index()
 data_2039_2048 = df_2050_filtered.loc[selected_crop_code, '2039':'2048'].reset_index()
-data_1995_2004['Year Range'] = '1995-2004'
-data_2039_2048['Year Range'] = '2039-2048'
+#%%
+data_1995_2004['Dataset'] = 'Current Scenario'
+data_2039_2048['Dataset'] = 'Future Scenario'
+
 
 # Combine data
 combined_data = pd.concat([data_1995_2004, data_2039_2048])
 
 #%%
 # Plot boxplot
-fig_swat_box = px.box(combined_data, x='Year Range', y=selected_crop_code, title=f'Boxplot for {crop_codes[selected_crop_code]} over the Selected Years')
+fig_swat_box = px.box(combined_data, x='Dataset', y=selected_crop_code, title=f'Boxplot for {crop_codes[selected_crop_code]} over the Selected Years')
+# Update x-axis label
+fig_swat_box.update_xaxes(title_text="Scenario")
+
+# Update y-axis label
+fig_swat_box.update_yaxes(title_text="Yield (kg/ha)")
+
+# Update layout to remove legend
+fig_swat_box.update_layout(showlegend=False)
+
+#Plot
 st.plotly_chart(fig_swat_box)
 
 

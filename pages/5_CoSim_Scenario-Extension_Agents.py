@@ -1,7 +1,8 @@
+#%%
 import streamlit as st
 import pandas as pd
 import plotly.graph_objects as go
-
+#%%
 st.set_page_config(page_title="CoSim", page_icon=":computer:")
 st.title(':computer: :handshake: CoSimulation Scenario : Extension Agents :gear: :computer: ')
 
@@ -77,7 +78,7 @@ fig_pie.update_layout(legend=dict(
 Even after intervention by extension agents, the overall contribution of row crops to the land use patterns remains significant.
 '''
 ## _________________________________________________SWAT ________________________________________________________________________
-
+#%%
 st.header(':seedling: SWAT maps farmer activity to available HRUs :droplet: ') 
 
 import plotly.express as px
@@ -90,12 +91,17 @@ crop_codes = {
     "PEAR": "Pear", "POTA": "Potato", "PUMP": "Pumpkin", "RASP": "Raspberry",
     "SCRN": "Sweet corn", "SOYB": "Soybean", "SPIN": "Spinach", "SPOT": "Sweet potato",
     "SQUA": "Squash", "STRW": "Strawberry", "TOMA": "Tomato", "FESC": "Tall Fescue",
-    "BROM": "Meadow Bromegrass", "HAY": "Hay", "CANA": "Canola oil", "SGBT": "Sugar beet",
+    #"BROM": "Meadow Bromegrass", 
+    "WWHT" : "Winter Wheat",
+    "HAY": "Hay", "CANA": "Canola oil", "SGBT": "Sugar beet",
     "SNPB": "Snap beans"
 }
 
+#%%
 # Base file directory
 base_dir='SWAT_base/'
+
+#%%
 # Load the historical and future data
 df_swat_abm_base = pd.read_csv(base_dir+'TxtInOutABM_base_output.csv')
 df_swat_abm_ext = pd.read_csv(base_dir+'TxtInOutABM_ext_output.csv')
@@ -103,7 +109,7 @@ df_swat_abm_base.set_index('Unnamed: 0', inplace=True)
 df_swat_abm_ext.set_index('Unnamed: 0', inplace=True)
 
 # Filter and clean data
-unwanted_values = ["HAY", "WATR", "WETF", "WETN", "WWHT"]
+unwanted_values = [ "WATR", "WETF", "WETN"] # Removed HAY and WWHT from unwanted values
 df_swat_abm_base_filtered = df_swat_abm_base[~df_swat_abm_base.index.isin(unwanted_values)]
 df_swat_abm_ext_filtered = df_swat_abm_ext[~df_swat_abm_ext.index.isin(unwanted_values)]
 df_swat_abm_base_filtered.drop(columns=['AVG'], inplace=True)
@@ -112,19 +118,19 @@ df_swat_abm_ext_filtered.drop(columns=['AVG'], inplace=True)
 # Order crop_codes alphabetically by value
 crop_codes = dict(sorted(crop_codes.items(), key=lambda item: item[1]))
 selected_crop_code = st.selectbox('Select a Crop', options=list(crop_codes.keys()), format_func=lambda x: crop_codes[x])
-
+#%%
 # Extract data for selected crop across all available years
 data_swat_abm_base = df_swat_abm_base_filtered.loc[selected_crop_code].reset_index()
 data_swat_abm_ext = df_swat_abm_ext_filtered.loc[selected_crop_code].reset_index()
-data_swat_abm_base['Dataset'] = 'Base Sceneario'
-data_swat_abm_ext['Dataset'] = 'Exetnsion Agents Intervention'
+data_swat_abm_base['Dataset'] = 'Base Scenario'
+data_swat_abm_ext['Dataset'] = 'Extension Agents Intervention'
 
 # Combine data
 combined_data = pd.concat([data_swat_abm_base, data_swat_abm_ext])
-
+#%%
 # Plot boxplot
 fig_swat_box = px.box(combined_data, x='Dataset', y=selected_crop_code, color='Dataset', 
-                      title=f'Boxplot Comparison for {crop_codes[selected_crop_code]} (1999-2018)')
+                      title=f'Boxplot Comparison for {crop_codes[selected_crop_code]} ')
 
 # Update x-axis label
 fig_swat_box.update_xaxes(title_text="Scenario")
@@ -137,14 +143,14 @@ fig_swat_box.update_layout(showlegend=False)
 
 st.plotly_chart(fig_swat_box)
 
-''' At the end of swat the marketable yields are calculated for eeach crop and this is used as input to LCA'''
+''' At the end of swat the marketable yields are calculated for each crop and this is used as input to LCA'''
     
 ## _________________________________________________LCA ________________________________________________________________________
 
 
 st.header(':ear_of_rice: Life Cycle Analysis of Food Systems ')  
 
-st.subheader('Current vs Future scenario:')
+st.subheader('Base vs Extension Agent scenario:')
 
 chart_data_base = pd.read_pickle(r'lca_abm_base.pickle')
 
