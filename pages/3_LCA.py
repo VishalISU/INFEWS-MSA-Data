@@ -1,9 +1,10 @@
+#%%
 import streamlit as st
 import pandas as pd
 import plotly.express as px
 import numpy as np
 import plotly.graph_objects as go
-
+#%%
 st.set_page_config(
     page_title="LCA",
     page_icon="🌾",
@@ -17,16 +18,16 @@ st.write(rf'Life Cycle Assessment (LCA) is a modeling tool that accounts for ene
 st.write(rf'For example, the scale of fruit and vegetable farms in Iowa is much smaller on average (8 acres) compared to California (59 acres) where about half of fruits and vegetables in the US are currently grown. This smaller scale has an effect on production methods: for example, which labor is done by hand or with equipment, and what quantity of pesticides are used. In addition, there are important environmental differences such as temperature, rainfall and production seasonality (of course in Des Moines and surrounding areas we don’t grow vegetables outside during the winter!).')
 st.write(rf'We have met with a set of production specialists to quantify the current local food system and build a model for current conditions, and our next step will be to make projections to allow us to model future food system changes and energy use. ')
 
-
+#%%
 chart_data_base = pd.read_pickle(r'lca_base.pickle')
 
 chart_data = pd.read_pickle(r'lca_local.pickle')
  
-
+#%%
 #st.subheader('Base Model Population, Land Use over Year')
 base_data_popLU= chart_data_base.drop(chart_data_base.columns[[0,4,5,6]],axis=1)
 base_data_popLU=base_data_popLU.rename(columns={'Total LU (ha)':'Land Use (ha)'})
-
+#%%
 # Drop columns and rows not needed for plotting 
 baseplot= chart_data_base.drop(chart_data_base.columns[[0,2,3,5]],axis=1)
 baseplot= baseplot.query("`Model_Year_`==2020 | `Model_Year_`==2050")
@@ -46,7 +47,7 @@ rbaseplot=chart_data_raw.query("cosim=='LCA' & fsscenario=='BASE'")
 rbaseplot=rbaseplot.query("`year`==2020 |`year`==2050")
 rlocalplot=chart_data_raw.query("cosim=='LCA' & fsscenario=='LOCAL'")
 
-
+#%%
 
 st.header('Land Use Patterns')
 
@@ -133,12 +134,6 @@ fig_lca_lu.update_layout(xaxis_title='Food Group',
                 margin=dict(l=10, r=10, t=10, b=10))
 
 st.plotly_chart(fig_lca_lu)
-
-''' Note: '''
-'''Fruit (orchard/vineyard) includes all perennial fruits - Apple, Cherry, Grape, Pear		'''
-'''Fruit (berry/melon) includes Melon, Blueberry, Raspberry, Strawberry		'''
-'''Vegetable (field) include sweet corn, pumpkin, snap beans, dried beans, and pea, all other vegetables are listed as Vegetable (specialty)		'''
-
 
 st.header('Current vs Future scenario:')
 

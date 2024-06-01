@@ -82,7 +82,8 @@ df_2020_filtered.drop(columns=['AVG'], inplace=True)
 df_2050_filtered.drop(columns=['AVG'], inplace=True)
 
 # Select a crop
-# order crop_codes alphabetically by value
+# order crop_codes alphabetically by value but from the second value 
+
 crop_codes = dict(sorted(crop_codes.items(), key=lambda item: item[1]))
 selected_crop_code = st.selectbox('Select a Crop', options=list(crop_codes.keys()), format_func=lambda x: crop_codes[x])
 

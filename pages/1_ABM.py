@@ -28,7 +28,7 @@ df_combined = df_2020.join(df_2050)
 
 categories = df_2020.index.tolist()
 default_categories = categories[:-1]
-selected_categories = st.multiselect('Select a land use pattern below:', categories, default=default_categories)
+selected_categories = st.multiselect('One instance of an ABM gives us the below land use patterns:', categories, default=default_categories)
 filtered_df = df_combined.loc[selected_categories]
 
 fig = go.Figure(data=[
@@ -42,9 +42,14 @@ fig.update_layout(
     yaxis=dict(type='log', title='Amount in acres (log scale)'),
     bargap=0.15
 )
-fig.update_yaxes(showgrid=True, gridwidth=1, gridcolor='LightPink')
+fig.update_yaxes(showgrid=True, gridwidth=1)
 st.plotly_chart(fig)
 
+''' Note: '''
+'''Fruit (orchard/vineyard) includes all perennial fruits - Apple, Cherry, Grape, Pear		'''
+'''Fruit (berry/melon) includes Melon, Blueberry, Raspberry, Strawberry		'''
+'''Vegetable (field) include sweet corn, pumpkin, snap beans, dried beans, and pea''' 
+'''All other vegetables are listed as Vegetable (specialty)		'''
 
 # County level data display
 st.write('Individual county land use patterns are also modeled')
@@ -76,7 +81,7 @@ st.write('Even a substantial increase in production of table crops does not sign
 st.write('The pie chart below illustrates the contribution of row crops vs table crops in 2050.')
 st.write('')
 # Write the overall description below the charts
-st.write('Contribution of row crops vs table crops in 2050')
+st.write(' **Contribution of row crops vs table crops in 2050** ')
 
 fig_pie = go.Figure(data=[go.Pie(labels=df_combined.index, values=df_combined['Value 2050'], hole=0.3)])
 fig_pie.update_layout(title='2050', title_x=0.5)  # Center the title

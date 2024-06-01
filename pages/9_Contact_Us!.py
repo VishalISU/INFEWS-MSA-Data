@@ -22,5 +22,5 @@ st.markdown(
 
 )
 
-# Include QR code 
+# Include QR code  
 st.image('Streamlit_QR_Code.png')
