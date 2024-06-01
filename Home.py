@@ -19,7 +19,7 @@ We're particularly interested in understanding how different factors like polici
 re 
 To do this, we use a method called data-driven **co-simulation**... but first let's get to know our models!'''
 
-st.image('MSA_Models.png')
+st.image('MSA_Models.jpg')
 
 
 
