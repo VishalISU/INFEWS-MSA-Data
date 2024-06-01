@@ -10,9 +10,10 @@ st.image('IowaUrbanFEWSlogo.png')
 st.title(':city_sunrise: Metropolitan Statistical Area CoSimulation :deciduous_tree:') 
 
 ''' **Welcome to the Metropolitan Statistical Area CoSimulation dashboard!** ''' 
-'''     **👈 Before you navigate to a page from the sidebar** let us introduce our study to you...'''
+'''     **👈 Before you navigate to a page from the sidebar** let us introduce ourselves...'''
 ''' ''' 
-''' ''' 
+''' '''
+'''We are the Iowa Urban FEWS team''' 
 '''Our study site is the Des Moines-West Des Moines Metropolitan Statistical Area (MSA), Iowa. 
 We've created a framework that allows us to look at how the climate, land use, buildings, energy consumption, and environmental impacts all interact. 
 We're particularly interested in understanding how different factors like policies, farming methods, technology, social interactions, and market trends affect food production.
