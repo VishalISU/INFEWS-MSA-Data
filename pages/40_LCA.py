@@ -223,9 +223,9 @@ st.subheader('Energy use in 2020 and 2050 for Food Scenarios')
 
 # Plot a line graph of the energy use for all years for all years for the two scenarios
 fig_lca_eu = go.Figure()
-fig_lca_eu.add_trace(go.Scatter(x=chart_data_base['Model_Year_'], y=chart_data_base['Energy_Use_MJ'], name='Current', marker_color='blue',
+fig_lca_eu.add_trace(go.Scatter(x=chart_data_base['Model_Year_'], y=chart_data_base['Energy_Use_MJ'], name='Current', 
                     line=dict(color='deepskyblue', width=4, dash='solid')))
-fig_lca_eu.add_trace(go.Scatter(x=chart_data_local['Model_Year_'], y=chart_data_local['Energy_Use_MJ'], name='Future', marker_color='red',
+fig_lca_eu.add_trace(go.Scatter(x=chart_data_local['Model_Year_'], y=chart_data_local['Energy_Use_MJ'], name='Future', 
                     line=dict(color='deepskyblue', width=4, dash='dash')))
 fig_lca_eu.update_layout(
                    xaxis_title='Year',
@@ -252,9 +252,9 @@ st.subheader('Global Warming Potential in 2020 and 2050 for Food Scenarios')
 
 # Plot a line graph of the global warming potential for all years for two scenarios
 fig_lca_gw = go.Figure()
-fig_lca_gw.add_trace(go.Scatter(x=chart_data_base['Model_Year_'], y=chart_data_base['Global_Warming_Potential_kg_co2_eq'], name='Current', marker_color='blue',
+fig_lca_gw.add_trace(go.Scatter(x=chart_data_base['Model_Year_'], y=chart_data_base['Global_Warming_Potential_kg_co2_eq'], name='Current', 
                                 line=dict(color='orangered', width=4, dash='solid')))
-fig_lca_gw.add_trace(go.Scatter(x=chart_data_local['Model_Year_'], y=chart_data_local['Global_Warming_Potential_kg_co2_eq'], name='Future', marker_color='red', 
+fig_lca_gw.add_trace(go.Scatter(x=chart_data_local['Model_Year_'], y=chart_data_local['Global_Warming_Potential_kg_co2_eq'], name='Future',  
                                 line=dict(color='orangered', width=4, dash='dash')))
 fig_lca_gw.update_layout(
                    xaxis_title='Year',

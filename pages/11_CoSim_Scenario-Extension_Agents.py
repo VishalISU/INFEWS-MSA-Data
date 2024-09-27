@@ -163,12 +163,12 @@ base_data_popLU=base_data_popLU.rename(columns={'Total LU (ha)':'Land Use (ha)'}
 
 # Drop columns and rows not needed for plotting 
 baseplot= chart_data_base.drop(chart_data_base.columns[[0,2,3,5]],axis=1)
-baseplot= baseplot.query("`Model_Year_`==2020 | `Model_Year_`==2050")
+#baseplot= baseplot.query("`Model_Year_`==2020 | `Model_Year_`==2050")
 # Drop 2050 for base condition for the following reason: 
 
 # Drop columns and rows not needed for plotting 
 localplot= chart_data.drop(chart_data.columns[[0,2,3,5]],axis=1)
-localplot= localplot.query("`Model_Year_`==2020 | `Model_Year_`==2050")
+#localplot= localplot.query("`Model_Year_`==2020 | `Model_Year_`==2050")
 #localplot 
 # Load the Raw data from LCA 
 
@@ -177,37 +177,55 @@ chart_data_raw = pd.read_csv(r'lca_dataset.csv')
 
 
 st.subheader('Energy use in 2020 and 2050 for Food Scenarios')
-fig_lca_eu = go.Figure(data=[
+
+fig_lca_eu = go.Figure() 
+fig_lca_eu.add_trace(go.Scatter(x=baseplot['Model_Year_'], y=baseplot['Energy_Use_MJ'], name='Base Scenario',
+                                line=dict(color='deepskyblue', width=4, dash='solid')))
+fig_lca_eu.add_trace(go.Scatter(x=localplot['Model_Year_'], y=localplot['Energy_Use_MJ'], name='Extension Agent Scenario', 
+                                line=dict(color='deepskyblue', width=4, dash='dash')))
+
+
+# fig_lca_eu = go.Figure(data=[
     
-    go.Bar(name='Current', x=baseplot['Model_Year_'], y=baseplot['Energy_Use_MJ'], marker_color='blue'),
-    #go.Bar(name='Baseline, isolation', x=rbaseplot['year'], y=rbaseplot['energy']),#,marker_color='green'),
-    go.Bar(name='Future', x=localplot['Model_Year_'], y=localplot['Energy_Use_MJ'],marker_color='red')
-    #go.Bar(name='Local, isolation', x=rlocalplot['year'], y=rlocalplot['energy']),#,marker_color='DarkSlateGrey')
-    ],
-    layout={
-        'xaxis': {'title': 'Year'},
-        'yaxis': {'title': 'Energy Use (MJ)'}
-    }
-)
-# Change the bar mode
-fig_lca_eu.update_layout(barmode='group')
+#     go.Bar(name='Current', x=baseplot['Model_Year_'], y=baseplot['Energy_Use_MJ'], marker_color='blue'),
+#     #go.Bar(name='Baseline, isolation', x=rbaseplot['year'], y=rbaseplot['energy']),#,marker_color='green'),
+#     go.Bar(name='Future', x=localplot['Model_Year_'], y=localplot['Energy_Use_MJ'],marker_color='red')
+#     #go.Bar(name='Local, isolation', x=rlocalplot['year'], y=rlocalplot['energy']),#,marker_color='DarkSlateGrey')
+#     ],
+#     layout={
+#         'xaxis': {'title': 'Year'},
+#         'yaxis': {'title': 'Energy Use (MJ)'}
+#     }
+# )
+# #Change the bar mode
+# fig_lca_eu.update_layout(barmode='group')
+
 st.plotly_chart(fig_lca_eu)
 
 st.subheader('Global Warming Potential in 2020 and 2050 for Food Scenarios')
-fig_lca_gw = go.Figure(data=[
+
+
+# fig_lca_gw = go.Figure(data=[
     
-    go.Bar(name='Current', x=baseplot['Model_Year_'], y=baseplot['Global_Warming_Potential_kg_co2_eq'], marker_color='blue'),# ,marker_color='crimson'),
-    #go.Bar(name='Baseline, isolation', x=rbaseplot['year'], y=rbaseplot['gwp']),#,marker_color='green'),
-    go.Bar(name='Future', x=localplot['Model_Year_'], y=localplot['Global_Warming_Potential_kg_co2_eq'],marker_color='red'),#,marker_color='blue'),
-    #go.Bar(name='Local, isolation', x=rlocalplot['year'], y=rlocalplot['gwp']),#,marker_color='DarkSlateGrey')  
-    ],
-    layout={
-        'xaxis': {'title': 'Year'},
-        'yaxis': {'title': 'Global Warming Potential (kg co2 eq)'}
-    }
-)
-# Change the bar mode
-fig_lca_gw.update_layout(barmode='group')
+#     go.Bar(name='Current', x=baseplot['Model_Year_'], y=baseplot['Global_Warming_Potential_kg_co2_eq'], marker_color='blue'),# ,marker_color='crimson'),
+#     #go.Bar(name='Baseline, isolation', x=rbaseplot['year'], y=rbaseplot['gwp']),#,marker_color='green'),
+#     go.Bar(name='Future', x=localplot['Model_Year_'], y=localplot['Global_Warming_Potential_kg_co2_eq'],marker_color='red'),#,marker_color='blue'),
+#     #go.Bar(name='Local, isolation', x=rlocalplot['year'], y=rlocalplot['gwp']),#,marker_color='DarkSlateGrey')  
+#     ],
+#     layout={
+#         'xaxis': {'title': 'Year'},
+#         'yaxis': {'title': 'Global Warming Potential (kg co2 eq)'}
+#     }
+# )
+# # Change the bar mode
+# fig_lca_gw.update_layout(barmode='group')
+
+fig_lca_gw = go.Figure()
+fig_lca_gw.add_trace(go.Scatter(x=baseplot['Model_Year_'], y=baseplot['Global_Warming_Potential_kg_co2_eq'], name='Base Scenario',
+                                line=dict(color='orangered', width=4, dash='solid')))
+fig_lca_gw.add_trace(go.Scatter(x=localplot['Model_Year_'], y=localplot['Global_Warming_Potential_kg_co2_eq'], name='Extension Agent Scenario',
+                                line=dict(color='orangered', width=4, dash='dash')))
+
 st.plotly_chart(fig_lca_gw)
 
 
