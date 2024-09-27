@@ -21,7 +21,7 @@ st.write(rf'We have met with a set of production specialists to quantify the cur
 #%%
 chart_data_base = pd.read_pickle(r'lca_base.pickle')
 
-chart_data = pd.read_pickle(r'lca_local.pickle')
+chart_data_local = pd.read_pickle(r'lca_local.pickle')
  
 #%%
 #st.subheader('Base Model Population, Land Use over Year')
@@ -34,7 +34,7 @@ baseplot= baseplot.query("`Model_Year_`==2020 | `Model_Year_`==2050")
 # Drop 2050 for base condition for the following reason: 
 
 # Drop columns and rows not needed for plotting 
-localplot= chart_data.drop(chart_data.columns[[0,2,3,5]],axis=1)
+localplot= chart_data_local.drop(chart_data_local.columns[[0,2,3,5]],axis=1)
 localplot= localplot.query("`Model_Year_`==2020 | `Model_Year_`==2050")
 #localplot 
 # Load the Raw data from LCA 
@@ -49,7 +49,7 @@ rlocalplot=chart_data_raw.query("cosim=='LCA' & fsscenario=='LOCAL'")
 
 #%%
 
-st.header('Land Use Patterns')
+st.header('Land Use Patterns - Current Baseline')
 
 
 col1, col2 = st.columns(2)
@@ -135,6 +135,7 @@ fig_lca_lu.update_layout(xaxis_title='Food Group',
 
 st.plotly_chart(fig_lca_lu)
 
+#%%
 st.header('Current vs Future scenario:')
 
 cola, colb = st.columns(2)
@@ -149,52 +150,131 @@ with colb:
     '''Models 50% of dietary requirements in 2040 with all local production based on current consumption patterns'''
 
 
+#%%
 
+# Plot a line graph for all years for the two scenarios to show land use for protein dariy fruits vegetables grains oil and sugar
+fig_lca_lu_pog = go.Figure()
+fig_lca_lu_pog.add_trace(go.Scatter(x=chart_data_base['Model_Year_'], y=chart_data_base['Protein_cropland']+chart_data_base['Protein_pasture_forage'], name='Protein: future', 
+                        line = dict(color='darkred', width=4, dash='dash')))      
+fig_lca_lu_pog.add_trace(go.Scatter(x=chart_data_base['Model_Year_'], y=chart_data_base['Oil'], name='Oil: future', 
+                        line = dict(color='darkgoldenrod', width=4, dash='dash')))
+fig_lca_lu_pog.add_trace(go.Scatter(x=chart_data_base['Model_Year_'], y=chart_data_base['Grains'], name='Grains: future', 
+                        line = dict(color='darkkhaki', width=4, dash='dash')))
+fig_lca_lu_pog.add_trace(go.Scatter(x=chart_data_local['Model_Year_'], y=chart_data_local['Protein_cropland']+chart_data_local['Protein_pasture_forage'], name='Protein: current', marker_color='blue',
+                        line=dict(color='darkred', width=4, dash='solid')))
+fig_lca_lu_pog.add_trace(go.Scatter(x=chart_data_local['Model_Year_'], y=chart_data_local['Oil'], name='Oil: current', marker_color='gold',
+                        line=dict(color='darkgoldenrod', width=4, dash='solid')))
+fig_lca_lu_pog.add_trace(go.Scatter(x=chart_data_local['Model_Year_'], y=chart_data_local['Grains'], name='Grains: current', marker_color='green',
+                        line=dict(color='darkkhaki', width=4, dash='solid')))
+
+
+fig_lca_lu_pog.update_layout(
+                    title='Land Use Patterns for Protein, Oil and Grains',
+                   xaxis_title='Year',
+                   yaxis_title='Total agricultural land use (ha)')
+st.plotly_chart(fig_lca_lu_pog)
+
+
+
+# Plot a line graph for all years for the two scenarios to show land use for dairy, fruit, vegetables and sugar
+fig_lca_lu_rest = go.Figure()
+fig_lca_lu_rest.add_trace(go.Scatter(x=chart_data_base['Model_Year_'], y=chart_data_base['Dairy_cropland']+chart_data_base['Dairy_pasture_forage'], name='Dairy: future', 
+                        line = dict(color='dodgerblue', width=4, dash='dash')))
+fig_lca_lu_rest.add_trace(go.Scatter(x=chart_data_base['Model_Year_'], y=chart_data_base['Fruit_orchard_vineyard']+chart_data_base['Fruit_berry_melon'], name='Fruit: future', 
+                        line = dict(color='darkorange', width=4, dash='dash'))) 
+fig_lca_lu_rest.add_trace(go.Scatter(x=chart_data_base['Model_Year_'], y=chart_data_base['Vegetables_specialty']+chart_data_base['Vegetables_field'], name='Vegetables: future', 
+                        line = dict(color='forestgreen', width=4, dash='dash')))
+fig_lca_lu_rest.add_trace(go.Scatter(x=chart_data_base['Model_Year_'], y=chart_data_base['Sugar'], name='Sugar: future', 
+                        line = dict(color='grey', width=4, dash='dash')))
+fig_lca_lu_rest.add_trace(go.Scatter(x=chart_data_local['Model_Year_'], y=chart_data_local['Dairy_cropland']+chart_data_local['Dairy_pasture_forage'], name='Dairy: current', marker_color='blue',
+                        line=dict(color='dodgerblue', width=4, dash='solid')))
+fig_lca_lu_rest.add_trace(go.Scatter(x=chart_data_local['Model_Year_'], y=chart_data_local['Fruit_orchard_vineyard']+chart_data_local['Fruit_berry_melon'], name='Fruit: current', marker_color='orange',
+                        line=dict(color='darkorange', width=4, dash='solid')))
+fig_lca_lu_rest.add_trace(go.Scatter(x=chart_data_local['Model_Year_'], y=chart_data_local['Vegetables_specialty']+chart_data_local['Vegetables_field'], name='Vegetables: current', marker_color='green',
+                        line=dict(color='forestgreen', width=4, dash='solid')))
+fig_lca_lu_rest.add_trace(go.Scatter(x=chart_data_local['Model_Year_'], y=chart_data_local['Sugar'], name='Sugar: current', marker_color='purple',
+                        line=dict(color='grey', width=4, dash='solid')))
+
+fig_lca_lu_rest.update_layout(
+                    title='Land Use Patterns for Dairy, Fruit, Vegetables and Sugar',
+                   xaxis_title='Year',
+                   yaxis_title='Total agricultural land use (ha)')
+st.plotly_chart(fig_lca_lu_rest)    
+
+#%%
 
 st.subheader('Energy use in 2020 and 2050 for Food Scenarios')
-fig_lca_eu = go.Figure(data=[
+
+#fig_lca_eu = go.Figure(data=[
     
-    go.Bar(name='Current', x=baseplot['Model_Year_'], y=baseplot['Energy_Use_MJ'], marker_color='blue'),
-    #go.Bar(name='Baseline, isolation', x=rbaseplot['year'], y=rbaseplot['energy']),#,marker_color='green'),
-    go.Bar(name='Future', x=localplot['Model_Year_'], y=localplot['Energy_Use_MJ'],marker_color='red')
-    #go.Bar(name='Local, isolation', x=rlocalplot['year'], y=rlocalplot['energy']),#,marker_color='DarkSlateGrey')
-    ],
-    layout={
-        'xaxis': {'title': 'Year'},
-        'yaxis': {'title': 'Energy Use (MJ)'}
-    }
-)
+    #go.Bar(name='Current', x=baseplot['Model_Year_'], y=baseplot['Energy_Use_MJ'], marker_color='blue'),
+    ##go.Bar(name='Baseline, isolation', x=rbaseplot['year'], y=rbaseplot['energy']),#,marker_color='green'),
+    #go.Bar(name='Future', x=localplot['Model_Year_'], y=localplot['Energy_Use_MJ'],marker_color='red')
+    ##go.Bar(name='Local, isolation', x=rlocalplot['year'], y=rlocalplot['energy']),#,marker_color='DarkSlateGrey')
+    #],
+    #layout={
+    #    'xaxis': {'title': 'Year'},
+    #    'yaxis': {'title': 'Energy Use (MJ)'}
+    #}
+#)
 # Change the bar mode
-fig_lca_eu.update_layout(barmode='group')
+#fig_lca_eu.update_layout(barmode='group')
+#st.plotly_chart(fig_lca_eu)
+
+# Plot a line graph of the energy use for all years for all years for the two scenarios
+fig_lca_eu = go.Figure()
+fig_lca_eu.add_trace(go.Scatter(x=chart_data_base['Model_Year_'], y=chart_data_base['Energy_Use_MJ'], name='Current', marker_color='blue',
+                    line=dict(color='deepskyblue', width=4, dash='solid')))
+fig_lca_eu.add_trace(go.Scatter(x=chart_data_local['Model_Year_'], y=chart_data_local['Energy_Use_MJ'], name='Future', marker_color='red',
+                    line=dict(color='deepskyblue', width=4, dash='dash')))
+fig_lca_eu.update_layout(
+                   xaxis_title='Year',
+                   yaxis_title='Energy Use (MJ)')
 st.plotly_chart(fig_lca_eu)
 
+
 st.subheader('Global Warming Potential in 2020 and 2050 for Food Scenarios')
-fig_lca_gw = go.Figure(data=[
+# fig_lca_gw = go.Figure(data=[
     
-    go.Bar(name='Current', x=baseplot['Model_Year_'], y=baseplot['Global_Warming_Potential_kg_co2_eq'], marker_color='blue'),# ,marker_color='crimson'),
-    #go.Bar(name='Baseline, isolation', x=rbaseplot['year'], y=rbaseplot['gwp']),#,marker_color='green'),
-    go.Bar(name='Future', x=localplot['Model_Year_'], y=localplot['Global_Warming_Potential_kg_co2_eq'],marker_color='red'),#,marker_color='blue'),
-    #go.Bar(name='Local, isolation', x=rlocalplot['year'], y=rlocalplot['gwp']),#,marker_color='DarkSlateGrey')  
-    ],
-    layout={
-        'xaxis': {'title': 'Year'},
-        'yaxis': {'title': 'Global Warming Potential (kg co2 eq)'}
-    }
-)
-# Change the bar mode
-fig_lca_gw.update_layout(barmode='group')
+#     go.Bar(name='Current', x=baseplot['Model_Year_'], y=baseplot['Global_Warming_Potential_kg_co2_eq'], marker_color='blue'),# ,marker_color='crimson'),
+#     #go.Bar(name='Baseline, isolation', x=rbaseplot['year'], y=rbaseplot['gwp']),#,marker_color='green'),
+#     go.Bar(name='Future', x=localplot['Model_Year_'], y=localplot['Global_Warming_Potential_kg_co2_eq'],marker_color='red'),#,marker_color='blue'),
+#     #go.Bar(name='Local, isolation', x=rlocalplot['year'], y=rlocalplot['gwp']),#,marker_color='DarkSlateGrey')  
+#     ],
+#     layout={
+#         'xaxis': {'title': 'Year'},
+#         'yaxis': {'title': 'Global Warming Potential (kg co2 eq)'}
+#     }
+# )
+# # Change the bar mode
+# fig_lca_gw.update_layout(barmode='group')
+# st.plotly_chart(fig_lca_gw)
+
+# Plot a line graph of the global warming potential for all years for two scenarios
+fig_lca_gw = go.Figure()
+fig_lca_gw.add_trace(go.Scatter(x=chart_data_base['Model_Year_'], y=chart_data_base['Global_Warming_Potential_kg_co2_eq'], name='Current', marker_color='blue',
+                                line=dict(color='orangered', width=4, dash='solid')))
+fig_lca_gw.add_trace(go.Scatter(x=chart_data_local['Model_Year_'], y=chart_data_local['Global_Warming_Potential_kg_co2_eq'], name='Future', marker_color='red', 
+                                line=dict(color='orangered', width=4, dash='dash')))
+fig_lca_gw.update_layout(
+                   xaxis_title='Year',
+                   yaxis_title='Global Warming Potential (kg co2 eq)')
 st.plotly_chart(fig_lca_gw)
+
+
 
 
 if st.checkbox('Show base dataset'):
     chart_data_base
 
 if st.checkbox('Show local dataset'):
-    chart_data   
+    chart_data_local   
+
+
 
 
 # To show just th bar plot of the selected row
-#fig_lca_lu_2 = go.Figure(data=[go.Bar(x=newdf1.columns, y=newdf1.values.flatten())])
+#fig_lca_lu_pog = go.Figure(data=[go.Bar(x=newdf1.columns, y=newdf1.values.flatten())])
 
 # show the plot
-#st.plotly_chart(fig_lca_lu_2)
+#st.plotly_chart(fig_lca_lu_pog)
