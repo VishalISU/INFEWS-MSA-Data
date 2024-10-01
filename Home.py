@@ -7,29 +7,49 @@ import plotly.graph_objects as go
 # include an image
 st.image('IowaUrbanFEWSlogo.png')
 
-st.title(':city_sunrise: Metropolitan Statistical Area CoSimulation :deciduous_tree:') 
+st.title('Integrated Models for the Des Moines Metropolitan Area') 
 
-''' **Welcome to the Metropolitan Statistical Area CoSimulation dashboard!** ''' 
-'''     **👈 Before you navigate to a page from the sidebar** let us introduce ourselves...'''
+''' **Welcome to the integrated models dashboard!** ''' 
+'''     **👈 Please use the sidebar to explore  specific models/pages describing the project framework.**'''
 ''' ''' 
 ''' '''
-'''We are the Iowa Urban Food Energy Water Systems (FEWS) team.''' 
-'''Our study site is the Des Moines-West Des Moines Metropolitan Statistical Area (MSA), Iowa. 
-We've created a framework that allows us to look at how the climate, land use, buildings, energy consumption, and environmental impacts all interact. 
-We're particularly interested in understanding how different factors like policies, farming methods, technology, social interactions, and market trends affect food production.
+'''This dashboard was developed for the Iowa Urban Food- Energy- Water Systems (FEWS) integrated modeling project.  The project is designed to assess the potential for and impact of scaling up table food production near urban areas in the rainfed landscapes of the Midwest. Many cities in this region are heavily dependent on table food imported from great distances which can have negative environmental and social effects. ''' 
+'''The Des Moines Metropolitan Statistical Area (MSA)in central Iowa is the focus of this study. An integrated modeling framework allows investigation of how climate, crop production, land use, buildings, energy consumption, and environmental impacts are related to one another.  This approach allows us to examine current impacts and predict the likely future effects of expected or hypothetical changes in policies, farming methods, technology, social interactions, and market trends that affect table food production.'''
+''' '''
+''' The set of models used in this project include an agent-based model (ABM), a life-cycle assessment (LCA) model, a soil and water assessment model (SWAT), and a weather (climate) research and forecasting (WRF) model (please use the sidebar to access additional information on the individual models).'''
 
-To do this, we use a method called data-driven **co-simulation**... but first let's get to know our models!'''
+abm_container = st.container()
+col1, mid, col2 = st.columns([1, 1,20]) # change to [1,1,20] to experiment with a mid col between col1 and col2
+with abm_container:
+    with col1:
+        st.image('ABMlogo.png', width=70)
+    with col2:
+        '''Agent-based model (ABM): Based on characteristics and intentions of producers in the study area, the ABM includes simulated “agents” who can respond to changes in factors (such as markets, profitability, technical innovation and information) as they make decisions about land allocation for production of different crop types (e.g., row crops or table food crops).'''
+
+swat_container = st.container()
+col1, mid, col2 = st.columns([1, 1,20]) # change to [1,1,20] to experiment with a mid col between col1 and col2
+with swat_container:
+    with col1:
+        st.image('SWATlogo.png', width=70)
+    with col2:
+        '''Soil and Water Assessment Tool (SWAT):'''
+
+
+lca_container = st.container()
+col1, mid, col2 = st.columns([1, 1,20]) # change to [1,1,20] to experiment with a mid col between col1 and col2
+with lca_container:
+    with col1:
+        st.image('LCAlogo.png', width=70)
+    with col2:
+        '''Life-cycle assessment model (LCA): Using data for the local food system, LCA models include estimates of energy inputs, product outputs and environmental impacts associated with different potential patterns of land allocation for row crop or table food production.  Specific impacts measured include global warming potential (from greenhouse gas emissions associated with production), as well as energy, water and land used for production.'''
 
 # add MSA image 
-st.image('MSA_models.jpg')
-
-
-
+# st.image('MSA_models.jpg')
 
 st.markdown(
     '''    
     ### Want to learn more?
-    :bookmark_tabs: Check out [Iowa Urban FEWS website](https://iowa-urbanfews.cber.iastate.edu/)
+    :bookmark_tabs: Return to the [Iowa Urban FEWS website](https://iowa-urbanfews.cber.iastate.edu/)
 
     :speech_balloon: Have a suggestion? Please leave your comments in the [feedback survey](https://iastate.qualtrics.com/jfe/form/SV_5BVuGwhpC1s1RR4) 
     
@@ -39,4 +59,4 @@ st.markdown(
 )
 
 # Include QR code 
-st.image('Streamlit_QR_Code.png')
+# st.image('Streamlit_QR_Code.png')
