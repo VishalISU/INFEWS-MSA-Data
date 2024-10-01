@@ -4,6 +4,8 @@ import plotly.express as px
 import numpy as np
 import plotly.graph_objects as go
 
+st.set_page_config(page_title="Iowa UrbanFEWS", page_icon="INFEWS_icon_whitebg.png")
+
 # include an image
 st.image('IowaUrbanFEWSlogo.png')
 
