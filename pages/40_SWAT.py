@@ -9,7 +9,7 @@ import plotly.graph_objects as go
 #%%
 st.set_page_config(
     page_title="SWAT",
-    page_icon="💧",
+    page_icon="SWATlogo.png",
 )
 
 
@@ -23,19 +23,15 @@ st.image('swatimage.png', caption='Des Moines River Basin')
 
 
 '''
-The Soil and Water Assessment Tool (SWAT) is an eco-hydrological model that we are using to quantify crop growth, hydrological cycling, nutrient transport, erosion processes, sediment transport, and transport of pesticides/pathogens associated with cropping systems and other land management practices. 
+The Soil and Water Assessment Tool (SWAT) can be used to model movement of water and associated nutrients and sediments, and quantify crop growth based on land management practices. 
 ''''''
-We include inputs for climate, topography, soil, land cover, and crop management systems to generate outputs including streamflow rates, evapotranspiration, subsurface tile drainage flow, as well as nitrate, phosphorus, and sediment loads to characterize current conditions for watersheds linked to the Des Moines area. 
+The SWAT model requires inputs for climate, topography, soil, land cover, and crop management systems to generate outputs including streamflow rates, evapotranspiration, subsurface tile drainage flow, as well as nitrate, phosphorus, and sediment loads to characterize conditions for watersheds in specific areas. 
 ''''''
 To allow detection of upstream and within-metro effects on water quality, our SWAT models include the North and South Raccoon River, North and South Skunk, the Middle Des Moines River, and the Lake Red Rock watersheds. 
 ''''''
 Together, these watersheds are part of a large system that drains to and through the Des Moines area. Our SWAT experts are using data from the past 10 years or more to calibrate the initial models that will be used to create ‘what if?’ scenarios for the future. 
-'''
-
-
-st.header('Current vs Future scenario:')
-
-''' Here we compare the current and future scenarios for local food production within the Des Moines Metropolitan Statistical Area (MSA)'''
+''''''
+ Here we compare the current and future scenarios for local food production within the Des Moines Metropolitan Statistical Area (MSA)'''
 
 
 cola, colb = st.columns(2)

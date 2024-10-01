@@ -2,22 +2,16 @@ import streamlit as st
 import pandas as pd
 import plotly.graph_objects as go
 
-st.set_page_config(page_title="ABM", page_icon="👨‍🌾")
+st.set_page_config(page_title="ABM", page_icon="ABMlogo.png")
 
 st.image('ABMlogo.png', width=100)
-st.write('# :female-farmer: ABM - Agent Based Modelling :male-farmer:')
+st.write('# ABM - Agent Based Modelling')
 
 
 # Include a brief description of the model 
-st.write('Agent-based modeling (ABM) is a computational approach to simulation modeling, employing software agents to portray diverse real-life entities. In this context, these agents depict Iowa farmers and consumers, facilitating the simulation of their production and consumption choices over time. ')
-st.write('Resembling actual individuals, these agents possess the capacity for independent decision-making and action, acquiring new information, adjusting their behaviors, and refining decision processes based on their goals and interactions with other agents. Leveraging empirical behavioral data, we aim to capture the complexities of human psychology within these agents realistically.')
-st.write('Survey data is leveraged to construct "personas" mirroring Iowa farmers and consumers, serving as blueprints for agent development. When integrated into the co-simulation representing the Des Moines area, the ABM model facilitates experiments to assess the effects of various policies on agent decisions and behaviors.')
-# Newline 
-st.write('')
-st.write('')
-st.write('')
-st.write('At the end of the ABM modeling, we obtain land use patterns projected for the future')
-
+'''Agent-based models (ABM)  can be used to simulate behaviors of individuals and/or defined  groups of individuals. In the UrbanFEWS project, the agents simulate Iowa farmers and their decisions about crop production.'''
+'''The agents in the model can engage in independent decision-making and action, acquire new information, adjusttheir behavior, and revise or refine their decisions over time based on their goals and interactions with others.'''
+'''We used information from focus groups and surveys conducted in our study area to construct "personas" representing Iowa farmers ,  .  The ABM model allows experimentation to assess the effects of various policy changes or other factors on agent decisions and behaviors.The output of the ABM model indicates land area allocated for different crops (corn and soybean, or fruits and vegetables) which can then be used as input to other models.'''
 
 base_dir = "ABM_base/"
 
@@ -80,20 +74,22 @@ st.plotly_chart(fig2)
 st.write('Even a substantial increase in production of table crops does not significantly reduce the overall contribution of row crops to the land use patterns.')
 st.write('The pie chart below illustrates the contribution of row crops vs table crops in 2050.')
 st.write('')
-# Write the overall description below the charts
-st.write(' **Contribution of row crops vs table crops in 2050** ')
 
-fig_pie = go.Figure(data=[go.Pie(labels=df_combined.index, values=df_combined['Value 2050'], hole=0.3)])
-fig_pie.update_layout(title='2050', title_x=0.5)  # Center the title
-# Adjust the figure size here
-st.plotly_chart(fig_pie, use_container_width=True)  # This makes the plot responsive to the column width
-fig_pie.update_layout(legend=dict(
-        orientation="h",
-        yanchor="bottom",
-        y=-0.5,
-        xanchor="right",
-        x=1,
-        font=dict(size=10),itemwidth=30
-    ))
+
+# # Write the overall description below the charts
+# st.write(' **Contribution of row crops vs table crops in 2050** ')
+
+# fig_pie = go.Figure(data=[go.Pie(labels=df_combined.index, values=df_combined['Value 2050'], hole=0.3)])
+# fig_pie.update_layout(title='2050', title_x=0.5)  # Center the title
+# # Adjust the figure size here
+# st.plotly_chart(fig_pie, use_container_width=True)  # This makes the plot responsive to the column width
+# fig_pie.update_layout(legend=dict(
+#         orientation="h",
+#         yanchor="bottom",
+#         y=-0.5,
+#         xanchor="right",
+#         x=1,
+#         font=dict(size=10),itemwidth=30
+#     ))
     
 

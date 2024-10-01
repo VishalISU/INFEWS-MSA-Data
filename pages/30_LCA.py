@@ -7,7 +7,7 @@ import plotly.graph_objects as go
 #%%
 st.set_page_config(
     page_title="LCA",
-    page_icon="🌾",
+    page_icon="LCAlogo.png",
 )
 
 st.image('LCAlogo.png', width=100)
