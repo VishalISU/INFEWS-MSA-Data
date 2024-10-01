@@ -5,9 +5,10 @@ import numpy as np
 import plotly.graph_objects as go
 
 
+st.set_page_config(page_title="Contact Us!", page_icon="INFEWS_icon_whitebg.png")
 
 
-st.write('# :city_sunrise: Contact Us! :deciduous_tree:')  #st.title('Avocado Prices dashboard')
+st.write('# Contact Us!')  #st.title('Avocado Prices dashboard')
 
 
 st.markdown(

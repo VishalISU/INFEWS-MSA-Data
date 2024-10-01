@@ -3,10 +3,10 @@ import streamlit as st
 import pandas as pd
 import plotly.graph_objects as go
 #%%
-st.set_page_config(page_title="CoSim", page_icon=":computer:")
-st.title(':computer: :handshake: CoSimulation Scenario : Extension Agents :gear: :computer: ')
+st.set_page_config(page_title="CoSim-Extension Agents", page_icon="INFEWS_icon_whitebg.png")
+st.title('CoSimulation Scenario : Extension Agents')
 
-st.header(':female-farmer: ABM Extension Agent Intervention :male-farmer:')
+st.header('ABM Extension Agent Intervention')
 base_dir = "ABM_ext/"
 
 # Read data from CSV files
@@ -59,27 +59,27 @@ st.plotly_chart(fig2)
 # Also plot row crops vs the rest in a pie chart for 2020 and 2050 
 
 # Write the overall description below the charts
-''' **Contribution of row crops vs table crops in 2050** '''
+# ''' **Contribution of row crops vs table crops in 2050** '''
 
-fig_pie = go.Figure(data=[go.Pie(labels=df_combined.index, values=df_combined['Value 2050'], hole=0.3)])
-fig_pie.update_layout(title='2050', title_x=0.5)  # Center the title
-# Adjust the figure size here
-st.plotly_chart(fig_pie, use_container_width=True)  # This makes the plot responsive to the column width
+# fig_pie = go.Figure(data=[go.Pie(labels=df_combined.index, values=df_combined['Value 2050'], hole=0.3)])
+# fig_pie.update_layout(title='2050', title_x=0.5)  # Center the title
+# # Adjust the figure size here
+# st.plotly_chart(fig_pie, use_container_width=True)  # This makes the plot responsive to the column width
 
-fig_pie.update_layout(legend=dict(
-        orientation="h",
-        yanchor="bottom",
-        y=-0.5,
-        xanchor="right",
-        x=1,
-        font=dict(size=10),itemwidth=30
-    ))
+# fig_pie.update_layout(legend=dict(
+#         orientation="h",
+#         yanchor="bottom",
+#         y=-0.5,
+#         xanchor="right",
+#         x=1,
+#         font=dict(size=10),itemwidth=30
+#     ))
 ''' 
 Even after intervention by extension agents, the overall contribution of row crops to the land use patterns remains significant.
 '''
 ## _________________________________________________SWAT ________________________________________________________________________
 #%%
-st.header(':seedling: SWAT maps farmer activity to available HRUs :droplet: ') 
+st.header('SWAT maps farmer activity to available HRUs ') 
 
 import plotly.express as px
 # Updated Crop codes dictionary with "CANA" for Canola oil
@@ -148,7 +148,7 @@ st.plotly_chart(fig_swat_box)
 ## _________________________________________________LCA ________________________________________________________________________
 
 
-st.header(':ear_of_rice: Life Cycle Analysis of Food Systems ')  
+st.header(' Life Cycle Analysis of Food Systems ')  
 
 st.subheader('Base vs Extension Agent scenario:')
 

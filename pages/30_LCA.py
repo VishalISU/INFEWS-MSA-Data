@@ -11,7 +11,7 @@ st.set_page_config(
 )
 
 st.image('LCAlogo.png', width=100)
-st.write('#  :ear_of_rice: LCA - Life Cycle Assessment of Food Systems :tomato:')  
+st.write('# LCA - Life Cycle Assessment of Food Systems ')  
 
 st.write(rf'Food systems in the US are complex and often have embedded largescale elements (national and global). In Iowa, about 90% of table food is imported from outside of the state. Our team of researchers are using models to explore what would happen if up to half of the food eaten in the Des Moines area was produced locally.') 
 st.write(rf'Life Cycle Assessment (LCA) is a modeling tool that accounts for energy use and environmental impacts of the food system cycle. Our team is using an LCA model developed by scientists at the US Environmental Protection Agency to determine the amount of energy used at every food system stage and to adjust the model for some important (Iowa-specific) local differences.')

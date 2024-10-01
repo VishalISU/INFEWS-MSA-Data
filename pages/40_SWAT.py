@@ -15,7 +15,7 @@ st.set_page_config(
 
 st.image('SWATlogo.png', width=100)
 
-st.write('# :seedling: SWAT - Soil and Water Assessment Tool :droplet: ') 
+st.write('# SWAT - Soil and Water Assessment Tool') 
 
 st.image('swatimage.png', caption='Des Moines River Basin')
 
