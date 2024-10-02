@@ -34,26 +34,26 @@ fig.update_yaxes(showgrid=True, gridwidth=1, gridcolor='LightPink')
 st.plotly_chart(fig)
 
 
-# County level data display
-counties = ['Guthrie', 'Jasper', 'Polk', 'Madison', 'Dallas', 'Warren']
-selected_county = st.selectbox('Select a county:', counties)
+# # County level data display
+# counties = ['Guthrie', 'Jasper', 'Polk', 'Madison', 'Dallas', 'Warren']
+# selected_county = st.selectbox('Select a county:', counties)
 
-county_data_2020 = pd.read_csv(base_dir + f'{selected_county.lower()}_20.csv', header=None, index_col=0, names=['Value 2020'])
-county_data_2050 = pd.read_csv(base_dir + f'{selected_county.lower()}_50.csv', header=None, index_col=0, names=['Value 2050'])
-county_data_combined = county_data_2020.join(county_data_2050).loc[selected_categories]
+# county_data_2020 = pd.read_csv(base_dir + f'{selected_county.lower()}_20.csv', header=None, index_col=0, names=['Value 2020'])
+# county_data_2050 = pd.read_csv(base_dir + f'{selected_county.lower()}_50.csv', header=None, index_col=0, names=['Value 2050'])
+# county_data_combined = county_data_2020.join(county_data_2050).loc[selected_categories]
 
-fig2 = go.Figure(data=[
-    go.Bar(name='2020', x=county_data_combined.index, y=county_data_combined['Value 2020'], marker_color='blue'),
-    go.Bar(name='2050', x=county_data_combined.index, y=county_data_combined['Value 2050'], marker_color='red')
-])
-fig2.update_layout(
-    #barmode='group',
-    title=f'Comparison of {selected_county} County Land Use in 2020 vs 2050',
-    xaxis=dict(title='Categories', tickangle=-45),
-    yaxis=dict(type='log', title='Amount in acres (log scale)'),
-    bargap=0.15
-)
-st.plotly_chart(fig2)
+# fig2 = go.Figure(data=[
+#     go.Bar(name='2020', x=county_data_combined.index, y=county_data_combined['Value 2020'], marker_color='blue'),
+#     go.Bar(name='2050', x=county_data_combined.index, y=county_data_combined['Value 2050'], marker_color='red')
+# ])
+# fig2.update_layout(
+#     #barmode='group',
+#     title=f'Comparison of {selected_county} County Land Use in 2020 vs 2050',
+#     xaxis=dict(title='Categories', tickangle=-45),
+#     yaxis=dict(type='log', title='Amount in acres (log scale)'),
+#     bargap=0.15
+# )
+# st.plotly_chart(fig2)
 
 
 # Also plot row crops vs the rest in a pie chart for 2020 and 2050 

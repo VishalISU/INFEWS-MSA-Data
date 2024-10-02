@@ -28,6 +28,14 @@ with abm_container:
     with col2:
         '''Agent-based model (ABM): Based on characteristics and intentions of producers in the study area, the ABM includes simulated “agents” who can respond to changes in factors (such as markets, profitability, technical innovation and information) as they make decisions about land allocation for production of different crop types (e.g., row crops or table food crops).'''
 
+lca_container = st.container()
+col1, mid, col2 = st.columns([1, 1,20]) # change to [1,1,20] to experiment with a mid col between col1 and col2
+with lca_container:
+    with col1:
+        st.image('LCAlogo.png', width=70)
+    with col2:
+        '''Life-cycle assessment model (LCA): Using data for the local food system, LCA models include estimates of energy inputs, product outputs and environmental impacts associated with different potential patterns of land allocation for row crop or table food production.  Specific impacts measured include global warming potential (from greenhouse gas emissions associated with production), as well as energy, water and land used for production.'''
+
 swat_container = st.container()
 col1, mid, col2 = st.columns([1, 1,20]) # change to [1,1,20] to experiment with a mid col between col1 and col2
 with swat_container:
@@ -37,13 +45,7 @@ with swat_container:
         '''Soil and Water Assessment Tool (SWAT):'''
 
 
-lca_container = st.container()
-col1, mid, col2 = st.columns([1, 1,20]) # change to [1,1,20] to experiment with a mid col between col1 and col2
-with lca_container:
-    with col1:
-        st.image('LCAlogo.png', width=70)
-    with col2:
-        '''Life-cycle assessment model (LCA): Using data for the local food system, LCA models include estimates of energy inputs, product outputs and environmental impacts associated with different potential patterns of land allocation for row crop or table food production.  Specific impacts measured include global warming potential (from greenhouse gas emissions associated with production), as well as energy, water and land used for production.'''
+
 
 # add MSA image 
 # st.image('MSA_models.jpg')
@@ -51,7 +53,7 @@ with lca_container:
 st.markdown(
     '''    
     ### Want to learn more?
-    :bookmark_tabs: Return to the [Iowa Urban FEWS website](https://iowa-urbanfews.cber.iastate.edu/)
+    :bookmark_tabs: Return to the [Iowa UrbanFEWS website](https://iowa-urbanfews.cber.iastate.edu/)
 
     :speech_balloon: Have a suggestion? Please leave your comments in the [feedback survey](https://iastate.qualtrics.com/jfe/form/SV_5BVuGwhpC1s1RR4) 
     

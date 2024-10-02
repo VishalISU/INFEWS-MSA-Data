@@ -5,7 +5,7 @@ import plotly.graph_objects as go
 st.set_page_config(page_title="ABM", page_icon="ABMlogo.png")
 
 st.image('ABMlogo.png', width=100)
-st.write('# ABM - Agent Based Modelling')
+st.write('# ABM - Agent Based Model')
 
 
 # Include a brief description of the model 
