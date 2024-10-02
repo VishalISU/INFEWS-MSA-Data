@@ -147,7 +147,7 @@ with cola:
 with colb:
     st.subheader('Future Scenario')
     '''Increased local food production within Des Moines Metropolitan Statistical Area (MSA)'''
-    '''Models 50% of dietary requirements in 2040 with all local production based on current consumption patterns'''
+    '''Models 50% of dietary requirements in 2050 with all local production based on current consumption patterns'''
 
 
 #%%

@@ -20,8 +20,8 @@ selected_categories = st.multiselect('Select categories to display:', categories
 filtered_df = df_combined.loc[selected_categories]
 
 fig = go.Figure(data=[
-    go.Bar(name='2020', x=filtered_df.index, y=filtered_df['Value 2020'], marker_color='blue'),
-    go.Bar(name='2050', x=filtered_df.index, y=filtered_df['Value 2050'], marker_color='red')
+    go.Bar(name='2020', x=filtered_df.index, y=filtered_df['Value 2020'], marker_color='olive'),
+    go.Bar(name='2050', x=filtered_df.index, y=filtered_df['Value 2050'], marker_color='turquoise')
 ])
 fig.update_layout(
     barmode='group',

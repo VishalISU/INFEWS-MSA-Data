@@ -17,7 +17,6 @@ st.image('SWATlogo.png', width=100)
 
 st.write('# SWAT - Soil and Water Assessment Tool') 
 
-st.image('swatimage.png', caption='Des Moines River Basin')
 
 
 
@@ -32,6 +31,10 @@ To allow detection of upstream and within-metro effects on water quality, our SW
 Together, these watersheds are part of a large system that drains to and through the Des Moines area. Our SWAT experts are using data from the past 10 years or more to calibrate the initial models that will be used to create ‘what if?’ scenarios for the future. 
 ''''''
  Here we compare the current and future scenarios for local food production within the Des Moines Metropolitan Statistical Area (MSA)'''
+
+
+st.image('swatimage.png', caption='Des Moines River Basin')
+
 
 
 cola, colb = st.columns(2)
@@ -95,6 +98,10 @@ data_2039_2048['Dataset'] = 'Future Scenario'
 
 # Combine data
 combined_data = pd.concat([data_1995_2004, data_2039_2048])
+
+
+### 
+
 
 #%%
 # Plot boxplot
