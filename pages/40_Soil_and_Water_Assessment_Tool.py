@@ -57,9 +57,9 @@ with colb:
 # base file 
 base_dir='SWAT_base/'
 
-'''
-BOX PLOT OF FLOW_OUTcms, SED_OUTtons, and NO3_OUTkg
-'''
+# '''
+# BOX PLOT OF FLOW_OUTcms, SED_OUTtons, and NO3_OUTkg
+# '''
 # Plot box plots of FLOW_OUTcms , SED_OUTtons and No3_OUTkg, comparing the Historical and Future scenarios from TxtInOutHist_rch_output and TxtInOutFut_rch_output
 #%%
 # base file 
@@ -94,7 +94,7 @@ rch_data_Future['Dataset'] = 'Future Scenario'
 combined_data_rch = pd.concat([rch_data_Current, rch_data_Future])
 
 # Plot boxplot for FLOW_OUTcms 
-fig_swat_box_rch = px.box(combined_data_rch, x='Dataset', y='FLOW_OUTcms', title='Boxplot for Streamflow (cubic meters)')
+fig_swat_box_rch = px.box(combined_data_rch, x='Dataset', y='FLOW_OUTcms', color='Dataset', title='Boxplot for Streamflow (cubic meters)')
 # Update x-axis label
 fig_swat_box_rch.update_xaxes(title_text="Scenario")
 # Update y-axis label
@@ -105,7 +105,7 @@ fig_swat_box_rch.update_layout(showlegend=False)
 st.plotly_chart(fig_swat_box_rch)
 
 # Plot boxplot for SED_OUTtons
-fig_swat_box_rch = px.box(combined_data_rch, x='Dataset', y='SED_OUTtons', title='Boxplot for Sediment Load (metric tons)')
+fig_swat_box_rch = px.box(combined_data_rch, x='Dataset', y='SED_OUTtons', title='Boxplot for Sediment Load (metric tons)',color='Dataset')
 # Update x-axis label
 fig_swat_box_rch.update_xaxes(title_text="Scenario")
 # Update y-axis label
@@ -116,7 +116,7 @@ fig_swat_box_rch.update_layout(showlegend=False)
 st.plotly_chart(fig_swat_box_rch)
 
 # Plot boxplot for No3_OUTkg
-fig_swat_box_rch = px.box(combined_data_rch, x='Dataset', y='NO3_OUTkg', title='Boxplot for Nitrate (kilograms)')
+fig_swat_box_rch = px.box(combined_data_rch, x='Dataset', y='NO3_OUTkg', title='Boxplot for Nitrate (kilograms)', color='Dataset')
 # Update x-axis label
 fig_swat_box_rch.update_xaxes(title_text="Scenario")
 # Update y-axis label
@@ -134,9 +134,9 @@ if st.checkbox('Show Future Data'):
 
 
 
-'''
-BOX PLOT OF CROP YIELDS
-'''
+# '''
+# BOX PLOT OF CROP YIELDS
+# '''
 
 #%%
 # Crop codes dictionary
@@ -195,7 +195,7 @@ combined_data = pd.concat([data_1995_2004, data_2039_2048])
 
 #%%
 # Plot boxplot
-fig_swat_box = px.box(combined_data, x='Dataset', y=selected_crop_code, title=f'Boxplot for {crop_codes[selected_crop_code]}')
+fig_swat_box = px.box(combined_data, x='Dataset', y=selected_crop_code, title=f'Boxplot for {crop_codes[selected_crop_code]}', color='Dataset')
 # Update x-axis label
 fig_swat_box.update_xaxes(title_text="Scenario")
 
