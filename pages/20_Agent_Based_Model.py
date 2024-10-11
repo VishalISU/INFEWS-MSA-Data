@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import plotly.graph_objects as go
 import plotly.colors as n_colors
+import pickle
 
 st.set_page_config(page_title="ABM", page_icon="ABMlogo.png")
 
@@ -13,227 +14,44 @@ st.write('# ABM - Agent Based Model')
 '''Agent-based models (ABM)  can be used to simulate behaviors of individuals and/or defined  groups of individuals. In the UrbanFEWS project, the agents simulate Iowa farmers and their decisions about crop production.'''
 '''The agents in the model can engage in independent decision-making and action, acquire new information, adjusttheir behavior, and revise or refine their decisions over time based on their goals and interactions with others.'''
 '''We used information from focus groups and surveys conducted in our study area to construct "personas" representing Iowa farmers ,  .  The ABM model allows experimentation to assess the effects of various policy changes or other factors on agent decisions and behaviors.The output of the ABM model indicates land area allocated for different crops (corn and soybean, or fruits and vegetables) which can then be used as input to other models.'''
+#___________________________________________________________________________________________
+# # OLD visualization code with bar graphs for ABM - No longer preferred 
+# base_dir = "ABM_base/"
 
-base_dir = "ABM_base/"
+# # Read data from CSV files
+# df_2020 = pd.read_csv(base_dir + 'total_msa_sum_20.csv', header=None, index_col=0, names=['Value 2020'])
+# df_2050 = pd.read_csv(base_dir + 'total_msa_sum_50.csv', header=None, index_col=0, names=['Value 2050'])
+# df_combined = df_2020.join(df_2050)
 
-# Read data from CSV files
-df_2020 = pd.read_csv(base_dir + 'total_msa_sum_20.csv', header=None, index_col=0, names=['Value 2020'])
-df_2050 = pd.read_csv(base_dir + 'total_msa_sum_50.csv', header=None, index_col=0, names=['Value 2050'])
-df_combined = df_2020.join(df_2050)
+# categories = df_2020.index.tolist()
+# default_categories = categories[:-1]
+# selected_categories = st.multiselect('One instance of an ABM gives us the below land use patterns:', categories, default=default_categories)
+# filtered_df = df_combined.loc[selected_categories]
 
-categories = df_2020.index.tolist()
-default_categories = categories[:-1]
-selected_categories = st.multiselect('One instance of an ABM gives us the below land use patterns:', categories, default=default_categories)
-filtered_df = df_combined.loc[selected_categories]
+# fig = go.Figure(data=[
+#     go.Bar(name='2020', x=filtered_df.index, y=filtered_df['Value 2020'], marker_color='olive'),
+#     go.Bar(name='2050', x=filtered_df.index, y=filtered_df['Value 2050'], marker_color='turquoise')
+# ])
+# fig.update_layout(
+#     barmode='group',
+#     title='Comparison of Agent Based Land Use in 2020 vs 2050',
+#     xaxis=dict(title='Categories', tickangle=-45),
+#     yaxis=dict(type='log', title='Amount in acres (log scale)'),
+#     bargap=0.15
+# )
+# fig.update_yaxes(showgrid=True, gridwidth=1)
+# st.plotly_chart(fig)
 
-fig = go.Figure(data=[
-    go.Bar(name='2020', x=filtered_df.index, y=filtered_df['Value 2020'], marker_color='olive'),
-    go.Bar(name='2050', x=filtered_df.index, y=filtered_df['Value 2050'], marker_color='turquoise')
-])
-fig.update_layout(
-    barmode='group',
-    title='Comparison of Agent Based Land Use in 2020 vs 2050',
-    xaxis=dict(title='Categories', tickangle=-45),
-    yaxis=dict(type='log', title='Amount in acres (log scale)'),
-    bargap=0.15
-)
-fig.update_yaxes(showgrid=True, gridwidth=1)
-st.plotly_chart(fig)
-
-''' Note: '''
-'''Fruit (orchard/vineyard) includes all perennial fruits - Apple, Cherry, Grape, Pear		'''
-'''Fruit (berry/melon) includes Melon, Blueberry, Raspberry, Strawberry		'''
-'''Vegetable (field) include sweet corn, pumpkin, snap beans, dried beans, and pea''' 
-'''All other vegetables are listed as Vegetable (specialty)		'''
-
+# ''' Note: '''
+# '''Fruit (orchard/vineyard) includes all perennial fruits - Apple, Cherry, Grape, Pear		'''
+# '''Fruit (berry/melon) includes Melon, Blueberry, Raspberry, Strawberry		'''
+# '''Vegetable (field) include sweet corn, pumpkin, snap beans, dried beans, and pea''' 
+# '''All other vegetables are listed as Vegetable (specialty)		'''
+#___________________________________________________________________________________________
 ### HERE WE BEGIN THE EXP PLOTS
 
-file_path = "ABM_exp\output_table_Co_sim_base.csv"
-df1 = pd.read_csv(file_path, skiprows=6)
-df1 = df1.sort_values(by=['[run number]', '[step]'], ascending=[True, True]).reset_index(drop=True)
-df1['exp_id'] = 1
-
-file_path = "ABM_exp\output_table_Co_sim_experiment_extension_4_smt.csv"
-df6 = pd.read_csv(file_path, skiprows=6)
-df6 = df6.sort_values(by=['[run number]', '[step]'], ascending=[True, True]).reset_index(drop=True)
-df6['exp_id'] = 6
-
-file_path = "ABM_exp\output_table_Co_sim_experiment_specialty_pc_5_75.csv"
-df11 = pd.read_csv(file_path, skiprows=6)
-df11 = df11.sort_values(by=['[run number]', '[step]'], ascending=[True, True]).reset_index(drop=True)
-df11['exp_id'] = 11
-
-file_path = "ABM_exp\output_table_Co_sim_experiment_commodity_pc_5_65_50.csv"
-df27 = pd.read_csv(file_path, skiprows=6)
-df27 = df27.sort_values(by=['[run number]', '[step]'], ascending=[True, True]).reset_index(drop=True)
-df27['exp_id'] = 27
-
-file_path = "ABM_exp\output_table_Co_sim_50_percent.csv"
-df41 = pd.read_csv(file_path, skiprows=6)
-df41 = df41.sort_values(by=['[run number]', '[step]'], ascending=[True, True]).reset_index(drop=True)
-df41['exp_id'] = 41
-
-
-df_main = pd.concat([df1
-                    ,df6, df11, df27, df41
-                    #  df2, df3, df4, df5, df6, df7, df8, df9, df10,
-                    #  df11, df12, df13, df14, df15, df16, df17, df18, df19, df20,
-                    #  df21, df22, df23, df24, df25, df26, df27, df28, df29, df30,
-                    #  df31, df32, df33, df34, df35, df36, df37, df38, df39, df40, df41
-                    ], ignore_index=True)
-
-
-df_main = df_main.sort_values(by=['exp_id', '[run number]', '[step]'], ascending=[True, True, True]).reset_index(drop=True)
-
-df_main.loc[df_main['[step]'] == 0, 'specialty-acres-change'] = 0
-
-# numeric data columns to take average of outputs
-numeric_cols = ["specialty-acres",
-                "specialty-acres-change",
-                "specialty-supportive",
-                "specialty-maybe",
-                "specialty-traditional",
-                "bad-xp-agents",
-                "good-xp-agents",
-                "fruit1-g",
-                "fruit2-g",
-                "veg1-g",
-                "veg2-g",
-                "grain-g",
-                "livestock-g",
-                "protein-cropland-g",
-                "dairy-cropland-g",
-                "oil-g",
-                "sugar-g",
-                "pasture-g",
-                "protein-pasture-g",
-                "dairy-pasture-g",
-                "commodity-g",
-                "fruit1-d",
-                "fruit2-d",
-                "veg1-d",
-                "veg2-d",
-                "grain-d",
-                "livestock-d",
-                "protein-cropland-d",
-                "dairy-cropland-d",
-                "oil-d",
-                "sugar-d",
-                "pasture-d",
-                "protein-pasture-d",
-                "dairy-pasture-d",
-                "commodity-d",
-                "fruit1-p",
-                "fruit2-p",
-                "veg1-p",
-                "veg2-p",
-                "grain-p",
-                "livestock-p",
-                "protein-cropland-p",
-                "dairy-cropland-p",
-                "oil-p",
-                "sugar-p",
-                "pasture-p",
-                "protein-pasture-p",
-                "dairy-pasture-p",
-                "commodity-p",
-                "fruit1-j",
-                "fruit2-j",
-                "veg1-j",
-                "veg2-j",
-                "grain-j",
-                "livestock-j",
-                "protein-cropland-j",
-                "dairy-cropland-j",
-                "oil-j",
-                "sugar-j",
-                "pasture-j",
-                "protein-pasture-j",
-                "dairy-pasture-j",
-                "commodity-j",
-                "fruit1-m",
-                "fruit2-m",
-                "veg1-m",
-                "veg2-m",
-                "grain-m",
-                "livestock-m",
-                "protein-cropland-m",
-                "dairy-cropland-m",
-                "oil-m",
-                "sugar-m",
-                "pasture-m",
-                "protein-pasture-m",
-                "dairy-pasture-m",
-                "commodity-m",
-                "fruit1-w",
-                "fruit2-w",
-                "veg1-w",
-                "veg2-w",
-                "grain-w",
-                "livestock-w",
-                "protein-cropland-w",
-                "dairy-cropland-w",
-                "oil-w",
-                "sugar-w",
-                "pasture-w",
-                "protein-pasture-w",
-                "dairy-pasture-w",
-                "commodity-w"
-                ]
-
-# avg of outputs for same experiment number
-df_avg = df_main.groupby(['exp_id', '[step]'])[numeric_cols].mean().reset_index()
-df_std = df_main.groupby(['exp_id', '[step]'])[numeric_cols].std().reset_index()
-
-#
-df_avg.loc[df_avg['exp_id'] == 1, 'exp_name'] = 'Default Conditions'
-df_avg.loc[df_avg['exp_id'] == 2, 'exp_name'] = 'Experiment: Good communication between commodity and specialty agents'
-# df_avg.loc[df_avg['exp_id'] == 3, 'exp_name'] = 'Experiment: Extension agent, yearly intervention = 1, target strategy = all commodity persona'
-# df_avg.loc[df_avg['exp_id'] == 4, 'exp_name'] = 'Experiment: Extension agent, yearly intervention = 4, target strategy = all commodity persona'
-# df_avg.loc[df_avg['exp_id'] == 5, 'exp_name'] = 'Experiment: Extension agent, yearly intervention = 1, target strategy = supportive and maybe commodity persona'
-df_avg.loc[df_avg['exp_id'] == 6, 'exp_name'] = 'Experiment: Extension agent, yearly intervention = 4, target strategy = supportive and maybe commodity persona'
-# df_avg.loc[df_avg['exp_id'] == 7, 'exp_name'] = 'Experiment: Change is specialty crops policies, change timestep = 2025 (early change), max utility value of specialty crops policies = 0.55 (very less change)'
-# df_avg.loc[df_avg['exp_id'] == 8, 'exp_name'] = 'Experiment: Change is specialty crops policies, change timestep = 2025 (early change), max utility value of specialty crops policies = 0.60 (less change)'
-# df_avg.loc[df_avg['exp_id'] == 9, 'exp_name'] = 'Experiment: Change is specialty crops policies, change timestep = 2025 (early change), max utility value of specialty crops policies = 0.65 (medium change)'
-# df_avg.loc[df_avg['exp_id'] == 10, 'exp_name'] = 'Experiment: Change is specialty crops policies, change timestep = 2025 (early change), max utility value of specialty crops policies = 0.70 (high change)'
-df_avg.loc[df_avg['exp_id'] == 11, 'exp_name'] = 'Experiment: Change is specialty crops policies, change timestep = 2025 (early change), max utility value of specialty crops policies = 0.75 (very high change)'
-# df_avg.loc[df_avg['exp_id'] == 12, 'exp_name'] = 'Experiment: Change is specialty crops policies, change timestep = 2040 (late change), max utility value of specialty crops policies = 0.55 (very less change)'
-# df_avg.loc[df_avg['exp_id'] == 13, 'exp_name'] = 'Experiment: Change is specialty crops policies, change timestep = 2040 (late change), max utility value of specialty crops policies = 0.60 (less change)'
-# df_avg.loc[df_avg['exp_id'] == 14, 'exp_name'] = 'Experiment: Change is specialty crops policies, change timestep = 2040 (late change), max utility value of specialty crops policies = 0.65 (medium change)'
-# df_avg.loc[df_avg['exp_id'] == 15, 'exp_name'] = 'Experiment: Change is specialty crops policies, change timestep = 2040 (late change), max utility value of specialty crops policies = 0.70 (high change)'
-# df_avg.loc[df_avg['exp_id'] == 16, 'exp_name'] = 'Experiment: Change is specialty crops policies, change timestep = 2040 (late change), max utility value of specialty crops policies = 0.75 (very high change)'
-# df_avg.loc[df_avg['exp_id'] == 17, 'exp_name'] = 'Experiment: Chance of entering wholesale market, minimum years of experience required = 8 OR minimum acerage required = 25'
-# df_avg.loc[df_avg['exp_id'] == 18, 'exp_name'] = 'Experiment: Chance of entering wholesale market, minimum years of experience required = 8 OR minimum acerage required = 30'
-# df_avg.loc[df_avg['exp_id'] == 19, 'exp_name'] = 'Experiment: Chance of entering wholesale market, minimum years of experience required = 8 OR minimum acerage required = 35'
-# df_avg.loc[df_avg['exp_id'] == 20, 'exp_name'] = 'Experiment: Chance of entering wholesale market, minimum years of experience required = 8 OR minimum acerage required = 40'
-# df_avg.loc[df_avg['exp_id'] == 21, 'exp_name'] = 'Experiment: Chance of entering wholesale market, minimum years of experience required = 12 OR minimum acerage required = 25'
-# df_avg.loc[df_avg['exp_id'] == 22, 'exp_name'] = 'Experiment: Chance of entering wholesale market, minimum years of experience required = 12 OR minimum acerage required = 30'
-# df_avg.loc[df_avg['exp_id'] == 23, 'exp_name'] = 'Experiment: Chance of entering wholesale market, minimum years of experience required = 12 OR minimum acerage required = 35'
-# df_avg.loc[df_avg['exp_id'] == 24, 'exp_name'] = 'Experiment: Chance of entering wholesale market, minimum years of experience required = 12 OR minimum acerage required = 40'
-# df_avg.loc[df_avg['exp_id'] == 25, 'exp_name'] = 'Experiment: Change in commodity crops policies, change timestep = 2025 (early change), range of utility value for commodity crops policies = 0.65 to 0.60 (low change, low variability)'
-# df_avg.loc[df_avg['exp_id'] == 26, 'exp_name'] = 'Experiment: Change in commodity crops policies, change timestep = 2025 (early change), range of utility value for commodity crops policies = 0.75 to 0.60 (low change, medium variability)'
-df_avg.loc[df_avg['exp_id'] == 27, 'exp_name'] = 'Experiment: Change in commodity crops policies, change timestep = 2025 (early change), range of utility value for commodity crops policies = 0.65 to 0.50 (high change, medium variability)'
-# df_avg.loc[df_avg['exp_id'] == 28, 'exp_name'] = 'Experiment: Change in commodity crops policies, change timestep = 2025 (early change), range of utility value for commodity crops policies = 0.75 to 0.50 (high change, high variability)'
-# df_avg.loc[df_avg['exp_id'] == 29, 'exp_name'] = 'Experiment: Change in commodity crops policies, change timestep = 2040 (late change), range of utility value for commodity crops policies = 0.65 to 0.60 (low change, low variability)'
-# df_avg.loc[df_avg['exp_id'] == 30, 'exp_name'] = 'Experiment: Change in commodity crops policies, change timestep = 2040 (late change), range of utility value for commodity crops policies = 0.75 to 0.60 (low change, medium variability)'
-# df_avg.loc[df_avg['exp_id'] == 31, 'exp_name'] = 'Experiment: Change in commodity crops policies, change timestep = 2040 (late change), range of utility value for commodity crops policies = 0.65 to 0.50 (high change, medium variability)'
-# df_avg.loc[df_avg['exp_id'] == 32, 'exp_name'] = 'Experiment: Change in commodity crops policies, change timestep = 2040 (late change), range of utility value for commodity crops policies = 0.75 to 0.50 (high change, high variability)'
-# df_avg.loc[df_avg['exp_id'] == 33, 'exp_name'] = 'Experiment: Change in commodity crops profit, change timestep = 2025 (early change), max utility value of commodity crops profit = 0.50 (very high change)'
-# df_avg.loc[df_avg['exp_id'] == 34, 'exp_name'] = 'Experiment: Change in commodity crops profit, change timestep = 2025 (early change), max utility value of commodity crops profit = 0.55 (high change)'
-# df_avg.loc[df_avg['exp_id'] == 35, 'exp_name'] = 'Experiment: Change in commodity crops profit, change timestep = 2025 (early change), max utility value of commodity crops profit = 0.60 (low change)'
-# df_avg.loc[df_avg['exp_id'] == 36, 'exp_name'] = 'Experiment: Change in commodity crops profit, change timestep = 2025 (early change), max utility value of commodity crops profit = 0.65 (very low change)'
-# df_avg.loc[df_avg['exp_id'] == 37, 'exp_name'] = 'Experiment: Change in commodity crops profit, change timestep = 2025 (early change), max utility value of commodity crops profit = 0.50 (very high change)'
-# df_avg.loc[df_avg['exp_id'] == 38, 'exp_name'] = 'Experiment: Change in commodity crops profit, change timestep = 2025 (early change), max utility value of commodity crops profit = 0.55 (high change)'
-# df_avg.loc[df_avg['exp_id'] == 39, 'exp_name'] = 'Experiment: Change in commodity crops profit, change timestep = 2025 (early change), max utility value of commodity crops profit = 0.60 (low change)'
-# df_avg.loc[df_avg['exp_id'] == 40, 'exp_name'] = 'Experiment: Change in commodity crops profit, change timestep = 2025 (early change), max utility value of commodity crops profit = 0.65 (very low change)'
-df_avg.loc[df_avg['exp_id'] == 41, 'exp_name'] = 'Experiment: All active, all experiment activation timestep = 5, yearly intervention = 4, target strategy = supportive and maybe commodity persona, max utility value of specialty crops policies = 0.70 (high change), minimum years of experience required = 10 OR minimum acerage required = 30, range of utility value for commodity crops policies = 0.75 to 0.50 (high change, high variability), max utility value of commodity crops profit = 0.55 (high change)'
-
-# Add upper and lower bounds
-df_avg['upper_bound_sac'] = df_avg['specialty-acres-change'] + df_std['specialty-acres-change']
-df_avg['lower_bound_sac'] = df_avg['specialty-acres-change'] - df_std['specialty-acres-change']
-
-df_avg['upper_bound_sa'] = df_avg['specialty-acres'] + df_std['specialty-acres']
-df_avg['lower_bound_sa'] = df_avg['specialty-acres'] - df_std['specialty-acres']
+# Now read from the pickle
+df_avg = pd.read_pickle("ABM_exp\df_exp_avg.pkl")
 
 # Generate distinct colors for each experiment name
 unique_experiments = df_avg['exp_name'].unique()
