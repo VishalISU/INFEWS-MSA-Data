@@ -51,7 +51,7 @@ st.write('# ABM - Agent Based Model')
 ### HERE WE BEGIN THE EXP PLOTS
 
 # Now read from the pickle
-df_avg = pd.read_pickle("ABM_exp\df_exp_avg.pkl")
+df_avg = pd.read_pickle("ABM_exp/df_exp_avg.pkl")
 
 # Generate distinct colors for each experiment name
 unique_experiments = df_avg['exp_name'].unique()
