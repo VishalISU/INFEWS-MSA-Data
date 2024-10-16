@@ -28,31 +28,23 @@ st.write('# SWAT - Soil and Water Assessment Tool')
 #         st.write('# SWAT - Soil and Water Assessment Tool') 
 
 
-'''
-The Soil and Water Assessment Tool (SWAT) can be used to model movement of water and associated nutrients and sediments, and quantify crop growth based on land management practices. 
-''''''
-The SWAT model requires inputs for climate, topography, soil, land cover, and crop management systems to generate outputs including streamflow rates, evapotranspiration, subsurface tile drainage flow, as well as nitrate, phosphorus, and sediment loads to characterize conditions for watersheds in specific areas. 
-''''''
-To allow detection of upstream and within-metro effects on water quality, our SWAT models include the North and South Raccoon River, North and South Skunk, the Middle Des Moines River, and the Lake Red Rock watersheds. 
-''''''
-Together, these watersheds are part of a large system that drains to and through the Des Moines area. Our SWAT experts are using data from the past 10 years or more to calibrate the initial models that will be used to create ‘what if?’ scenarios for the future. 
-''''''
- Here we compare the current and future scenarios for local food production within the Des Moines Metropolitan Statistical Area (MSA)'''
+'''The Soil and Water Assessment Tool (SWAT) can be used to model movement of water and associated nutrients and sediments, and to quantify crop growth based on  land management practices. '''
+'''The SWAT model requires inputs for climate, topography, soil type, land cover, and crop management systems to generate outputs including streamflow rates  and nitrate, phosphorus, and sediment loads to characterize conditions for watersheds in specific areas.'''
+'''To allow examination of upstream and within-metro effects on water quality, our SWAT models include the North and South Raccoon Rivers, the North and South Skunk, the Middle Des Moines River, and the Lake Red Rock watersheds (Figure 1). Together, these watersheds are part of a large system that drains to and through the Des Moines area. Historical data for river and stream parameters are used to calibrate initial models that are then  used to assess 'what if?' scenarios for the future.'''
 
+st.image('DMRBforWebsite.png', caption='Figure 1. Watershed boundaries for river systems in the area (dark line), county boundaries for the Des Moines metropolitan area (brown line) and location of the City of Des Moines (gray shaded area).')
 
-st.image('swatimage.png', caption='Des Moines River Basin')
+'''Here we compare SWAT outputs for current and future scenarios of local food production within the Des Moines Metropolitan Statistical Area (MSA).'''
 
 
 
 cola, colb = st.columns(2)
 with cola:  
     st.subheader('Current Scenario')
-    '''Current amount of local food production '''
-    '''Models land use and yield conditions for 2020'''
+    '''Current amount of local food production (about 5% local) in Des Moines metropolitan area for land use and crop yield in 2020'''
 with colb:
     st.subheader('Future Scenario')
-    '''Increased local food production within Des Moines Metropolitan Statistical Area (MSA)'''
-    '''Models future land use with 50% local production and future yield conditions for 2050'''
+    '''Increased local food production (50% local) in Des Moines metro  area for land use and yield in 2050.'''
 
 # base file 
 base_dir='SWAT_base/'

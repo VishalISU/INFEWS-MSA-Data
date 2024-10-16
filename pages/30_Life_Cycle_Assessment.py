@@ -13,10 +13,12 @@ st.set_page_config(
 st.image('LCAlogo.png', width=100)
 st.write('# LCA - Life Cycle Assessment of Food Systems ')  
 
-st.write(rf'Food systems in the US are complex and often have embedded largescale elements (national and global). In Iowa, about 90% of table food is imported from outside of the state. Our team of researchers are using models to explore what would happen if up to half of the food eaten in the Des Moines area was produced locally.') 
-st.write(rf'Life Cycle Assessment (LCA) is a modeling tool that accounts for energy use and environmental impacts of the food system cycle. Our team is using an LCA model developed by scientists at the US Environmental Protection Agency to determine the amount of energy used at every food system stage and to adjust the model for some important (Iowa-specific) local differences.')
-st.write(rf'For example, the scale of fruit and vegetable farms in Iowa is much smaller on average (8 acres) compared to California (59 acres) where about half of fruits and vegetables in the US are currently grown. This smaller scale has an effect on production methods: for example, which labor is done by hand or with equipment, and what quantity of pesticides are used. In addition, there are important environmental differences such as temperature, rainfall and production seasonality (of course in Des Moines and surrounding areas we don’t grow vegetables outside during the winter!).')
-st.write(rf'We have met with a set of production specialists to quantify the current local food system and build a model for current conditions, and our next step will be to make projections to allow us to model future food system changes and energy use. ')
+'''Food systems are complex and interlinked with national and global systems. In Iowa, about 90% of table food is imported from outside of the state. In this project models are being used to predict the effects of transitions in land use that would support local production of 50% of residents’ dietary needs.'''
+'''Life Cycle Assessment (LCA) is a modeling tool that accounts for energy use and environmental impacts of the food system cycle. Our team uses an LCA model to determine the amount of energy used at each food system stage and to assess related changes in the production of greenhouse gas emissions.'''
+'''Currently, fruit and vegetable farms in Iowa are much smaller (8 acres on average) compared to California (59 acres), where about half of fruits and vegetables in the US are currently grown.  Production on smaller scale farms affects cultivation methods such as whether labor is done by hand or with equipment and the quantity of pesticides used. In addition, there are important differences such as temperature, rainfall and production seasonality.'''
+'''Several crop specialists were involved in characterizing the current local food production system to characterize conditions for table food production in Iowa, and the LCA will be used to predict future food system changes and related outputs, such as energy use.'''
+
+
 
 #%%
 chart_data_base = pd.read_pickle(r'lca_base.pickle')
@@ -141,13 +143,10 @@ st.header('Current vs Future scenario:')
 cola, colb = st.columns(2)
 with cola:  
     st.subheader('Current Scenario')
-    ''' Current amount of local food production '''
-    '''Models 50% of dietary requirements in 2020 with current production (about 5% local and 45% distant) based on consumption patterns ''' 
-
+    '''Current amount of local food production (about 5% local) in Des Moines metropolitan area for land use and crop yield in 2020.'''
 with colb:
     st.subheader('Future Scenario')
-    '''Increased local food production within Des Moines Metropolitan Statistical Area (MSA)'''
-    '''Models 50% of dietary requirements in 2050 with all local production based on current consumption patterns'''
+    ''' Increased local food production (50% local) in Des Moines metro area for land use and yield in 2050.'''
 
 
 #%%

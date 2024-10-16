@@ -12,10 +12,10 @@ st.image('IowaUrbanFEWSlogo.png')
 st.title('Integrated Models for the Des Moines Metropolitan Area') 
 
 ''' **Welcome to the integrated models dashboard!** ''' 
-'''     **👈 Please use the sidebar to explore  specific models/pages describing the project framework.**'''
+'''     **👈 Please use the sidebar to explore specific models/pages describing the project framework.**'''
 ''' ''' 
 ''' '''
-'''This dashboard was developed for the Iowa Urban Food- Energy- Water Systems (FEWS) integrated modeling project.  The project is designed to assess the potential for and impact of scaling up table food production near urban areas in the rainfed landscapes of the Midwest. Many cities in this region are heavily dependent on table food imported from great distances which can have negative environmental and social effects. ''' 
+'''This dashboard was developed for the Iowa Urban Food-Energy-Water Systems (FEWS) integrated modeling project.  The project is designed to assess the potential for and impact of scaling up table food production near urban areas in the rainfed landscapes of the Midwest. Many cities in this region are heavily dependent on table food imported from great distances which can have negative environmental and social effects. ''' 
 '''The Des Moines Metropolitan Statistical Area (MSA) in central Iowa is the focus of this study. An integrated modeling framework allows investigation of how climate, crop production, land use, buildings, energy consumption, and environmental impacts are related to one another.  This approach allows us to examine current impacts and predict the likely future effects of expected or hypothetical changes in policies, farming methods, technology, social interactions, and market trends that affect table food production.'''
 ''' '''
 ''' The set of models used in this project include an agent-based model (ABM), a life-cycle assessment (LCA) model, a soil and water assessment model (SWAT), and a weather (climate) research and forecasting (WRF) model (please use the sidebar to access additional information on the individual models).'''
@@ -42,7 +42,7 @@ with swat_container:
     with col1:
         st.image('SWATlogo.png', width=70)
     with col2:
-        '''Soil and Water Assessment Tool (SWAT):'''
+        '''Soil and Water Assessment Tool (SWAT): Hydrologic data for watersheds in central Iowa are used to characterize current streamflow, nutrient and sediment transport associated with land use and crop systems management practices. Following calibration, these models are integrated with future climate predictions to estimate likely changes in streamflow and associated pollutant delivery for different future land use allocation patterns for row crop or table food crop production.'''
 
 
 

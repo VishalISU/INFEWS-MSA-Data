@@ -11,9 +11,9 @@ st.write('# ABM - Agent Based Model')
 
 
 # Include a brief description of the model 
-'''Agent-based models (ABM)  can be used to simulate behaviors of individuals and/or defined  groups of individuals. In the UrbanFEWS project, the agents simulate Iowa farmers and their decisions about crop production.'''
+'''Agent-based models (ABM)  can be used to simulate behaviors of individuals and/or defined  groups of individuals. In the UrbanFEWS project, the agents simulate Iowa farmers and their decisions about crop production (e.g. to grow row crops or table food crops).'''
 '''The agents in the model can engage in independent decision-making and action, acquire new information, adjusttheir behavior, and revise or refine their decisions over time based on their goals and interactions with others.'''
-'''We used information from focus groups and surveys conducted in our study area to construct "personas" representing Iowa farmers ,  .  The ABM model allows experimentation to assess the effects of various policy changes or other factors on agent decisions and behaviors.The output of the ABM model indicates land area allocated for different crops (corn and soybean, or fruits and vegetables) which can then be used as input to other models.'''
+'''We used information from focus groups and surveys conducted in our study area to construct "personas" representing Iowa farmers.  The ABM model allows experimentation to assess the effects of various policy changes or other factors on farmer agent decisions and behaviors. The output of the ABM model indicates land area allocated for different crops (for example, corn and soybean, or fruits and vegetables) which can then be used as input to other models.'''
 #___________________________________________________________________________________________
 # # OLD visualization code with bar graphs for ABM - No longer preferred 
 # base_dir = "ABM_base/"
@@ -70,7 +70,7 @@ for idx, exp_name in enumerate(unique_experiments):
     
     # Add the main line for the experiment
     fig_exp.add_trace(go.Scatter(
-        x=df_exp['[step]'], 
+        x=df_exp['[step]']+2020, 
         y=df_exp['specialty-acres'], 
         mode='lines',
         name=exp_name,
@@ -80,7 +80,7 @@ for idx, exp_name in enumerate(unique_experiments):
     
     # Add the upper bound trace (invisible, just to define the band)
     fig_exp.add_trace(go.Scatter(
-        x=df_exp['[step]'], 
+        x=df_exp['[step]']+2020, 
         y=df_exp['upper_bound_sa'], 
         mode='lines', 
         line=dict(width=0),
@@ -91,7 +91,7 @@ for idx, exp_name in enumerate(unique_experiments):
     
     # Add the lower bound trace with fill to create the band
     fig_exp.add_trace(go.Scatter(
-        x=df_exp['[step]'], 
+        x=df_exp['[step]']+2020, 
         y=df_exp['lower_bound_sa'], 
         mode='lines', 
         fill='tonexty', 
@@ -104,24 +104,29 @@ for idx, exp_name in enumerate(unique_experiments):
 
 fig_exp.update_layout(
     title='Specialty crops acres vs timestep for different experiments',
-    xaxis_title='[step]',
-    yaxis_title='specialty-acres',
+    xaxis_title='Year',
+    yaxis_title='Specialty crops (Acres)',
     hovermode='x',
     margin=dict(l=0, r=0, t=50, b=50),  # Adjust margins for better fit in Streamlit
+
     legend=dict(
         orientation="h",  # Horizontal legend
         # yanchor="bottom",  # Align the bottom of the legend
-        # y=-0.2,  # Position the legend just below the plot
+        # y=-2,  # Position the legend just below the plot
         # xanchor="center",  # Center the legend horizontally
-        # x=0.5  # Center the legend relative to the plot
+        # x=0.5,  # Center the legend relative to the plot
         # make legend text wrap around if too long
-        font=dict(size=10), itemwidth=30
+        font=dict(size=10)
     )
+    # x axis labels go from 2020 to 2050 in steps of 1
+    
 )
+
+#Update the figure x axis to go from 2020 to 2050 in steps of 1 
+#fig_exp.update_xaxes(tickvals=list(range(2020, 2051, 1)))
 
 # Display the figure in Streamlit
 st.plotly_chart(fig_exp, use_container_width=True)
-
 
 # Include a description 
 
