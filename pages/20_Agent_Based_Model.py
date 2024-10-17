@@ -53,6 +53,15 @@ st.write('# ABM - Agent Based Model')
 # Now read from the pickle
 df_avg = pd.read_pickle("ABM_exp/df_exp_avg.pkl")
 
+#df_avg 
+# Rename for each exp_id rename exp_name as follows: 
+# For exp_id = 6 -> Frequent Extension agent intervetion 
+df_avg.loc[df_avg['exp_id'] == 6, 'exp_name'] = 'Frequent Extension Agent Intervention'
+df_avg.loc[df_avg['exp_id'] == 11, 'exp_name'] = 'Change in Specialty Crops Policies'
+df_avg.loc[df_avg['exp_id'] == 27, 'exp_name'] = 'Change in Commodity Crops Policies'
+df_avg.loc[df_avg['exp_id'] == 41, 'exp_name'] = 'All Strategies Adopted'
+
+# For 
 # Generate distinct colors for each experiment name
 unique_experiments = df_avg['exp_name'].unique()
 colors = n_colors.qualitative.Bold
@@ -109,38 +118,39 @@ fig_exp.update_layout(
     hovermode='x',
     margin=dict(l=0, r=0, t=50, b=50),  # Adjust margins for better fit in Streamlit
 
-    legend=dict(
-        orientation="h",  # Horizontal legend
-        # yanchor="bottom",  # Align the bottom of the legend
-        # y=-2,  # Position the legend just below the plot
-        # xanchor="center",  # Center the legend horizontally
-        # x=0.5,  # Center the legend relative to the plot
-        # make legend text wrap around if too long
-        font=dict(size=10)
-    )
-    # x axis labels go from 2020 to 2050 in steps of 1
+    # legend=dict(
+    #     orientation="v"#,  # Horizontal legend
+    #     #yanchor="bottom",  # Align the bottom of the legend
+    #     #y=-2  # Position the legend just below the plot
+    #     #  # Center the legend relative to the plot
+    #     # make legend text wrap around if too long
+    #     #font=dict(size=5)
+    # )
+  
     
 )
+
+
 
 #Update the figure x axis to go from 2020 to 2050 in steps of 1 
 #fig_exp.update_xaxes(tickvals=list(range(2020, 2051, 1)))
 
 # Display the figure in Streamlit
-st.plotly_chart(fig_exp, use_container_width=True)
+st.plotly_chart(fig_exp) #, use_container_width=True)
 
-# Include a description 
+# Include a description in bold
 
 '''
-Experiment: Communication Amongst Farmers
+**Strategy: Communication Amongst Farmers**  
 Currently, commodity crop farmers and specialty crop farmers do not regularly engage in communication. However, if commodity farmers observe the production success of specialty crop farmers, they might become interested in adopting specialty crop farming practices. This experiment explores the impact of communication between commodity and specialty crop farmers on specialty crop production levels. The experiment examines whether increased interaction between these groups influences commodity farmers to transition to specialty crops, ultimately impacting production output and diversity.
 
-Experiment: Extension Agents
+**Strategy: Extension Agent Intervention**   
 Access to information about new farming technologies and practices is crucial for adoption. One primary way farmers gain such information is through extension services. This experiment assesses the impact of extension agent visits on farmer behavior, specifically regarding the adoption of specialty crops. Two key factors are measured:
 Number of visits per year – how often extension agents interact with farmers.
 Typology of commodity farmers – the types of farmers extension agents engage with, focusing on their openness to new practices.
 The study explores whether frequent, targeted visits by extension agents can accelerate the adoption of specialty crops.
 
-Experiment: Specialty Crops Policy Change
+**Strategy: Improvement in Specialty Crops Policies**   
 Current policies for specialty crops lag behind those for commodity crops in areas such as government support, incentives, insurance, supply chain infrastructure, and market access. This experiment investigates the impact of collective policy improvements on the adoption of specialty crops. Policy utility is currently set at 0.5, and the experiment measures the effects of incremental policy improvements:
 Small change (0.55) – Slight Improvement in at least one factor (e.g., slight increase in incentives or market access).
 Moderate change (0.6) – Improvement in two or more factors, or a major change in one (e.g., significantly higher incentives).
@@ -148,20 +158,20 @@ Substantial change (0.65) – Major improvements in two or more areas (e.g., bet
 High change (0.7) – Significant improvements in multiple factors, such as insurance and supply chain infrastructure.
 Very high change (0.75) – Comprehensive enhancements across most policy areas, including increased incentives, better insurance, and improved supply chain infrastructure.
 
-Experiment: Wholesale Markets
+**Strategy: Availability of large-scale Wholesale Markets for Specialty Crops**   
 One of the major challenges for specialty crop farmers is the availability of wholesale markets with benchmark prices. This experiment explores the potential possibility of direct wholesale markets or contract opportunities with large institutions as a farmer gains experience with specialty crops. The experiment measures two factors:
 Years of experience – how long a farmer has been involved in specialty crops.
 Size of specialty crop operation – the scale at which the farmer produces specialty crops.
 This experiment aims to assess whether market access improves as farmers gain expertise and expand their operations and whether those who observe this may also adopt specialty crops.
 
-Experiment: Commodity Crops Policy Change
+**Strategy: Decline in Commodity Crops Policies**   
 Policies for commodity crops are generally more favorable, offering strong government support, incentives, insurance, and supply chain infrastructure. This experiment investigates the potential impact of a decline in these supportive policies. Since the effects may not be uniformly experienced by all farmers, some may face harsher conditions sooner than others. The current maximum policy utility is 0.85, and the experiment considers the following scenarios:
 Utility between 0.65 and 0.6 – Decline in commodity crop markets and a reduction in crop subsidies, with low volatility.
 Utility between 0.65 and 0.5 – Stricter criteria for subsidies and a significant reduction in support, leading to high volatility.
 Utility between 0.75 and 0.6 – Increased difficulty in securing insurance for commodity crops, with high market volatility.
 Utility between 0.75 and 0.5 – Stricter criteria for both insurance approval and subsidies, with very high market volatility.
 
-Experiment: Commodity Crops Profit Reduction
+**Strategy: Decline in Commodity Crops Market/Demand/Profitability**      
 Commodity crop farming is highly yield-focused, but many farmers may not fully realize the actual profit utility derived from their production. This experiment explores the factors that lead to a reduction in commodity crop profits, such as declining market prices or unfavorable market conditions. The experiment focuses on the current profit utility of commodity crops, set at 0.75, and examines scenarios where farmers might become more aware of declining profits or where market conditions erode their profit margins. The goal is to assess how these realizations might influence a shift toward specialty crops or changes in farming practices.
 '''
 #  
