@@ -65,7 +65,6 @@ df_avg.loc[df_avg['exp_id'] == 41, 'exp_name'] = 'All Strategies Adopted'
 # Generate distinct colors for each experiment name
 unique_experiments = df_avg['exp_name'].unique()
 colors = n_colors.qualitative.Bold
-#colors = n_colors('rgb(0, 100, 200)', 'rgb(200, 0, 100)', len(unique_experiments), colortype='rgb')
 
 # Plot line with band for standard deviation
 fig_exp = go.Figure()
@@ -84,95 +83,63 @@ for idx, exp_name in enumerate(unique_experiments):
         mode='lines',
         name=exp_name,
         legendgroup=exp_name,
-        line=dict(color=color, width=2)  # Assign a unique color to the line
+        #line=dict(color=color, width=2)  # Assign a unique color to the line
     ))
     
-    # Add the upper bound trace (invisible, just to define the band)
-    fig_exp.add_trace(go.Scatter(
-        x=df_exp['[step]']+2020, 
-        y=df_exp['upper_bound_sa'], 
-        mode='lines', 
-        line=dict(width=0),
-        showlegend=False,
-        #hoverinfo='skip',  # No hover info for this trace
-        legendgroup=exp_name
-    ))
+    # # Add the upper bound trace (invisible, just to define the band)
+    # fig_exp.add_trace(go.Scatter(
+    #     x=df_exp['[step]']+2020, 
+    #     y=df_exp['upper_bound_sa'], 
+    #     mode='lines', 
+    #     line=dict(width=0),
+    #     showlegend=False,
+    #     #hoverinfo='skip',  # No hover info for this trace
+    #     legendgroup=exp_name
+    # ))
     
-    # Add the lower bound trace with fill to create the band
-    fig_exp.add_trace(go.Scatter(
-        x=df_exp['[step]']+2020, 
-        y=df_exp['lower_bound_sa'], 
-        mode='lines', 
-        fill='tonexty', 
-        line=dict(width=0),
-        showlegend=False,
-        #hoverinfo='skip',  # No hover info for this trace
-        legendgroup=exp_name,
-        fillcolor=f'rgba{color[3:-1]},0.2)',  # Set same color but with opacity for the band
-    ))
+    # # Add the lower bound trace with fill to create the band
+    # fig_exp.add_trace(go.Scatter(
+    #     x=df_exp['[step]']+2020, 
+    #     y=df_exp['lower_bound_sa'], 
+    #     mode='lines', 
+    #     fill='tonexty', 
+    #     line=dict(width=0),
+    #     showlegend=False,
+    #     #hoverinfo='skip',  # No hover info for this trace
+    #     legendgroup=exp_name,
+    #     fillcolor=f'rgba{color[3:-1]},0.2)',  # Set same color but with opacity for the band
+    # ))
 
 fig_exp.update_layout(
-    title='Specialty crops acres vs timestep for different experiments',
+    title='Specialty crops yield over time with different strategies',
     xaxis_title='Year',
     yaxis_title='Specialty crops (Acres)',
     hovermode='x',
-    margin=dict(l=0, r=0, t=50, b=50),  # Adjust margins for better fit in Streamlit
-
-    # legend=dict(
-    #     orientation="v"#,  # Horizontal legend
-    #     #yanchor="bottom",  # Align the bottom of the legend
-    #     #y=-2  # Position the legend just below the plot
-    #     #  # Center the legend relative to the plot
-    #     # make legend text wrap around if too long
-    #     #font=dict(size=5)
-    # )
-  
-    
+    margin=dict(l=0, r=0, t=50, b=50),  # Adjust margins for better fit in Streamlit   
 )
 
-
-
-#Update the figure x axis to go from 2020 to 2050 in steps of 1 
-#fig_exp.update_xaxes(tickvals=list(range(2020, 2051, 1)))
-
 # Display the figure in Streamlit
-st.plotly_chart(fig_exp) #, use_container_width=True)
+st.plotly_chart(fig_exp) 
 
-# Include a description in bold
-
+# Brief description of the experiments
 '''
-**Strategy: Communication Amongst Farmers**  
-Currently, commodity crop farmers and specialty crop farmers do not regularly engage in communication. However, if commodity farmers observe the production success of specialty crop farmers, they might become interested in adopting specialty crop farming practices. This experiment explores the impact of communication between commodity and specialty crop farmers on specialty crop production levels. The experiment examines whether increased interaction between these groups influences commodity farmers to transition to specialty crops, ultimately impacting production output and diversity.
+**Strategy: Increased communication between row crop farmers and specialty farmers via social networks**  
+Row crop farmers and specialty crop farmers do not regularly engage in communication. However, if Row crop farmers observe the production success of specialty crop farmers, they might become interested in adopting specialty crop farming practices. This experiment explores the impact of communication between row crop farmers and specialty crop farmers on specialty crop production levels. The experiment examines whether increased interaction between these groups influences row crop farmers to transition to specialty crops, ultimately impacting production output and diversity.
 
-**Strategy: Extension Agent Intervention**   
-Access to information about new farming technologies and practices is crucial for adoption. One primary way farmers gain such information is through extension services. This experiment assesses the impact of extension agent visits on farmer behavior, specifically regarding the adoption of specialty crops. Two key factors are measured:
-Number of visits per year – how often extension agents interact with farmers.
-Typology of commodity farmers – the types of farmers extension agents engage with, focusing on their openness to new practices.
-The study explores whether frequent, targeted visits by extension agents can accelerate the adoption of specialty crops.
+**Strategy: Inclusion of extension agents that support specialty crop production**   
+Access to information about new farming technologies and practices is crucial for adoption. One primary way farmers gain such information is through extension services. This experiment assesses the impact of extension agent visits on farmer behavior, specifically regarding the adoption of specialty crops. Two key factors are measured: The number of visits per year – how often extension agents interact with farmers. Typology of row crop farmers – the types of farmers extension agents engage with, focusing on their openness to new practices. The study explores whether frequent, targeted visits by extension agents can accelerate the adoption of specialty crops.
 
-**Strategy: Improvement in Specialty Crops Policies**   
-Current policies for specialty crops lag behind those for commodity crops in areas such as government support, incentives, insurance, supply chain infrastructure, and market access. This experiment investigates the impact of collective policy improvements on the adoption of specialty crops. Policy utility is currently set at 0.5, and the experiment measures the effects of incremental policy improvements:
-Small change (0.55) – Slight Improvement in at least one factor (e.g., slight increase in incentives or market access).
-Moderate change (0.6) – Improvement in two or more factors, or a major change in one (e.g., significantly higher incentives).
-Substantial change (0.65) – Major improvements in two or more areas (e.g., better insurance schemes).
-High change (0.7) – Significant improvements in multiple factors, such as insurance and supply chain infrastructure.
-Very high change (0.75) – Comprehensive enhancements across most policy areas, including increased incentives, better insurance, and improved supply chain infrastructure.
+**Strategy: Implementation of policies that support specialty crop production**   
+Current policies for specialty crops lag behind those for row crops in areas such as government support, incentives, insurance, supply chain infrastructure, and market access. This experiment investigates the impact of collective policy improvements on the adoption of specialty crops. Policy utility is currently set at 0.5, and the experiment measures the effects of incremental policy improvements: Small change (0.55) – Slight Improvement in at least one factor (e.g., slight increase in incentives or market access). Moderate change (0.6) – Improvement in two or more factors, or a major change in one (e.g., significantly higher incentives). Substantial change (0.65) – Major improvements in two or more areas (e.g., better insurance schemes). High change (0.7) – Significant improvements in multiple factors, such as insurance and supply chain infrastructure. Very high change (0.75) – Comprehensive enhancements across most policy areas, including increased incentives, better insurance, and improved supply chain infrastructure.
 
-**Strategy: Availability of large-scale Wholesale Markets for Specialty Crops**   
-One of the major challenges for specialty crop farmers is the availability of wholesale markets with benchmark prices. This experiment explores the potential possibility of direct wholesale markets or contract opportunities with large institutions as a farmer gains experience with specialty crops. The experiment measures two factors:
-Years of experience – how long a farmer has been involved in specialty crops.
-Size of specialty crop operation – the scale at which the farmer produces specialty crops.
-This experiment aims to assess whether market access improves as farmers gain expertise and expand their operations and whether those who observe this may also adopt specialty crops.
+**Strategy: Wholescale market demand and accessibility that supports specialty crops production**   
+One of the major challenges for specialty crop farmers is the availability of wholesale markets with benchmark prices. This experiment explores the potential possibility of direct wholesale markets or contract opportunities with large institutions as a farmer gains experience with specialty crops. The experiment measures two factors: Years of experience – how long a farmer has been involved in specialty crops. Size of specialty crop operation – the scale at which the farmer produces specialty crops. This experiment aims to assess whether market access improves as farmers gain expertise and expand their operations and whether those who observe this may also adopt specialty crops.
 
-**Strategy: Decline in Commodity Crops Policies**   
-Policies for commodity crops are generally more favorable, offering strong government support, incentives, insurance, and supply chain infrastructure. This experiment investigates the potential impact of a decline in these supportive policies. Since the effects may not be uniformly experienced by all farmers, some may face harsher conditions sooner than others. The current maximum policy utility is 0.85, and the experiment considers the following scenarios:
-Utility between 0.65 and 0.6 – Decline in commodity crop markets and a reduction in crop subsidies, with low volatility.
-Utility between 0.65 and 0.5 – Stricter criteria for subsidies and a significant reduction in support, leading to high volatility.
-Utility between 0.75 and 0.6 – Increased difficulty in securing insurance for commodity crops, with high market volatility.
-Utility between 0.75 and 0.5 – Stricter criteria for both insurance approval and subsidies, with very high market volatility.
+**Strategy: Scaling back policies that support row crop production**   
+Policies for row crops are generally more favorable, offering strong government support, incentives, insurance, and supply chain infrastructure. This experiment investigates the potential impact of a decline in these supportive policies. Since the effects may not be uniformly experienced by all farmers, some may face harsher conditions sooner than others. The current maximum policy utility is 0.85, and the experiment considers the following scenarios: Utility between 0.65 and 0.6 – Decline in row crop markets and a reduction in crop subsidies, with low volatility. Utility between 0.65 and 0.5 – Stricter criteria for subsidies and a significant reduction in support, leading to high volatility. Utility between 0.75 and 0.6 – Increased difficulty in securing insurance for row crops, with high market volatility. Utility between 0.75 and 0.5 – Stricter criteria for both insurance approval and subsidies, with very high market volatility.
 
-**Strategy: Decline in Commodity Crops Market/Demand/Profitability**      
-Commodity crop farming is highly yield-focused, but many farmers may not fully realize the actual profit utility derived from their production. This experiment explores the factors that lead to a reduction in commodity crop profits, such as declining market prices or unfavorable market conditions. The experiment focuses on the current profit utility of commodity crops, set at 0.75, and examines scenarios where farmers might become more aware of declining profits or where market conditions erode their profit margins. The goal is to assess how these realizations might influence a shift toward specialty crops or changes in farming practices.
+**Strategy: Reduced price/demand for row crops**      
+Row crop farming is highly yield-focused, but many farmers may not fully realize the actual profit utility derived from their production. This experiment explores the factors that lead to a reduction in row crop profits, such as declining market prices or unfavorable market conditions. The experiment focuses on the current profit utility of row crops, set at 0.75, and examines scenarios where farmers might become more aware of declining profits or where market conditions erode their profit margins. The goal is to assess how these realizations might influence a shift toward specialty crops or changes in farming practices.
 '''
 #  
 
