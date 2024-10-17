@@ -51,14 +51,18 @@ st.write('# ABM - Agent Based Model')
 ### HERE WE BEGIN THE EXP PLOTS
 
 # Now read from the pickle
-df_avg = pd.read_pickle("ABM_exp/df_exp_avg.pkl")
+df_avg = pd.read_pickle("ABM_exp/df_exp_avg_ABM.pkl")
 
 #df_avg 
 # Rename for each exp_id rename exp_name as follows: 
 # For exp_id = 6 -> Frequent Extension agent intervetion 
-df_avg.loc[df_avg['exp_id'] == 6, 'exp_name'] = 'Frequent Extension Agent Intervention'
-df_avg.loc[df_avg['exp_id'] == 11, 'exp_name'] = 'Change in Specialty Crops Policies'
-df_avg.loc[df_avg['exp_id'] == 27, 'exp_name'] = 'Change in Commodity Crops Policies'
+df_avg.loc[df_avg['exp_id'] == 1, 'exp_name'] = 'Base Case'
+df_avg.loc[df_avg['exp_id'] == 2, 'exp_name'] = 'Farmer Social Network Communication'
+df_avg.loc[df_avg['exp_id'] == 6, 'exp_name'] = 'Extension Agent Supporting Specialty Crops'
+df_avg.loc[df_avg['exp_id'] == 11, 'exp_name'] = 'Pro-Specialty Crops Policies'
+df_avg.loc[df_avg['exp_id'] == 17, 'exp_name'] = 'Market Demand + Accessibility Supporting Specialty Crops'
+df_avg.loc[df_avg['exp_id'] == 27, 'exp_name'] = 'Change in Row Crops Policies'
+df_avg.loc[df_avg['exp_id'] == 33, 'exp_name'] = 'Reduced Price/Demand for Row Crops'
 df_avg.loc[df_avg['exp_id'] == 41, 'exp_name'] = 'All Strategies Adopted'
 
 # For 
@@ -82,7 +86,7 @@ for idx, exp_name in enumerate(unique_experiments):
         y=df_exp['specialty-acres'], 
         mode='lines',
         name=exp_name,
-        legendgroup=exp_name,
+        legendgroup=exp_name
         #line=dict(color=color, width=2)  # Assign a unique color to the line
     ))
     
@@ -116,6 +120,9 @@ fig_exp.update_layout(
     yaxis_title='Specialty crops (Acres)',
     hovermode='x',
     margin=dict(l=0, r=0, t=50, b=50),  # Adjust margins for better fit in Streamlit   
+    # make legend text smaller
+    legend=dict( font=dict(size=10))
+    
 )
 
 # Display the figure in Streamlit
