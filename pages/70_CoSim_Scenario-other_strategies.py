@@ -5,10 +5,10 @@ import plotly.graph_objects as go
 import plotly.colors as n_colors
 import plotly.express as px
 #%%
-st.set_page_config(page_title="CoSim-Base", page_icon="INFEWS_icon_whitebg.png")
-st.title('CoSimulation Scenario : Base Case')
+st.set_page_config(page_title="CoSim-Comparison", page_icon="INFEWS_icon_whitebg.png")
+st.title('CoSimulation Scenario Comparasion')
 
-st.header('ABM Base Scenario')
+st.header('Agent-based model (ABM)')
 
 
 # Now read from the pickle
@@ -17,7 +17,7 @@ df_avg = pd.read_pickle("ABM_exp/df_exp_avg.pkl")
 #df_avg 
 # Rename for each exp_id rename exp_name as follows: 
 # For exp_id = 6 -> Frequent Extension agent intervetion 
-df_avg.loc[df_avg['exp_id'] == 1, 'exp_name'] = 'Default Conditions'
+df_avg.loc[df_avg['exp_id'] == 1, 'exp_name'] = 'Current Scenario'
 df_avg.loc[df_avg['exp_id'] == 6, 'exp_name'] = 'Frequent Extension Agent Intervention'
 df_avg.loc[df_avg['exp_id'] == 11, 'exp_name'] = 'Change in Specialty Crops Policies'
 df_avg.loc[df_avg['exp_id'] == 27, 'exp_name'] = 'Change in Commodity Crops Policies'
@@ -34,6 +34,7 @@ fig_exp = go.Figure()
 # Just for this plot, drop the rows where exp_id is not 1 or 41
 #df_avg = df_avg[df_avg['exp_id'].isin([1, 41])]
 
+
 # Loop through each experiment name to create individual traces for the line and bands
 for idx, exp_name in enumerate(unique_experiments):
 # Set the index for the experiment name
@@ -48,36 +49,36 @@ for idx, exp_name in enumerate(unique_experiments):
         y=df_exp['specialty-acres'], 
         mode='lines',
         name=exp_name,
-        legendgroup=exp_name,
-        line=dict(color=color, width=2)  # Assign a unique color to the line
-    ))
-
-    # Add the upper bound trace (invisible, just to define the band)
-    fig_exp.add_trace(go.Scatter(
-        x=df_exp['[step]']+2020, 
-        y=df_exp['upper_bound_sa'], 
-        mode='lines', 
-        line=dict(width=0),
-        showlegend=False,
-        #hoverinfo='skip',  # No hover info for this trace
         legendgroup=exp_name
+       # line=dict(color=color, width=2)  # Assign a unique color to the line
     ))
 
-    # Add the lower bound trace with fill to create the band
-    fig_exp.add_trace(go.Scatter(
-        x=df_exp['[step]']+2020, 
-        y=df_exp['lower_bound_sa'], 
-        mode='lines', 
-        fill='tonexty', 
-        line=dict(width=0),
-        showlegend=False,
-        #hoverinfo='skip',  # No hover info for this trace
-        legendgroup=exp_name,
-        fillcolor=f'rgba{color[3:-1]},0.2)',  # Set same color but with opacity for the band
-    ))
+    # # Add the upper bound trace (invisible, just to define the band)
+    # fig_exp.add_trace(go.Scatter(
+    #     x=df_exp['[step]']+2020, 
+    #     y=df_exp['upper_bound_sa'], 
+    #     mode='lines', 
+    #     line=dict(width=0),
+    #     showlegend=False,
+    #     #hoverinfo='skip',  # No hover info for this trace
+    #     legendgroup=exp_name
+    # ))
+
+    # # Add the lower bound trace with fill to create the band
+    # fig_exp.add_trace(go.Scatter(
+    #     x=df_exp['[step]']+2020, 
+    #     y=df_exp['lower_bound_sa'], 
+    #     mode='lines', 
+    #     fill='tonexty', 
+    #     line=dict(width=0),
+    #     showlegend=False,
+    #     #hoverinfo='skip',  # No hover info for this trace
+    #     legendgroup=exp_name,
+    #     fillcolor=f'rgba{color[3:-1]},0.2)',  # Set same color but with opacity for the band
+    # ))
 
 fig_exp.update_layout(
-    title='Specialty crops acres vs timestep for different experiments',
+    title='Specialty crops yield over time with different strategies',
     xaxis_title='Year',
     yaxis_title='Specialty crops (Acres)',
     hovermode='x',
@@ -200,8 +201,6 @@ st.plotly_chart(fig_swat_box_rch)
 
 st.header(' Life Cycle Analysis of Food Systems ')  
 
-st.subheader('Base vs Extension Agent scenario:')
-
 chart_data_base = pd.read_pickle(r'lca_abm_Co_sim_base.pickle')
 
 chart_data_extension = pd.read_pickle(r'lca_abm_Co_sim_experiment_extension_4_sm.pickle')
@@ -246,7 +245,7 @@ fig_lca_eu.add_trace(go.Scatter(x=extensionplot['Model_Year_'], y=extensionplot[
 fig_lca_eu.add_trace(go.Scatter(x=specialtyplot['Model_Year_'], y=specialtyplot['Energy_Use_MJ'], name='Specialty Policy Scenario'))
 fig_lca_eu.add_trace(go.Scatter(x=commodityplot['Model_Year_'], y=commodityplot['Energy_Use_MJ'], name='Commodity Policy Scenario'))
 
-fig_lca_eu.add_trace(go.Scatter(x=localplot['Model_Year_'], y=localplot['Energy_Use_MJ'], name='Extension Agent Scenario', 
+fig_lca_eu.add_trace(go.Scatter(x=localplot['Model_Year_'], y=localplot['Energy_Use_MJ'], name='50% Reach Scenario', 
                                 #line=dict(color='deepskyblue', width=4, dash='dash')
                                 ))
 
@@ -294,7 +293,7 @@ fig_lca_gw.add_trace(go.Scatter(x=extensionplot['Model_Year_'], y=extensionplot[
 fig_lca_gw.add_trace(go.Scatter(x=specialtyplot['Model_Year_'], y=specialtyplot['Global_Warming_Potential_kg_co2_eq'], name='Specialty Policy Scenario'))
 fig_lca_gw.add_trace(go.Scatter(x=commodityplot['Model_Year_'], y=commodityplot['Global_Warming_Potential_kg_co2_eq'], name='Commodity Policy Scenario'))
 
-fig_lca_gw.add_trace(go.Scatter(x=localplot['Model_Year_'], y=localplot['Global_Warming_Potential_kg_co2_eq'], name='Extension Agent Scenario',
+fig_lca_gw.add_trace(go.Scatter(x=localplot['Model_Year_'], y=localplot['Global_Warming_Potential_kg_co2_eq'], name='50% Reach Scenario',
                                 #line=dict(color='orangered', width=4, dash='dash')
                                 ))
 

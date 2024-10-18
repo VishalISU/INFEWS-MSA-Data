@@ -56,7 +56,7 @@ df_avg = pd.read_pickle("ABM_exp/df_exp_avg_ABM.pkl")
 #df_avg 
 # Rename for each exp_id rename exp_name as follows: 
 # For exp_id = 6 -> Frequent Extension agent intervetion 
-df_avg.loc[df_avg['exp_id'] == 1, 'exp_name'] = 'Base Case'
+df_avg.loc[df_avg['exp_id'] == 1, 'exp_name'] = 'Current Scenario'
 df_avg.loc[df_avg['exp_id'] == 2, 'exp_name'] = 'Farmer Social Network Communication'
 df_avg.loc[df_avg['exp_id'] == 6, 'exp_name'] = 'Extension Agent Supporting Specialty Crops'
 df_avg.loc[df_avg['exp_id'] == 11, 'exp_name'] = 'Pro-Specialty Crops Policies'
