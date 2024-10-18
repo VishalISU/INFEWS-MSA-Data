@@ -118,18 +118,10 @@ fig_swat_box_rch.update_layout(showlegend=False)
 # Plot
 st.plotly_chart(fig_swat_box_rch)
 
-
-if st.checkbox('Show Historical Data'):
-    st.write(df_2020_rch)
-if st.checkbox('Show Future Data'):
-    st.write(df_2050_rch)
-
-
-
 # '''
 # BOX PLOT OF CROP YIELDS
 # '''
-
+st.subheader('Crop Yields after SWAT Simulation')
 #%%
 # Crop codes dictionary
 crop_codes = {
@@ -199,3 +191,11 @@ fig_swat_box.update_layout(showlegend=False)
 
 #Plot
 st.plotly_chart(fig_swat_box)
+
+
+if st.checkbox('Show Current Scenario Data'):
+    st.write(df_2020_rch)
+if st.checkbox('Show Future Scenario Data'):
+    st.write(df_2050_rch)
+
+
