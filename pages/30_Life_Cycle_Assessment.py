@@ -153,22 +153,35 @@ with colb:
 
 # Plot a line graph for all years for the two scenarios to show land use for protein dariy fruits vegetables grains oil and sugar
 fig_lca_lu_pog = go.Figure()
-fig_lca_lu_pog.add_trace(go.Scatter(x=chart_data_base['Model_Year_'], y=chart_data_base['Protein_cropland']+chart_data_base['Protein_pasture_forage'], name='Protein: future', 
-                        line = dict(color='darkred', width=4, dash='dash')))      
+# fig_lca_lu_pog.add_trace(go.Scatter(x=chart_data_base['Model_Year_'], y=chart_data_base['Protein_cropland']+chart_data_base['Protein_pasture_forage'], name='Protein: future', 
+                        # line = dict(color='darkred', width=4, dash='dash')))      
 fig_lca_lu_pog.add_trace(go.Scatter(x=chart_data_base['Model_Year_'], y=chart_data_base['Oil'], name='Oil: future', 
                         line = dict(color='darkgoldenrod', width=4, dash='dash')))
 fig_lca_lu_pog.add_trace(go.Scatter(x=chart_data_base['Model_Year_'], y=chart_data_base['Grains'], name='Grains: future', 
                         line = dict(color='darkkhaki', width=4, dash='dash')))
-fig_lca_lu_pog.add_trace(go.Scatter(x=chart_data_local['Model_Year_'], y=chart_data_local['Protein_cropland']+chart_data_local['Protein_pasture_forage'], name='Protein: current', marker_color='blue',
-                        line=dict(color='darkred', width=4, dash='solid')))
+fig_lca_lu_pog.add_trace(go.Scatter(x=chart_data_base['Model_Year_'], y=chart_data_base['Fruit_orchard_vineyard']+chart_data_base['Fruit_berry_melon'], name='Fruit: future', 
+                        line = dict(color='darkorange', width=4, dash='dash'))) 
+fig_lca_lu_pog.add_trace(go.Scatter(x=chart_data_base['Model_Year_'], y=chart_data_base['Vegetables_specialty']+chart_data_base['Vegetables_field'], name='Vegetables: future', 
+                        line = dict(color='forestgreen', width=4, dash='dash')))
+fig_lca_lu_pog.add_trace(go.Scatter(x=chart_data_base['Model_Year_'], y=chart_data_base['Sugar'], name='Sugar: future', 
+                        line = dict(color='grey', width=4, dash='dash')))
+# fig_lca_lu_pog.add_trace(go.Scatter(x=chart_data_local['Model_Year_'], y=chart_data_local['Protein_cropland']+chart_data_local['Protein_pasture_forage'], name='Protein: current', marker_color='blue',
+                        # line=dict(color='darkred', width=4, dash='solid')))
 fig_lca_lu_pog.add_trace(go.Scatter(x=chart_data_local['Model_Year_'], y=chart_data_local['Oil'], name='Oil: current', marker_color='gold',
                         line=dict(color='darkgoldenrod', width=4, dash='solid')))
 fig_lca_lu_pog.add_trace(go.Scatter(x=chart_data_local['Model_Year_'], y=chart_data_local['Grains'], name='Grains: current', marker_color='green',
                         line=dict(color='darkkhaki', width=4, dash='solid')))
+fig_lca_lu_pog.add_trace(go.Scatter(x=chart_data_local['Model_Year_'], y=chart_data_local['Fruit_orchard_vineyard']+chart_data_local['Fruit_berry_melon'], name='Fruit: current', marker_color='orange',
+                        line=dict(color='darkorange', width=4, dash='solid')))
+fig_lca_lu_pog.add_trace(go.Scatter(x=chart_data_local['Model_Year_'], y=chart_data_local['Vegetables_specialty']+chart_data_local['Vegetables_field'], name='Vegetables: current', marker_color='green',
+                        line=dict(color='forestgreen', width=4, dash='solid')))
+fig_lca_lu_pog.add_trace(go.Scatter(x=chart_data_local['Model_Year_'], y=chart_data_local['Sugar'], name='Sugar: current', marker_color='purple',
+                        line=dict(color='grey', width=4, dash='solid')))
 
 
 fig_lca_lu_pog.update_layout(
-                    title='Land Use Patterns for Protein, Oil and Grains',
+                    # title='Land Use Patterns for Protein, Oil and Grains',
+                   title = 'Land Use Patterns for Oil, Grains, Fruits, Vegetables and Sugar',
                    xaxis_title='Year',
                    yaxis_title='Total agricultural land use (ha)')
 st.plotly_chart(fig_lca_lu_pog)
@@ -176,31 +189,54 @@ st.plotly_chart(fig_lca_lu_pog)
 
 
 # Plot a line graph for all years for the two scenarios to show land use for dairy, fruit, vegetables and sugar
-fig_lca_lu_rest = go.Figure()
-fig_lca_lu_rest.add_trace(go.Scatter(x=chart_data_base['Model_Year_'], y=chart_data_base['Dairy_cropland']+chart_data_base['Dairy_pasture_forage'], name='Dairy: future', 
-                        line = dict(color='dodgerblue', width=4, dash='dash')))
-fig_lca_lu_rest.add_trace(go.Scatter(x=chart_data_base['Model_Year_'], y=chart_data_base['Fruit_orchard_vineyard']+chart_data_base['Fruit_berry_melon'], name='Fruit: future', 
-                        line = dict(color='darkorange', width=4, dash='dash'))) 
-fig_lca_lu_rest.add_trace(go.Scatter(x=chart_data_base['Model_Year_'], y=chart_data_base['Vegetables_specialty']+chart_data_base['Vegetables_field'], name='Vegetables: future', 
-                        line = dict(color='forestgreen', width=4, dash='dash')))
-fig_lca_lu_rest.add_trace(go.Scatter(x=chart_data_base['Model_Year_'], y=chart_data_base['Sugar'], name='Sugar: future', 
-                        line = dict(color='grey', width=4, dash='dash')))
-fig_lca_lu_rest.add_trace(go.Scatter(x=chart_data_local['Model_Year_'], y=chart_data_local['Dairy_cropland']+chart_data_local['Dairy_pasture_forage'], name='Dairy: current', marker_color='blue',
-                        line=dict(color='dodgerblue', width=4, dash='solid')))
-fig_lca_lu_rest.add_trace(go.Scatter(x=chart_data_local['Model_Year_'], y=chart_data_local['Fruit_orchard_vineyard']+chart_data_local['Fruit_berry_melon'], name='Fruit: current', marker_color='orange',
-                        line=dict(color='darkorange', width=4, dash='solid')))
-fig_lca_lu_rest.add_trace(go.Scatter(x=chart_data_local['Model_Year_'], y=chart_data_local['Vegetables_specialty']+chart_data_local['Vegetables_field'], name='Vegetables: current', marker_color='green',
-                        line=dict(color='forestgreen', width=4, dash='solid')))
-fig_lca_lu_rest.add_trace(go.Scatter(x=chart_data_local['Model_Year_'], y=chart_data_local['Sugar'], name='Sugar: current', marker_color='purple',
-                        line=dict(color='grey', width=4, dash='solid')))
-
-fig_lca_lu_rest.update_layout(
-                    title='Land Use Patterns for Dairy, Fruit, Vegetables and Sugar',
-                   xaxis_title='Year',
-                   yaxis_title='Total agricultural land use (ha)')
-st.plotly_chart(fig_lca_lu_rest)    
+# fig_lca_lu_rest = go.Figure()
+# fig_lca_lu_rest.add_trace(go.Scatter(x=chart_data_base['Model_Year_'], y=chart_data_base['Dairy_cropland']+chart_data_base['Dairy_pasture_forage'], name='Dairy: future', 
+#                         line = dict(color='dodgerblue', width=4, dash='dash')))
+# fig_lca_lu_rest.add_trace(go.Scatter(x=chart_data_base['Model_Year_'], y=chart_data_base['Fruit_orchard_vineyard']+chart_data_base['Fruit_berry_melon'], name='Fruit: future', 
+#                         line = dict(color='darkorange', width=4, dash='dash'))) 
+# fig_lca_lu_rest.add_trace(go.Scatter(x=chart_data_base['Model_Year_'], y=chart_data_base['Vegetables_specialty']+chart_data_base['Vegetables_field'], name='Vegetables: future', 
+#                         line = dict(color='forestgreen', width=4, dash='dash')))
+# fig_lca_lu_rest.add_trace(go.Scatter(x=chart_data_base['Model_Year_'], y=chart_data_base['Sugar'], name='Sugar: future', 
+#                         line = dict(color='grey', width=4, dash='dash')))
+# fig_lca_lu_rest.add_trace(go.Scatter(x=chart_data_local['Model_Year_'], y=chart_data_local['Dairy_cropland']+chart_data_local['Dairy_pasture_forage'], name='Dairy: current', marker_color='blue',
+#                         line=dict(color='dodgerblue', width=4, dash='solid')))
+# fig_lca_lu_rest.add_trace(go.Scatter(x=chart_data_local['Model_Year_'], y=chart_data_local['Fruit_orchard_vineyard']+chart_data_local['Fruit_berry_melon'], name='Fruit: current', marker_color='orange',
+#                         line=dict(color='darkorange', width=4, dash='solid')))
+# fig_lca_lu_rest.add_trace(go.Scatter(x=chart_data_local['Model_Year_'], y=chart_data_local['Vegetables_specialty']+chart_data_local['Vegetables_field'], name='Vegetables: current', marker_color='green',
+#                         line=dict(color='forestgreen', width=4, dash='solid')))
+# fig_lca_lu_rest.add_trace(go.Scatter(x=chart_data_local['Model_Year_'], y=chart_data_local['Sugar'], name='Sugar: current', marker_color='purple',
+#                         line=dict(color='grey', width=4, dash='solid')))
+# fig_lca_lu_rest.update_layout(
+#                     title='Land Use Patterns for Dairy, Fruit, Vegetables and Sugar',
+#                    xaxis_title='Year',
+#                    yaxis_title='Total agricultural land use (ha)')
+# st.plotly_chart(fig_lca_lu_rest)    
 
 #%%
+
+# Plot a line graph for all years for the two scenarios to show land use for Dairy_cropland, Dairy_pasture_forage, Protein_cropland, and Protein_pasture_forage
+fig_lca_lu_protein_dairy = go.Figure()
+fig_lca_lu_protein_dairy.add_trace(go.Scatter(x=chart_data_base['Model_Year_'], y=chart_data_base['Dairy_cropland'], name='Dairy cropland: future',
+                        line = dict(color='blue', width=4, dash='dash')))
+fig_lca_lu_protein_dairy.add_trace(go.Scatter(x=chart_data_base['Model_Year_'], y=chart_data_base['Dairy_pasture_forage'], name='Dairy pasture forage: future',
+                        line = dict(color='dodgerblue', width=4, dash='dash')))
+fig_lca_lu_protein_dairy.add_trace(go.Scatter(x=chart_data_base['Model_Year_'], y=chart_data_base['Protein_cropland'], name='Protein cropland: future',
+                        line = dict(color='red', width=4, dash='dash')))
+fig_lca_lu_protein_dairy.add_trace(go.Scatter(x=chart_data_base['Model_Year_'], y=chart_data_base['Protein_pasture_forage'], name='Protein pasture forage: future',
+                        line = dict(color='darkorange', width=4, dash='dash')))
+fig_lca_lu_protein_dairy.add_trace(go.Scatter(x=chart_data_local['Model_Year_'], y=chart_data_local['Dairy_cropland'], name='Dairy cropland: current', marker_color='blue',
+                                              line=dict(color='blue', width=4, dash='solid')))
+fig_lca_lu_protein_dairy.add_trace(go.Scatter(x=chart_data_local['Model_Year_'], y=chart_data_local['Dairy_pasture_forage'], name='Dairy pasture forage: current', marker_color='lightblue',
+                                              line=dict(color='dodgerblue', width=4, dash='solid')))
+fig_lca_lu_protein_dairy.add_trace(go.Scatter(x=chart_data_local['Model_Year_'], y=chart_data_local['Protein_cropland'], name='Protein cropland: current', marker_color='red',
+                                              line=dict(color='red', width=4, dash='solid')))
+fig_lca_lu_protein_dairy.add_trace(go.Scatter(x=chart_data_local['Model_Year_'], y=chart_data_local['Protein_pasture_forage'], name='Protein pasture forage: current', marker_color='darkorange',
+                                              line=dict(color='darkorange', width=4, dash='solid')))
+fig_lca_lu_protein_dairy.update_layout(
+                   title='Land Use Patterns for Dairy and Protein',
+                   xaxis_title='Year',
+                   yaxis_title='Total agricultural land use (ha)')
+st.plotly_chart(fig_lca_lu_protein_dairy)
 
 st.subheader('Energy use in 2020 and 2050 for Food Scenarios')
 

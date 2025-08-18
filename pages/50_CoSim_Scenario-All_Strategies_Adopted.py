@@ -5,10 +5,10 @@ import plotly.graph_objects as go
 import plotly.colors as n_colors
 import plotly.express as px
 #%%
-st.set_page_config(page_title="CoSim-50% Reach", page_icon="INFEWS_icon_whitebg.png")
-st.title('CoSimulation Scenario : 50% Reach')
+st.set_page_config(page_title="CoSim-All Strategies Adopted", page_icon="INFEWS_icon_whitebg.png")
+st.title('CoSimulation Scenario : All Strategies Adopted')
 
-st.header('Agent Based Model - 50% Reach Scenario')
+st.header('Agent Based Model - All Strategies Adopted Scenario')
 
 
 # Now read from the pickle
@@ -24,7 +24,7 @@ df_avg.loc[df_avg['exp_id'] == 27, 'exp_name'] = 'Change in Commodity Crops Poli
 df_avg.loc[df_avg['exp_id'] == 41, 'exp_name'] = 'All Strategies Adopted'
 
 # Select only 'Current Scenario' and 'All Strategies Adopted' for plotting
-df_avg = df_avg[df_avg['exp_name'].isin(['Current Scenario', 'All Strategies Adopted'])]
+# df_avg = df_avg[df_avg['exp_name'].isin(['Current Scenario', 'All Strategies Adopted'])]
 # Generate distinct colors for each experiment name
 unique_experiments = df_avg['exp_name'].unique()
 colors = n_colors.qualitative.Bold
@@ -33,7 +33,7 @@ colors = n_colors.qualitative.Bold
 fig_exp = go.Figure()
 
 # Just for this plot, drop the rows where exp_id is not 1 or 41
-df_avg = df_avg[df_avg['exp_id'].isin([1, 41])]
+# df_avg = df_avg[df_avg['exp_id'].isin([1, 41])]
 
 # Loop through each experiment name to create individual traces for the line and bands
 for idx, exp_name in enumerate(unique_experiments):
@@ -122,7 +122,7 @@ rch_data_Future = filtered_df_ABM_rch
 
 # combine data
 rch_data_Current['Dataset'] = 'Current Scenario'
-rch_data_Future['Dataset'] = '50% Reach Scenario'
+rch_data_Future['Dataset'] = 'All Strategies Adopted Scenario'
 combined_data_rch = pd.concat([rch_data_Current, rch_data_Future])
 
 # Plot boxplot for FLOW_OUTcms 
@@ -194,7 +194,7 @@ st.subheader('Energy use in 2020 and 2050 for Food Scenarios')
 fig_lca_eu = go.Figure() 
 fig_lca_eu.add_trace(go.Scatter(x=baseplot['Model_Year_'], y=baseplot['Energy_Use_MJ'], name='Base Scenario',
                                 line=dict(color='deepskyblue', width=4, dash='solid')))
-fig_lca_eu.add_trace(go.Scatter(x=localplot['Model_Year_'], y=localplot['Energy_Use_MJ'], name='50% Reach Scenario', 
+fig_lca_eu.add_trace(go.Scatter(x=localplot['Model_Year_'], y=localplot['Energy_Use_MJ'], name='All Strategies Adopted Scenario', 
                                 line=dict(color='deepskyblue', width=4, dash='dash')))
 
 
@@ -236,7 +236,7 @@ st.subheader('Global Warming Potential in 2020 and 2050 for Food Scenarios')
 fig_lca_gw = go.Figure()
 fig_lca_gw.add_trace(go.Scatter(x=baseplot['Model_Year_'], y=baseplot['Global_Warming_Potential_kg_co2_eq'], name='Base Scenario',
                                 line=dict(color='orangered', width=4, dash='solid')))
-fig_lca_gw.add_trace(go.Scatter(x=localplot['Model_Year_'], y=localplot['Global_Warming_Potential_kg_co2_eq'], name='50% Reach Scenario',
+fig_lca_gw.add_trace(go.Scatter(x=localplot['Model_Year_'], y=localplot['Global_Warming_Potential_kg_co2_eq'], name='All Strategies Adopted Scenario',
                                 line=dict(color='orangered', width=4, dash='dash')))
 
 st.plotly_chart(fig_lca_gw)
