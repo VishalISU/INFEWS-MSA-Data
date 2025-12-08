@@ -357,8 +357,30 @@ fig_no3.update_traces(line=dict(color='firebrick'))
 # Plot
 st.plotly_chart(fig_no3)
 
+# Plot line plot of TOT Pkg vs MON, renaming MON for Year 
+fig_totp = px.line(df_20to50_rch, x='Year', y='TOT Pkg', title='Current and future yearly total phosphorus load')
+# Update x-axis label   
+fig_totp.update_xaxes(title_text="Year")
+# Update y-axis label
+fig_totp.update_yaxes(title_text="Total Phosphorus Load (kg)")
+# Add trendline to TOT P plot
+trend_fig_totp = px.scatter(df_20to50_rch, x='Year', y='TOT Pkg', trendline="ols")
+# Extract only the trendline trace (usually trace index 1)
+trendline_trace_totp = [
+    t for t in trend_fig_totp.data
+    if t.mode == 'lines'   # this filters out the raw data points
+] 
+# Add trendline to original figure
+for t in trendline_trace_totp:
+    t.update(line=dict(dash='dot', width=1))
+    fig_totp.add_trace(t)
+# use plotly go dark orange for totp plot
+fig_totp.update_traces(line=dict(color='mediumorchid'))
+# Plot
+st.plotly_chart(fig_totp)
+
 # Insert option to show dataframe upon clicking 
-if st.checkbox('Show Streamflow, Sediment, and Nitrate Data'):
+if st.checkbox('Show Streamflow, Sediment, Nitrate and Phosphate Data'):
     st.write(df_20to50_rch)
 
 # '''
@@ -390,6 +412,12 @@ df_20to50=pd.read_pickle(base_dir+'/'+'mktbl_2020_2029.pickle')
 # Filter and clean data
 unwanted_values = ["HAY", "WATR", "WETF", "WETN"]
 df_20to50 = df_20to50[~df_20to50.index.isin(unwanted_values)]
+
+# Further filter out some row crops such as ALFA, FESC, SWRN, HAY
+unwanted_rowcrops = ["ALFA", "FESC", "SWRN", "HAY"]
+df_20to50 = df_20to50[~df_20to50.index.isin(unwanted_rowcrops)] 
+# make new crop_codes dictionary without unwanted crops
+crop_codes = {k: v for k, v in crop_codes.items() if k not in unwanted_rowcrops}
 
 
 # Select a crop
