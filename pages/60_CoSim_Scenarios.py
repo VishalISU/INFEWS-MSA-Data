@@ -9,11 +9,15 @@ import os
 st.set_page_config(page_title="CoSim-Comparison", page_icon="INFEWS_icon_whitebg.png")
 st.title('CoSimulation Scenario Comparasion')
 
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+
 st.header('Agent-based model (ABM)')
 
 
 # Now read from the pickle
-df_avg = pd.read_pickle("ABM_exp/df_exp_avg.pkl")
+# df_avg = pd.read_pickle("ABM_exp/df_exp_avg.pkl")
+ABM_DIR = os.path.join(BASE_DIR, "ABM_exp")
+df_avg = pd.read_pickle(os.path.join(ABM_DIR, "df_exp_avg.pkl"))
 
 #df_avg 
 # Rename for each exp_id rename exp_name as follows: 
@@ -97,7 +101,8 @@ st.header('SWAT maps farmer activity to available HRUs ')
 # ---------------------------------------------------------
 # SWAT postprocessed outputs (from your new postproc script)
 # ---------------------------------------------------------
-SWAT_OUT_DIR = r"C:\Users\azureuser\INFEWS-MSA-Data\SWAT_Cosim_results"  # <- change if needed
+# SWAT_OUT_DIR = r"\SWAT_Cosim_results"  # <- change if needed
+SWAT_OUT_DIR = os.path.join(BASE_DIR, "SWAT_Cosim_results")
 
 SCENARIOS = {
     "Current Scenario": "Co_sim_base",
@@ -269,7 +274,7 @@ st.header(' Life Cycle Analysis of Food Systems ')
 # ---------------------------------------------------------
 # LCA postprocessed outputs (scenario-based folders)
 # ---------------------------------------------------------
-LCA_BASE_DIR = rf"C:\Users\azureuser\INFEWS-MSA-DATA"
+LCA_BASE_DIR = BASE_DIR
 
 LCA_SCENARIOS = {
     "Base Scenario": "Co_sim_base",
