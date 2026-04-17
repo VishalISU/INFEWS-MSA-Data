@@ -177,7 +177,7 @@ crop_codes = {
 
 #%%
 # Load the continuous data : 
-df_20to50=pd.read_pickle(base_dir+'/'+'mktbl_2020_2029.pickle')
+df_20to50=pd.read_pickle(base_dir+'/'+'mktbl_2020_2050.pickle')
 
 # Filter and clean data
 unwanted_values = ["HAY", "WATR", "WETF", "WETN"]
