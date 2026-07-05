@@ -55,7 +55,17 @@
   "isPartOf": {
     "@type": "ScholarlyArticle",
     "name": "A Co-simulation Framework to Integrate Social and Biophysical Models for Urban FEW Systems",
-    "publisher": "Environmental Modelling & Software (Elsevier)"
+    "publisher": "Environmental Modelling & Software (Elsevier)",
+    "author": [
+      { "@type": "Person", "givenName": "Vishal", "familyName": "Muralidharan", "affiliation": { "@type": "Organization", "name": "Iowa State University" } },
+      { "@type": "Person", "givenName": "Jan", "familyName": "Thompson", "affiliation": { "@type": "Organization", "name": "Iowa State University" }, "email": "jrrt@iastate.edu" },
+      { "@type": "Person", "givenName": "Tiffanie Faye", "familyName": "Stone", "affiliation": { "@type": "Organization", "name": "Iowa State University" } },
+      { "@type": "Person", "givenName": "Tassia", "familyName": "Mattos Brighenti", "affiliation": { "@type": "Organization", "name": "Iowa State University" } },
+      { "@type": "Person", "givenName": "Phil", "familyName": "Gassman", "affiliation": { "@type": "Organization", "name": "Iowa State University" } },
+      { "@type": "Person", "givenName": "Michael", "familyName": "Dorneich", "affiliation": { "@type": "Organization", "name": "Iowa State University" } },
+      { "@type": "Person", "givenName": "Ulrike", "familyName": "Passe", "affiliation": { "@type": "Organization", "name": "Iowa State University" } },
+      { "@type": "Person", "givenName": "Baskar", "familyName": "Ganapathysubramanian", "affiliation": { "@type": "Organization", "name": "Iowa State University" }, "email": "baskarg@iastate.edu" }
+    ]
   },
   "readme": "https://github.com/VishalISU/INFEWS-MSA-Data/blob/main/README.md",
   "softwareRequirements": "https://github.com/VishalISU/INFEWS-MSA-Data/blob/main/requirements.txt",

@@ -35,15 +35,35 @@ preferred-citation:
       given-names: "Vishal"
       affiliation: "Iowa State University"
       orcid: "https://orcid.org/0009-0009-1002-8326"
+    - family-names: "Thompson"
+      given-names: "Jan"
+      affiliation: "Iowa State University"
+      email: "jrrt@iastate.edu"
+    - family-names: "Stone"
+      given-names: "Tiffanie Faye"
+      affiliation: "Iowa State University"
+    - family-names: "Mattos Brighenti"
+      given-names: "Tassia"
+      affiliation: "Iowa State University"
+    - family-names: "Gassman"
+      given-names: "Phil"
+      affiliation: "Iowa State University"
+    - family-names: "Dorneich"
+      given-names: "Michael"
+      affiliation: "Iowa State University"
+    - family-names: "Passe"
+      given-names: "Ulrike"
+      affiliation: "Iowa State University"
     - family-names: "Ganapathysubramanian"
       given-names: "Baskar"
       affiliation: "Iowa State University"
       orcid: "https://orcid.org/0000-0002-8931-4852"
-    - family-names: "Thompson"
-      given-names: "Jan"
-      affiliation: "Iowa State University"
+      email: "baskarg@iastate.edu"
   journal: "Environmental Modelling & Software"
   year: 2026
   # Manuscript not yet submitted for review as of 2026-07-05.
   # TODO(Vishal): fill in volume/pages/DOI once submitted and accepted.
-  notes: "Manuscript status: not yet submitted (as of 2026-07-05)."
+  notes: >-
+    Manuscript status: not yet submitted (as of 2026-07-05). Corresponding
+    authors: Jan Thompson (jrrt@iastate.edu) and Baskar Ganapathysubramanian
+    (baskarg@iastate.edu).

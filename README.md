@@ -135,9 +135,11 @@ bundle both code and generated datasets.
 If you use this repository, please cite both the software
 (`CITATION.cff` / `codemeta.json`) and the associated manuscript:
 
-> [Author list]. "A Co-simulation Framework to Integrate Social and
-> Biophysical Models for Urban FEW Systems." *Environmental Modelling &
-> Software* (in review, 2026).
+> Muralidharan, V., Thompson, J., Stone, T.F., Mattos Brighenti, T.,
+> Gassman, P., Dorneich, M., Passe, U., Ganapathysubramanian, B. "A
+> Co-simulation Framework to Integrate Social and Biophysical Models for
+> Urban FEW Systems." *Environmental Modelling & Software* (in
+> preparation, 2026).
 
 ## Contact
 
