@@ -1,0 +1,63 @@
+{
+  "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
+  "@type": "SoftwareSourceCode",
+  "name": "INFEWS-MSA-Data",
+  "description": "Non-intrusive co-simulation framework and interactive Streamlit dashboard coupling an agent-based model (NetLogo), a watershed model (SWAT), and a life-cycle-assessment model (USEEIO) for the Iowa Urban Food-Energy-Water Systems (FEWS) project in the Des Moines Metropolitan Statistical Area (DM-MSA).",
+  "identifier": "https://github.com/VishalISU/INFEWS-MSA-Data",
+  "codeRepository": "https://github.com/VishalISU/INFEWS-MSA-Data",
+  "url": "https://iowaurbanfews.streamlit.app",
+  "license": "https://spdx.org/licenses/MIT",
+  "programmingLanguage": [
+    { "@type": "ComputerLanguage", "name": "Python", "version": "3.11" }
+  ],
+  "runtimePlatform": "Streamlit",
+  "operatingSystem": ["Linux", "macOS", "Windows"],
+  "applicationCategory": "Scientific/Engineering",
+  "keywords": [
+    "co-simulation",
+    "food-energy-water systems",
+    "agent-based model",
+    "SWAT",
+    "life cycle assessment",
+    "urban sustainability",
+    "Des Moines MSA"
+  ],
+  "author": [
+    {
+      "@type": "Person",
+      "givenName": "Vishal",
+      "familyName": "Muralidharan",
+      "@id": "https://orcid.org/0009-0009-1002-8326",
+      "affiliation": { "@type": "Organization", "name": "Iowa State University" }
+    },
+    {
+      "@type": "Person",
+      "givenName": "Baskar",
+      "familyName": "Ganapathysubramanian",
+      "@id": "https://orcid.org/0000-0002-8931-4852",
+      "affiliation": { "@type": "Organization", "name": "Iowa State University" }
+    },
+    {
+      "@type": "Person",
+      "givenName": "Jan",
+      "familyName": "Thompson",
+      "affiliation": { "@type": "Organization", "name": "Iowa State University" }
+    }
+  ],
+  "funder": {
+    "@type": "Organization",
+    "name": "National Science Foundation"
+  },
+  "funding": "NSF Award #1855902",
+  "relatedLink": [
+    "https://iowaurbanfews.streamlit.app"
+  ],
+  "isPartOf": {
+    "@type": "ScholarlyArticle",
+    "name": "A Co-simulation Framework to Integrate Social and Biophysical Models for Urban FEW Systems",
+    "publisher": "Environmental Modelling & Software (Elsevier)"
+  },
+  "readme": "https://github.com/VishalISU/INFEWS-MSA-Data/blob/main/README.md",
+  "softwareRequirements": "https://github.com/VishalISU/INFEWS-MSA-Data/blob/main/requirements.txt",
+  "dateModified": "2026-07-05"
+}

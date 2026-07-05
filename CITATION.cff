@@ -1,0 +1,49 @@
+cff-version: 1.2.0
+message: >-
+  If you use this software or data, please cite both the repository
+  and the associated manuscript below.
+type: software
+title: "INFEWS-MSA-Data: Iowa Urban Food-Energy-Water Systems Co-simulation Dashboard and Data"
+authors:
+  - family-names: "Muralidharan"
+    given-names: "Vishal"
+    affiliation: "Iowa State University"
+    orcid: "https://orcid.org/0009-0009-1002-8326"
+  - family-names: "Ganapathysubramanian"
+    given-names: "Baskar"
+    affiliation: "Iowa State University"
+    orcid: "https://orcid.org/0000-0002-8931-4852"
+  - family-names: "Thompson"
+    given-names: "Jan"
+    affiliation: "Iowa State University"
+repository-code: "https://github.com/VishalISU/INFEWS-MSA-Data"
+url: "https://iowaurbanfews.streamlit.app"
+license: MIT
+keywords:
+  - food-energy-water systems
+  - co-simulation
+  - agent-based modeling
+  - SWAT
+  - life cycle assessment
+  - urban sustainability
+  - Des Moines metropolitan statistical area
+preferred-citation:
+  type: article
+  title: "A Co-simulation Framework to Integrate Social and Biophysical Models for Urban FEW Systems"
+  authors:
+    - family-names: "Muralidharan"
+      given-names: "Vishal"
+      affiliation: "Iowa State University"
+      orcid: "https://orcid.org/0009-0009-1002-8326"
+    - family-names: "Ganapathysubramanian"
+      given-names: "Baskar"
+      affiliation: "Iowa State University"
+      orcid: "https://orcid.org/0000-0002-8931-4852"
+    - family-names: "Thompson"
+      given-names: "Jan"
+      affiliation: "Iowa State University"
+  journal: "Environmental Modelling & Software"
+  year: 2026
+  # Manuscript not yet submitted for review as of 2026-07-05.
+  # TODO(Vishal): fill in volume/pages/DOI once submitted and accepted.
+  notes: "Manuscript status: not yet submitted (as of 2026-07-05)."

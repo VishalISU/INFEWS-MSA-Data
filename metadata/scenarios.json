@@ -1,0 +1,67 @@
+{
+  "$schema_note": "Custom schema, documented in README.md. Not a formal standard; follows the documentation intent of Gebru et al. (2018/2021) 'Datasheets for Datasets' -- motivation, composition, and recommended use per scenario -- adapted to a simulation-scenario context.",
+  "scenario_set_id": "cosim_scenarios_v1",
+  "description": "Five co-simulation scenarios produced by coupling the ABM (NetLogo), SWAT, and LCA (USEEIO) models. Each scenario perturbs one ABM policy/behavior lever and propagates the resulting land-use change through SWAT (water quality) and LCA (energy use, GWP).",
+  "scenarios": [
+    {
+      "scenario_id": "Co_sim_base",
+      "display_name": "Current Scenario",
+      "description": "Baseline: current (2020) farmer decision behavior and policy environment, no intervention applied.",
+      "abm_lever": "none (baseline)",
+      "output_files": {
+        "swat_streamflow_water_quality": "SWAT_Cosim_results/output_Co_sim_base.csv",
+        "swat_marketable_yields": "SWAT_Cosim_results/mktbl_2020_2050_Co_sim_base.pickle",
+        "lca_energy_gwp": "Outputs_Co_sim_base/lca_Co_sim_base.csv"
+      },
+      "consumed_by": "pages/60_CoSim_Scenarios.py"
+    },
+    {
+      "scenario_id": "Co_sim_experiment_extension_4_sm",
+      "display_name": "Extension Agent Scenario",
+      "description": "Increased frequency/targeting of extension-agent visits promoting specialty-crop adoption among row-crop farmers.",
+      "abm_lever": "extension agent visit frequency and typology targeting",
+      "output_files": {
+        "swat_streamflow_water_quality": "SWAT_Cosim_results/output_Co_sim_experiment_extension_4_sm.csv",
+        "swat_marketable_yields": "SWAT_Cosim_results/mktbl_2020_2050_Co_sim_experiment_extension_4_sm.pickle",
+        "lca_energy_gwp": "Outputs_Co_sim_experiment_extension_4_sm/lca_Co_sim_experiment_extension_4_sm.csv"
+      },
+      "consumed_by": "pages/60_CoSim_Scenarios.py"
+    },
+    {
+      "scenario_id": "Co_sim_experiment_specialty_pc_5_75",
+      "display_name": "Specialty Policy Scenario",
+      "description": "Policy-utility improvement scenario supporting specialty-crop production (policy utility increased toward 0.75).",
+      "abm_lever": "specialty-crop policy utility parameter",
+      "output_files": {
+        "swat_streamflow_water_quality": "SWAT_Cosim_results/output_Co_sim_experiment_specialty_pc_5_75.csv",
+        "swat_marketable_yields": "SWAT_Cosim_results/mktbl_2020_2050_Co_sim_experiment_specialty_pc_5_75.pickle",
+        "lca_energy_gwp": "Outputs_Co_sim_experiment_specialty_pc_5_75/lca_Co_sim_experiment_specialty_pc_5_75.csv"
+      },
+      "consumed_by": "pages/60_CoSim_Scenarios.py"
+    },
+    {
+      "scenario_id": "Co_sim_experiment_commodity_pc_5_65_50",
+      "display_name": "Commodity Policy Scenario",
+      "description": "Reduced-support scenario for row/commodity crops (policy utility scaled down within the 0.5-0.65 range).",
+      "abm_lever": "row-crop (commodity) policy utility parameter",
+      "output_files": {
+        "swat_streamflow_water_quality": "SWAT_Cosim_results/output_Co_sim_experiment_commodity_pc_5_65_50.csv",
+        "swat_marketable_yields": "SWAT_Cosim_results/mktbl_2020_2050_Co_sim_experiment_commodity_pc_5_65_50.pickle",
+        "lca_energy_gwp": "Outputs_Co_sim_experiment_commodity_pc_5_65_50/lca_Co_sim_experiment_commodity_pc_5_65_50.csv"
+      },
+      "consumed_by": "pages/60_CoSim_Scenarios.py"
+    },
+    {
+      "scenario_id": "Co_sim_experiment_50_percent_reach",
+      "display_name": "All Strategies: 50% Reach Scenario",
+      "description": "Combined adoption of all intervention strategies (extension agents, specialty policy, commodity policy) reaching 50% of the farmer agent population.",
+      "abm_lever": "combined multi-strategy adoption, 50% population reach",
+      "output_files": {
+        "swat_streamflow_water_quality": "SWAT_Cosim_results/output_Co_sim_experiment_50_percent_reach.csv",
+        "swat_marketable_yields": "SWAT_Cosim_results/mktbl_2020_2050_Co_sim_experiment_50_percent_reach.pickle",
+        "lca_energy_gwp": "Outputs_Co_sim_experiment_50_percent_reach/lca_Co_sim_experiment_50_percent_reach.csv"
+      },
+      "consumed_by": "pages/60_CoSim_Scenarios.py"
+    }
+  ]
+}

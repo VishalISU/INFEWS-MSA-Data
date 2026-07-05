@@ -1,0 +1,139 @@
+{
+  "$schema_note": "Custom schema, documented in README.md. Adapted from the Model Cards concept (Mitchell et al. 2019, 'Model Cards for Model Reporting', FAT*) -- normally used for ML classifiers -- to describe simulation-model interfaces: intended use, inputs, outputs, and units, so a tool or agent can load and interpret model output without reading source code.",
+  "models": [
+    {
+      "model_id": "ABM",
+      "full_name": "Agent-Based Model of Iowa farmer crop-choice behavior",
+      "engine": "NetLogo",
+      "intended_use": "Simulates individual farmer agents' land-allocation decisions (row crops vs. specialty/table crops) under varying social-network, extension-service, and policy-utility conditions. Output feeds into SWAT (land use -> hydrology) and LCA (crop mix -> life-cycle impacts).",
+      "consumed_by_dashboard_pages": [
+        "pages/20_Agent_Based_Model.py",
+        "pages/60_CoSim_Scenarios.py"
+      ],
+      "output_artifacts": [
+        {
+          "file": "ABM_exp/df_exp_avg_ABM.pkl",
+          "format": "pandas pickle (DataFrame)",
+          "granularity": "per experiment (exp_id), per simulation step",
+          "key_fields": {
+            "exp_id": "integer experiment identifier (1, 2, 6, 11, 17, 27, 33, 41 map to named strategies; see pages/20_Agent_Based_Model.py for the name mapping)",
+            "[step]": "simulation step; step + 2020 = calendar year",
+            "specialty-acres": "acres allocated to specialty (table food) crops, model output, units: acres",
+            "upper_bound_sa / lower_bound_sa": "standard-deviation band on specialty-acres across replicate runs, units: acres"
+          },
+          "consumed_by": "pages/20_Agent_Based_Model.py"
+        },
+        {
+          "file": "ABM_exp/df_exp_avg.pkl",
+          "format": "pandas pickle (DataFrame)",
+          "granularity": "per experiment (exp_id), per simulation step",
+          "key_fields": {
+            "exp_id": "integer experiment identifier (1, 6, 11, 27, 41 map to the 5 co-simulation scenarios in metadata/scenarios.json)",
+            "[step]": "simulation step; step + 2020 = calendar year",
+            "specialty-acres": "acres allocated to specialty crops, units: acres"
+          },
+          "consumed_by": "pages/60_CoSim_Scenarios.py"
+        }
+      ],
+      "known_limitations": "Multiple additional per-crop demographic/behavioral columns (e.g. *-g, *-d, *-p, *-j, *-m, *-w suffixes for grow/decide/persona/etc. sub-scores) exist in the pickles but are not currently visualized on the dashboard; see full column list via `pd.read_pickle(...).columns`."
+    },
+    {
+      "model_id": "SWAT",
+      "full_name": "Soil and Water Assessment Tool",
+      "engine": "SWAT (Soil and Water Assessment Tool)",
+      "intended_use": "Simulates streamflow, sediment, and nutrient loading for the Des Moines-area watersheds (North/South Raccoon, North/South Skunk, Middle Des Moines, Lake Red Rock) under baseline and co-simulation land-use scenarios.",
+      "consumed_by_dashboard_pages": [
+        "pages/45_Soil_and_Water_Assessment_Tool.py",
+        "pages/60_CoSim_Scenarios.py"
+      ],
+      "output_artifacts": [
+        {
+          "file": "SWAT_base_2025/SWAT_base_2025_rch_output.csv",
+          "format": "CSV",
+          "granularity": "per reach (RCH), per month (MON)",
+          "key_fields": {
+            "RCH": "reach segment identifier",
+            "MON": "month index; renamed to 'Year' in the dashboard code",
+            "FLOW_OUTcms": "streamflow out of reach, units: cubic meters/second (cms)",
+            "SED_OUTtons": "sediment load out of reach, units: tons",
+            "NO3_OUTkg": "nitrate load out of reach, units: kg",
+            "TOT Pkg": "total phosphorus load out of reach, units: kg"
+          },
+          "consumed_by": "pages/45_Soil_and_Water_Assessment_Tool.py"
+        },
+        {
+          "file": "SWAT_base_2025/mktbl_2020_2050.pickle",
+          "format": "pandas pickle (DataFrame, crop-code index)",
+          "granularity": "per crop code (index), per year (columns 2020-2050)",
+          "key_fields": {
+            "index": "4-letter SWAT crop code (e.g. CORN, SOYB, TOMA); see crop_codes dict in pages/45_Soil_and_Water_Assessment_Tool.py for the full code-to-name mapping",
+            "columns": "years 2020-2050, values are marketable crop yield"
+          },
+          "consumed_by": "pages/45_Soil_and_Water_Assessment_Tool.py"
+        },
+        {
+          "file_pattern": "SWAT_Cosim_results/output_{scenario_id}.csv",
+          "format": "CSV",
+          "granularity": "per reach (RCH), per year (Year, renamed from MON)",
+          "key_fields": "same schema as SWAT_base_2025_rch_output.csv above",
+          "scenario_ids": "see metadata/scenarios.json",
+          "consumed_by": "pages/60_CoSim_Scenarios.py, function load_rch_scenario()"
+        },
+        {
+          "file_pattern": "SWAT_Cosim_results/mktbl_2020_2050_{scenario_id}.pickle",
+          "format": "pandas pickle (DataFrame, crop-code index)",
+          "granularity": "per crop code (index), per year (columns)",
+          "scenario_ids": "see metadata/scenarios.json",
+          "consumed_by": "pages/60_CoSim_Scenarios.py, function load_marketable_2020_2050()"
+        }
+      ]
+    },
+    {
+      "model_id": "LCA",
+      "full_name": "Life Cycle Assessment of local food-system scenarios",
+      "engine": "USEEIO (U.S. Environmentally-Extended Input-Output model)",
+      "intended_use": "Quantifies energy use and global warming potential (GWP) associated with food production/consumption under baseline vs. increased-local-food scenarios, and under the 5 co-simulation scenarios. Reports IN-MSA generated impacts only (not displacement-inclusive against a full-import baseline; see Stone et al. 2023/2026 for the complementary displacement-inclusive framing).",
+      "consumed_by_dashboard_pages": [
+        "pages/30_Life_Cycle_Assessment.py",
+        "pages/60_CoSim_Scenarios.py"
+      ],
+      "output_artifacts": [
+        {
+          "file": "lca_dataset.csv",
+          "format": "CSV",
+          "granularity": "per year, per food-system scenario (fsscenario), per model combination (cosim)",
+          "key_fields": {
+            "year": "calendar year",
+            "fsscenario": "BASE (current ~5% local food) or LOCAL (increased ~50% local food)",
+            "cosim": "which models were combined to generate this row: LCA (LCA alone) or LCASWAT (LCA + SWAT coupled)",
+            "energy": "energy use, units: MJ",
+            "gwp": "global warming potential, units: kg CO2-eq",
+            "luha, luhacrop, luhapasture": "land use in hectares (total, cropland, pasture)",
+            "population": "population served, units: persons"
+          },
+          "consumed_by": "pages/30_Life_Cycle_Assessment.py"
+        },
+        {
+          "file": "lca_base.pickle / lca_local.pickle",
+          "format": "pandas pickle (DataFrame)",
+          "note": "pre-filtered/pre-shaped subsets of lca_dataset.csv for the BASE and LOCAL scenario respectively, used directly for plotting",
+          "consumed_by": "pages/30_Life_Cycle_Assessment.py"
+        },
+        {
+          "file_pattern": "Outputs_{scenario_id}/lca_{scenario_id}.csv",
+          "format": "CSV",
+          "granularity": "per model year",
+          "key_fields": {
+            "Model Year": "calendar year",
+            "Energy Use (MJ)": "energy use, units: MJ",
+            "Global Warming Potential (kg co2 eq)": "GWP, units: kg CO2-eq",
+            "Total LU (ha), Cropland LU (ha), Pasture LU (ha)": "land use, units: hectares",
+            "additional per-crop-category columns": "land use by crop category (protein, dairy, fruit, vegetables, grains, oil, sugar, commodity), units: hectares"
+          },
+          "scenario_ids": "see metadata/scenarios.json",
+          "consumed_by": "pages/60_CoSim_Scenarios.py, function load_lca_scenario()"
+        }
+      ]
+    }
+  ]
+}
