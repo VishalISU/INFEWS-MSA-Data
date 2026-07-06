@@ -16,7 +16,7 @@ authors:
   - family-names: "Thompson"
     given-names: "Jan"
     affiliation: "Iowa State University"
-repository-code: "https://github.com/VishalISU/INFEWS-MSA-Data"
+repository-code: "https://github.com/baskargroup/INFEWS-MSA-Data"
 url: "https://iowaurbanfews.streamlit.app"
 license: MIT
 keywords:
