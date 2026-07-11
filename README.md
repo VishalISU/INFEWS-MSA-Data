@@ -9,6 +9,8 @@ Modelling & Software*.
 
 **Live dashboard:** https://iowaurbanfews.streamlit.app
 
+**Companion repository:** https://github.com/baskargroup/INFEWS-MSA (input data, orchestration and model wrappers)
+
 ## What this repository contains
 
 Three independently-run simulation models are coupled through a
