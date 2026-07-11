@@ -3,8 +3,8 @@
   "@type": "SoftwareSourceCode",
   "name": "INFEWS-MSA-Data",
   "description": "Non-intrusive co-simulation framework and interactive Streamlit dashboard coupling an agent-based model (NetLogo), a watershed model (SWAT), and a life-cycle-assessment model (USEEIO) for the Iowa Urban Food-Energy-Water Systems (FEWS) project in the Des Moines Metropolitan Statistical Area (DM-MSA).",
-  "identifier": "https://github.com/VishalISU/INFEWS-MSA-Data",
-  "codeRepository": "https://github.com/VishalISU/INFEWS-MSA-Data",
+  "identifier": "https://doi.org/10.5281/zenodo.21310247",
+  "codeRepository": "https://github.com/baskargroup/INFEWS-MSA-Data",
   "url": "https://iowaurbanfews.streamlit.app",
   "license": "https://spdx.org/licenses/MIT",
   "programmingLanguage": [
@@ -67,7 +67,7 @@
       { "@type": "Person", "givenName": "Baskar", "familyName": "Ganapathysubramanian", "affiliation": { "@type": "Organization", "name": "Iowa State University" }, "email": "baskarg@iastate.edu" }
     ]
   },
-  "readme": "https://github.com/VishalISU/INFEWS-MSA-Data/blob/main/README.md",
-  "softwareRequirements": "https://github.com/VishalISU/INFEWS-MSA-Data/blob/main/requirements.txt",
+  "readme": "https://github.com/baskargroup/INFEWS-MSA-Data/blob/main/README.md",
+  "softwareRequirements": "https://github.com/baskargroup/INFEWS-MSA-Data/blob/main/requirements.txt",
   "dateModified": "2026-07-05"
 }

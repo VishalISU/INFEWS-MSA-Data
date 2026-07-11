@@ -18,6 +18,10 @@ authors:
     affiliation: "Iowa State University"
 repository-code: "https://github.com/baskargroup/INFEWS-MSA-Data"
 url: "https://iowaurbanfews.streamlit.app"
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.21310247"
+    description: "Zenodo archive of this software repository"
 license: MIT
 keywords:
   - food-energy-water systems

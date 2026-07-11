@@ -1,5 +1,7 @@
 # INFEWS-MSA-Data
 
+[![DOI](https://zenodo.org/badge/611866660.svg)](https://doi.org/10.5281/zenodo.21310247)
+
 Co-simulation framework, model outputs, and interactive dashboard for the
 **Iowa Urban Food-Energy-Water Systems (FEWS)** project, covering the
 Des Moines Metropolitan Statistical Area (DM-MSA). This repository supports
